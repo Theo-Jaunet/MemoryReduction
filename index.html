@@ -21,10 +21,10 @@
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/skeleton.css">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="js/utils.js"></script>
-    <script src="js/main.js"></script>
+
 </head>
 <body>
 
@@ -40,8 +40,13 @@
 
     <div class=" row">
         <div class="twelve columns" style="margin-top: 5%;height: 60vh">
-            <div class="twelve columns" style="text-align: center"><p>Controls PlaceHolder
-                --------------------------------------------------- </p></div>
+            <div class="twelve columns" style="text-align: center">
+                <div id="controls">
+                    <button>Random</button>
+                    <button>Top activated</button>
+                    <button>Unique</button>
+                </div>
+            </div>
             <svg class="twelve columns" id="tool" style="border:solid slategray 1px;height: 100%"></svg>
         </div>
     </div>
@@ -95,7 +100,7 @@
                     Interpretability
                 </li>
                 <li>
-                    Model Optimization ( can it be smaller  -> reduce computation time  and energy )
+                    Model Optimization ( can it be smaller -> reduce computation time and energy )
                 </li>
 
                 <li>
@@ -174,4 +179,8 @@
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
+<script src="js/drawVector.js"></script>
+<script src="js/observation.js"></script>
+<script src="js/distribution.js"></script>
+<script src="js/main.js"></script>
 </html>
