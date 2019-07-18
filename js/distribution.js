@@ -1,25 +1,29 @@
 let positions = [[0, 1], [2, 1], [1, 0], [0, 0], [2, 0]];
-let or = ['270 38.4 40', '90 40 41.6', '0 38.4 38.4', '315 36.8 40', '45 44.8 44.8'];
+// let or = ['270 876.4 399', '90 40 41.6', '0 38.4 38.4', '315 36.8 40', '45 44.8 44.8'];
+let or = ['270', '90', '0 ', '315', '45'];
+
+
 let sz = d3.scaleOrdinal()
     .range(["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#fccde5"]);
 
+let dist_offx, dist_offy, dist_height, dist_width, hratio, wratio;
 
-function rotate_arrow(act) {
+function rotate_arrow(svg, act) {
 
-    d3.select('#dir_arrow').attr('transform', 'rotate(' + or[act] + ')')
+    d3.select('#dir_arrow').attr('transform', 'rotate(' + or[act] + ' 887' + ' 409.39'+ ')')
 
 }
 
 
-function update_bars(data, svg, width, height, act) {
+function update_bars(data, svg, act) {
 
 
     for (let i = 0; i < data.length; i++) {
 
-        draw_bar(svg, height / 3, positions[i], data[i], sz(i), i);
+        draw_bar(svg, hratio, positions[i], data[i], sz(i), i);
     }
 
-    rotate_arrow(parseInt(act))
+    rotate_arrow(svg, parseInt(act))
 
 }
 
@@ -27,11 +31,10 @@ function draw_bar(svg, hratio, pos, value, color, i) {
 
     let y = d3.scaleLinear().rangeRound([hratio, 0]).domain([0.01, 0.99]);
 
-
     svg.selectAll('.bar[nb="' + i + '"]').transition()
         .duration(120)
         .attr("y", () => {
-            return hratio * pos[1] + hratio - (hratio - y(value));
+            return hratio * pos[1] + hratio - (hratio - y(value)) + dist_offy;
         })
         .attr("height", () => {
             return Math.abs(hratio - y(value))
@@ -39,17 +42,18 @@ function draw_bar(svg, hratio, pos, value, color, i) {
         .attr('fill', () => {
             return color;
         })
-
-
 }
 
 
 function draw_line(data, svg, width, height, offx, offy) {
 
     let g = svg.append('g').attr('class', 'distrb');
-
-    let wratio = width / 3;
-    let hratio = height / 3;
+    dist_offx = offx;
+    dist_offy = offy;
+    dist_height = height;
+    dist_width = width;
+    wratio = width / 3;
+    hratio = height / 3;
 
     let data_line = [
         { // HORIZONTALS

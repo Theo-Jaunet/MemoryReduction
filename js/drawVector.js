@@ -58,6 +58,15 @@ function ve_init_rows(svg, data, height,width) {
         .attr('y1', (ve_h * data.length) + 10)
         .attr('y2', (ve_h * data.length + 1) + 10);
 
-    ve_rows = svg.selectAll('rect');
+    ve_rows = g.selectAll('rect');
 
 }
+
+function ve_update(svg, data) {
+
+    ve_rows
+        .attr('fill', (d, i) => {
+            return col(data[i])
+        })
+}
+

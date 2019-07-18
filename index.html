@@ -21,6 +21,7 @@
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/skeleton.css">
+    <link rel="stylesheet" href="css/custom.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="js/utils.js"></script>
@@ -42,8 +43,9 @@
         <div class="twelve columns" style="margin-top: 5%;height: 60vh">
             <div class="twelve columns" style="text-align: center">
                 <div id="controls">
-                    <button>Random</button>
-                    <button>Top activated</button>
+                    <button onclick="change('main')">>Reset</button>
+                    <button onclick="change('rest')">Random</button>
+                    <button onclick="change('tophalf')">Top activated</button>
                     <button>Unique</button>
                 </div>
             </div>
@@ -182,5 +184,7 @@
 <script src="js/drawVector.js"></script>
 <script src="js/observation.js"></script>
 <script src="js/distribution.js"></script>
+<script src="js/trajectory.js"></script>
+
 <script src="js/main.js"></script>
 </html>
