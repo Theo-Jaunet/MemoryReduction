@@ -42,9 +42,43 @@ function draw_traj(data, svg, width, height, offx, offy, cs) {
         g.append("path")
             .data([data])
             .attr("d", line)
-            .style('opacity','0.3')
+            .style('opacity', '0.3')
             .attr('stroke', 'steelblue')
             .style("fill", "none")
     }
 }
 
+
+function place_items(svg, offx, offy,st) {
+
+    let g = svg.select('.traj');
+
+
+    g.append("circle")
+        .attr('cx', traj_x(-387.54) + offx)
+        .attr('cy', traj_y(79.60) + offy)
+        .attr('r', '5')
+        .style('opacity', '0.8')
+        .attr('stroke', 'red')
+        .style("fill", "red")
+
+
+    g.append("circle")
+        .attr('cx', traj_x(-409.64) + offx)
+        .attr('cy', traj_y(-84.40) + offy)
+        .attr('r', '5')
+        .style('opacity', '0.8')
+        .attr('stroke', 'green')
+        .style("fill", "green")
+
+
+    g.append("circle")
+        .attr('cx', traj_x(st[0]) + offx)
+        .attr('cy', traj_y(st[1]) + offy)
+        .attr('r', '5')
+        .style('opacity', '0.8')
+        .attr('stroke', 'black')
+        .style("fill", "black")
+
+
+}

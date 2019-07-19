@@ -3,3 +3,19 @@
 
     stroke-width: 3px;
 }
+
+.hiddensli {
+
+    stroke-width: 2px;
+}
+
+.hiddensgrp rect {
+
+    stroke-width: 0.5px;
+    stroke: #555555;
+    cursor: pointer;
+}
+
+.hiddensgrp rect:hover {
+    opacity: 0.6;
+}

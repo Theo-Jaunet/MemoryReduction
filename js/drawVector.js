@@ -1,10 +1,9 @@
 let ve_h;
 let ve_rows = [];
-let ve_w = 20;
+let ve_w = 25;
 let col = d3.scaleLinear().domain([-1, 0, 1]).range(['#2266a6', '#effce5', '#bf6b09']).interpolate(d3.interpolateHcl);
 
-
-function ve_init_rows(svg, data, height,width) {
+function ve_init_rows(svg, data, height, width) {
 
 
     console.log(data);
@@ -17,7 +16,7 @@ function ve_init_rows(svg, data, height,width) {
         .enter()
         .append('rect')
         .attr('order', (d, i) => i)
-        .attr('x', (width/2-(ve_w/2)))
+        .attr('x', (width / 2 - (ve_w / 2)))
         .attr('y', (d, i) => {
             return (i * ve_h) + 10
         }).attr('nb', (d, i) => {
@@ -26,7 +25,7 @@ function ve_init_rows(svg, data, height,width) {
         .attr('height', ve_h)
         .attr('fill', (d) => {
             return col(d)
-        });
+        }).on('click', svg_click);
 
     svg.append('line')
         .attr('class', 'hiddensli')
@@ -64,7 +63,7 @@ function ve_init_rows(svg, data, height,width) {
 
 function ve_update(svg, data) {
 
-    ve_rows
+    ve_rows.transition().duration(200)
         .attr('fill', (d, i) => {
             return col(data[i])
         })
