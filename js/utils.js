@@ -21,3 +21,13 @@ function tofloat(data) {
 
     return data;
 }
+
+
+function generate_fake() {
+
+    return [d3.range(32).map(() => {
+        return getRandomArbitrary(-1, 1)
+    }), d3.range(5).map(() => {
+        return getRandomArbitrary(0, 1)
+    })];
+}

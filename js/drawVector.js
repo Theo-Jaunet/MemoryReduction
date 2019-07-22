@@ -11,7 +11,7 @@ function ve_init_rows(svg, data, height, width) {
     let g = svg.append('g').attr('class', 'hiddensgrp');
 
 
-    ve_h = Math.min(((height-20) / data[0].length), 60);
+    ve_h = Math.min(((height - 30) / data[0].length), 60);
 
 
     for (let w = 0; w < data.length; w++) {
@@ -22,9 +22,9 @@ function ve_init_rows(svg, data, height, width) {
             .enter()
             .append('rect')
             .attr('order', (d, i) => i)
-            .attr('x', (width / 2 - ((ve_w*data.length) / 2)) + (w * ve_w))
+            .attr('x', (650 + (w * ve_w)))
             .attr('y', (d, i) => {
-                return (i * ve_h) + 10
+                return (i * ve_h) + 20
             }).attr('nb', (d, i) => {
             return i
         }).attr('width', ve_w)
@@ -32,40 +32,6 @@ function ve_init_rows(svg, data, height, width) {
             .attr('fill', (d) => {
                 return col(d)
             }).on('click', svg_click);
-
-        /*
-                svg.append('line')
-                    .attr('class', 'hiddensli')
-                    .attr('x1', 45 + ve_w)
-                    .attr('x2', 45 + ve_w)
-                    .attr('y1', 10)
-                    .attr('y2', (ve_h * data.length) + 10);
-
-                svg.append('line')
-                    .attr('class', 'hiddensli')
-
-                    .attr('x1', 45)
-                    .attr('x2', 45)
-                    .attr('y1', 10)
-                    .attr('y2', (ve_h * data.length) + 10);
-
-                svg.append('line')
-                    .attr('class', 'hiddensli')
-
-                    .attr('x1', 45 + ve_w)
-                    .attr('x2', 45)
-                    .attr('y1', 10)
-                    .attr('y2', 10);
-
-                svg.append('line')
-                    .attr('class', 'hiddensli')
-                    .attr('x1', 45 + ve_w)
-                    .attr('x2', 45)
-                    .attr('y1', (ve_h * data.length) + 10)
-                    .attr('y2', (ve_h * data.length + 1) + 10);
-        */
-
-
     }
     ve_rows = g.selectAll('rect');
 
@@ -79,3 +45,36 @@ function ve_update(svg, data) {
         })
 }
 
+
+function init_current(svg, offx, offy, step) {
+
+    d3.selectAll('.curt').remove();
+
+
+    svg.append('path')
+    // .attr('d', "M 15.8,8.3 0.8,15.8 5,8.3 0.8,0.8 Z")
+        .attr('d', "M 30.8,16.6 0.8,30.8 10,16.6 0.8,0.8 Z")
+        .attr('class', 'curt')
+        .attr('fill', '#a92234')
+        .attr('transform', 'translate(' + (ve_w * (step - 1) + (ve_w / 2) + offx) + ',' + (0 + offy) + ') rotate(' + (90) + ' ' + (15) + ' ' + (15) + ')')
+
+}
+
+function show_current(svg, offx, offy, step) {
+
+    svg.selectAll('.curt').transition().duration(150)
+        .attr('transform', 'translate(' + (ve_w * (step - 1) + (ve_w / 2) + offx) + ',' + (0 + offy) + ') rotate(' + (90) + ' ' + (15) + ' ' + (15) + ')')
+
+}
+
+function show_sel(step) {
+
+     d3.selectAll('.hsel rect').transition().duration(170).style('stroke-width', '0.5')
+    $('.hsel').toggleClass('hsel');
+
+    $('.ht' + step).toggleClass('hsel');
+
+    d3.selectAll('.hsel rect').transition().duration(170).style('stroke-width', '2')
+
+
+}

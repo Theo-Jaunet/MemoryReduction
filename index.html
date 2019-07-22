@@ -32,25 +32,54 @@
 <!-- Primary Page Layout
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <div class="container">
-    <div class="row">
-        <div class="twelve column" style="margin-top: 2%">
-            <h2>Memory Reduction</h2>
-            <p>Théo Jaunet, Romain Vuillemot and Christian Wolf</p>
+    <div class="row" style="margin-top: 50px">
+        <div class="five  columns">
+
+            <h4>How a trained agent changes its behavior if its memory is reduced?</h4>
+        </div>
+        <div class="seven columns">
+            <div class=" nav left-card-arr "><</div>
+            <div index="0" class=" nav selected card">Optimal Path</div>
+            <div index="1" class=" nav card">Random</div>
+            <div index="2" class=" nav card">Top Activated</div>
+            <div index="3" class=" nav card">Selection</div>
+            <div index="4" class=" nav card">Do it Yourself</div>
+            <div class=" nav right-card-arr">></div>
         </div>
     </div>
 
     <div class=" row">
-        <div class="twelve columns" style="margin-top: 5%;height: 60vh">
-            <div class="twelve columns" style="text-align: center">
-                <div id="controls">
-                    <button onclick="change('main')">>Reset</button>
-                    <button onclick="change('rest')">Random</button>
-                    <button onclick="change('tophalf')">Top activated</button>
-                    <button id="play" onclick="play()">Play</button>
-                    <button>Unique</button>
-                </div>
+        <div class="seven columns" style="margin-top: 5%;height: 60vh">
+            <!--            <div class="twelve columns" style="text-align: center">
+                            <div id="controls">
+                                <button onclick="change('main')">>Reset</button>
+                                <button onclick="change('rest')">Random</button>
+                                <button onclick="change('tophalf')">Top activated</button>
+                                <button id="play" onclick="play()">Play</button>
+                                <button>Unique</button>
+                            </div>
+                        </div>-->
+            <svg class="" id="tool" style="height: 100%;width: 100%"></svg>
+            <div style="position: relative">
+                <div style="width: 35px;height: auto;display: inline-block;margin-right: 20px"><img class="play" style="width: 35px" src="assets/play-sign.svg"></div>
+                <div style="display: inline-block" style="width: 320px"><input id="timebar" type="range" min="0" max="19" step="1" value="0" style="width: 325px;position: absolute;top: 14px;"></div>
             </div>
-            <svg class="twelve columns" id="tool" style="border:solid slategray 1px;height: 100%"></svg>
+        </div>
+        <div class="one columns"></div>
+        <div class="four columns" style="margin-top: 5%;height: 60vh">
+            <h5 style="width: 100%" id="card_title"> Optimal Path with Full Memory</h5>
+            <p style="margin-top: 20px;width: 100%">
+
+
+                The optimal path has Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum.
+
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+            </p>
+
         </div>
     </div>
 
@@ -176,8 +205,14 @@
     <!--</div>-->
     <!--</div>-->
 
-
+    <div class="row">
+        <div class="twelve column" style="margin-top: 2%">
+            <h2>Memory Reduction</h2>
+            <p>Théo Jaunet, Romain Vuillemot and Christian Wolf</p>
+        </div>
+    </div>
 </div>
+
 
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -187,6 +222,6 @@
 <script src="js/distributionV2.js"></script>
 <script src="js/trajectory.js"></script>
 <script src="js/reduce.js"></script>
-
+<script src="js/stage.js"></script>
 <script src="js/main.js"></script>
 </html>

@@ -11,11 +11,104 @@
 
 .hiddensgrp rect {
 
-    stroke-width: 0.5px;
+    stroke-width: 0.2px;
     stroke: #555555;
     cursor: pointer;
 }
 
 .hiddensgrp rect:hover {
     opacity: 0.6;
+}
+
+.nav {
+    border: solid #555555 1px;
+    cursor: pointer;
+    padding: 25px;
+    display: inline-block;
+    user-select: none;
+    outline: none;
+}
+
+.selected {
+    border: solid #F2314B 2px !important;
+}
+
+.play:hover {
+
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.hsel rect {
+    /*stroke-width: 2.5px !important;*/
+    stroke: #555555;
+    cursor: pointer;
+}
+
+/* ----------------------------------- SLIDER ------------------------------------------ */
+
+.range-slider {
+    display: block;
+    background-color: red;
+}
+
+.input-range {
+    -webkit-appearance: none;
+    height: 200px;
+    border-radius: 5px;
+    background: #ccc;
+    outline: none;
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical; /* WebKit */
+
+}
+
+/*::-moz-range-track {*/
+/*background: #ccc;*/
+/*padding: 0 10px;*/
+/*}*/
+
+input::-moz-focus-inner {
+    border: 0;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    -moz-apperance: none;
+    border-radius: 6px;
+    height: 6px;
+    user-select: none;
+    outline: none;
+    width: 100%;
+    background-image: -webkit-gradient(
+            linear,
+            left top,
+            right top,
+            color-stop(0, #233E34),
+            color-stop(0, #C5C5C5)
+    );
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                     supported by Chrome and Opera */
+}
+
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    background-color: #183d4e;
+    border: 1px solid #183d4e;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+    cursor: pointer;
 }
