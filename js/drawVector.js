@@ -2,6 +2,7 @@ let ve_h;
 let ve_rows = [];
 let ve_w = 15;
 let col = d3.scaleLinear().domain([-1, 0, 1]).range(['#2266a6', '#effce5', '#bf6b09']).interpolate(d3.interpolateHcl);
+let hst = 700;
 
 function ve_init_rows(svg, data, height, width) {
 
@@ -10,9 +11,13 @@ function ve_init_rows(svg, data, height, width) {
     console.log(data[0]);
     let g = svg.append('g').attr('class', 'hiddensgrp');
 
+    if (width < 1000) {
+        hst = (700 * width) / 1200;
+        hst += 50
+    }
 
     ve_h = Math.min(((height - 30) / data[0].length), 60);
-
+    ve_w = (width - hst) / data.length;
 
     for (let w = 0; w < data.length; w++) {
 
@@ -22,7 +27,7 @@ function ve_init_rows(svg, data, height, width) {
             .enter()
             .append('rect')
             .attr('order', (d, i) => i)
-            .attr('x', (650 + (w * ve_w)))
+            .attr('x', (hst + (w * ve_w)))
             .attr('y', (d, i) => {
                 return (i * ve_h) + 20
             }).attr('nb', (d, i) => {
@@ -34,7 +39,7 @@ function ve_init_rows(svg, data, height, width) {
             }).on('click', svg_click);
     }
     ve_rows = g.selectAll('rect');
-
+    init_current(tool[0], hst+(ve_w/2), -10, 0)
 }
 
 function ve_update(svg, data) {
@@ -69,7 +74,7 @@ function show_current(svg, offx, offy, step) {
 
 function show_sel(step) {
 
-     d3.selectAll('.hsel rect').transition().duration(170).style('stroke-width', '0.5')
+    d3.selectAll('.hsel rect').transition().duration(170).style('stroke-width', '0.5')
     $('.hsel').toggleClass('hsel');
 
     $('.ht' + step).toggleClass('hsel');

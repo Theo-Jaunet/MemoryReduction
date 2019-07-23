@@ -7,6 +7,8 @@ let pl = false;
 let curStep = 0;
 let timer = null;
 
+window.addEventListener('resize', reportWindowSize);
+
 
 let area = d3.line()
     .x(function (d) {
@@ -19,18 +21,20 @@ let area = d3.line()
 
 d3.json("data/main.json").then(function (data) {
     tdata = data;
-    console.log(data);
 
-    ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1]);
-    // ve_init_rows(tool[0], tdata.hiddens[start], tool[2], tool[1]);
-    traj_init(450, 450);
-    draw_traj(tdata.positions, tool[0], 450, 450, 10, 10, true);
-    // update_bars(tdata.probabilities[start], tool[0], tdata.probabilities[start].indexOf('' + Math.max(...tdata.probabilities[start])));
-    update_bars(tool[0], tdata.probabilities[start]);
-    draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start], 10, 10);
-    place_items(tool[0], 10, 10, tdata.positions[start])
 
-    init_current(tool[0], 650, -10, 0)
+    /*    ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1]);
+        // ve_init_rows(tool[0], tdata.hiddens[start], tool[2], tool[1]);
+        traj_init(450, 450);
+        draw_traj(tdata.positions, tool[0], 450, 450, 10, 10, true);
+        // update_bars(tdata.probabilities[start], tool[0], tdata.probabilities[start].indexOf('' + Math.max(...tdata.probabilities[start])));
+        update_bars(tool[0], tdata.probabilities[start]);
+        draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start], 10, 10);
+        place_items(tool[0], 10, 10, tdata.positions[start])
+
+        init_current(tool[0], 650, -10, 0)*/
+
+    reportWindowSize()
 
 });
 
@@ -69,7 +73,7 @@ function step() {
         let tbar = $('#timebar');
         tbar.val(curStep);
         update_time();
-        show_current(tool[0], 650, -10, curStep);
+        show_current(tool[0], hst + (ve_w / 2), -10, curStep);
         show_sel(curStep);
         draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start + curStep], 10, 10);
         drawImage(tool[0], 'data:image/png;base64,' + tdata.inputs[start + curStep], tool[2]);
@@ -111,7 +115,7 @@ $('#timebar').on('input', function () {
     drawImage(tool[0], 'data:image/png;base64,' + tdata.inputs[start + curStep], tool[2]);
     // ve_update(tool[0], tdata.hiddens[start + curStep]);
     update_bars(tool[0], tdata.probabilities[start + curStep]);
-    show_current(tool[0], 650, -10, curStep)
+    show_current(tool[0], hst + (ve_w / 2), -10, curStep)
 
 });
 
@@ -130,6 +134,33 @@ function update_time() {
 
 }
 
+
+function reportWindowSize() {
+    let tbbox = tool[0].node().getBoundingClientRect();
+
+    tool[1] = tbbox.width;
+    tool[2] = tbbox.height;
+
+    let traj_s = ((450 * tbbox.width) / 1300);
+    drawImage(tool[0], 'assets/image3.jpeg', tool[2]);
+
+    console.log(traj_s);
+    $('.traj').remove();
+    $('.distrib').remove();
+    $('.arrow').remove();
+    traj_init(traj_s, traj_s);
+    draw_traj(tdata.positions, tool[0], traj_s, traj_s, 10, 10, true);
+
+    place_items(tool[0], 10, 10, tdata.positions[start])
+    draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start], 10, 10);
+
+    bars_init(tool[0], tool[1], tool[2]);
+    update_bars(tool[0], tdata.probabilities[start]);
+
+    ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1]);
+
+
+}
 
 // d3.select('#tool');
 

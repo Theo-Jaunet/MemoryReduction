@@ -4,7 +4,7 @@ function drawImage(svg, url, height) {
     $('#obs').remove();
     svg.append("svg:image")
         .attr('x', 10)
-        .attr('y',  height-235)
+        .attr('y',  height-245)
         .attr('width', 400)
         .attr('height', 225)
         .attr('id', 'obs')

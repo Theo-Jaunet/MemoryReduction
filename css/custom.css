@@ -23,8 +23,8 @@
 .nav {
     border: solid #555555 1px;
     cursor: pointer;
-    padding: 25px;
-    display: inline-block;
+/*    padding: 25px;
+    display: inline-block;*/
     user-select: none;
     outline: none;
 }
