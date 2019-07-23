@@ -10,15 +10,15 @@ function bars_init(svg, width, height) {
 
     let g = svg.append('g').attr('class', 'distrib');
 
-    let st = height - 65;
+    let st = height - 63;
 
 
     g.selectAll('.bar').data([0, 0, 0, 0, 0]).enter()
         .append('rect')
         .attr('class', 'bar')
-        .attr('x', 740)
+        .attr('x', 746)
         .attr('y', (d, i) => {
-                draw_arrow(720, st + (i * v_space) + (i * bheight), or[i], i);
+                draw_arrow(726, st + (i * v_space) + (i * bheight), or[i], i);
                 return st + (i * v_space) + (i * bheight)
             }
         )

@@ -17,7 +17,7 @@ function traj_init(width, height) {
 }
 
 
-function draw_traj(data, svg, width, height, offx, offy, cs,cla) {
+function draw_traj(data, svg, width, height, offx, offy, cs, cla) {
 
     let line = d3.line()
         .x(function (d) {
@@ -31,12 +31,23 @@ function draw_traj(data, svg, width, height, offx, offy, cs,cla) {
 
         let g = svg.append("g").attr('class', 'traj');
 
+
+        g.append("path")
+            .data([data])
+            .attr("d", line)
+            .attr('stroke', '#fff')
+            .attr('class', 'traj_bg')
+            .style('stroke-width', '10px')
+            .style("fill", "none")
+
         g.append("path")
             .data([data])
             .attr("d", line)
             .attr('stroke', 'steelblue')
             .style('stroke-width', '6px')
+            .attr('class', 'traj_top')
             .style("fill", "none")
+
 
     } else {
         let g = svg.select('.traj');
@@ -48,6 +59,9 @@ function draw_traj(data, svg, width, height, offx, offy, cs,cla) {
             .attr('stroke', 'steelblue')
             .style("fill", "none")
     }
+
+    d3.select('.traj_bg').moveToFront()
+    d3.select('.traj_top').moveToFront()
 }
 
 

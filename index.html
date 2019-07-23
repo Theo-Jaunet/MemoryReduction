@@ -25,6 +25,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/rough.js"></script>
 
 </head>
 <body>
@@ -33,9 +34,13 @@
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <div class="container">
     <div class="row" style="margin-top: 25px">
-        <div class="five  columns">
+        <div class="five  columns" style="position: relative">
 
             <h4>What if a DOOM Player has a reduced memory?</h4>
+            <div style="width: 35px;height: auto;display: inline-block;margin-right: 20px;position: absolute;right: 0;bottom: 0;">
+                <img class="play" style="width: 35px" src="assets/play-sign.svg">
+                <p id="stepctn" style="position: absolute;display: inline-block;left: 45px;width: 200px;top: 5px;user-focus: none;user-select: none">Step XX/YY</p>
+            </div>
         </div>
         <div class="seven columns">
             <div class=" nav left-card-arr button"><</div>
@@ -59,18 +64,22 @@
                                 <button>Unique</button>
                             </div>
                         </div>-->
-            <svg class="" id="tool" style="height: auto;width: 100%;min-height: 600px"></svg>
+            <svg class="" id="tool" style="height: auto;width: 100%;min-height: 645px;min-width: 785px"></svg>
             <div style="position: relative">
-                <div style="width: 35px;height: auto;display: inline-block;margin-right: 20px"><img class="play" style="width: 35px" src="assets/play-sign.svg"></div>
-                <div style="display: inline-block;width: 320px"><input id="timebar" type="range" min="0" max="39" step="1" value="0" style="width: 290px;position: absolute;top: 14px;"></div>
+
+                <!--                <div style="display: inline-block;width: 320px">
+                                    <input id="timebar" type="range" min="0" max="39" step="1" value="0" style="width: 290px;position: absolute;top: 14px;">
+                                </div>-->
             </div>
         </div>
-        <div class="four columns">
+        <div class="four columns" style="min-width: 350px">
             <h5 style="width: 100%" id="card_title"> Full Memory</h5>
             <p style="margin-top: 20px;width: 100%">
 
 
-                The optimal path has Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                We can observe that once the agent gathered the armor at <a onclick="load_step(15)">step 15</a> the first 3 elements change their activations ....
+
+                has Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
                 aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
                 mollit anim id est laborum.
 
@@ -165,32 +174,6 @@
                 <li> But how can we select which element should be erased and which to preserve?</li>
 
             </ul>
-
-            <h5> Naive Approaches</h5>
-            <ul>
-                <li>Random Reductions</li>
-                <ul>
-                    <li> Half Memory</li>
-                    <li>Top 10</li>
-                </ul>
-                <li> Most activated</li>
-                <ul>
-                    <li> Half Memory</li>
-                    <li>Top 10</li>
-                </ul>
-                <li> Most Changes</li>
-                <ul>
-                    <li> Half Memory</li>
-                    <li>Top 10</li>
-                </ul>
-            </ul>
-
-            <h5> Reduction Heuristics</h5>
-            <ul>
-                <li>Unique activation patterns</li>
-                <li> Human in the Loop</li>
-            </ul>
-
 
         </div>
     </div>

@@ -10,7 +10,7 @@ let timer = null;
 
 let random = [];
 
-window.addEventListener('resize', reportWindowSize);
+// window.addEventListener('resize', reportWindowSize);
 
 
 let area = d3.line()
@@ -25,18 +25,6 @@ let area = d3.line()
 d3.json("data/main.json").then(function (data) {
     tdata = data;
 
-
-    /*    ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1]);
-        // ve_init_rows(tool[0], tdata.hiddens[start], tool[2], tool[1]);
-        traj_init(450, 450);
-        draw_traj(tdata.positions, tool[0], 450, 450, 10, 10, true);
-        // update_bars(tdata.probabilities[start], tool[0], tdata.probabilities[start].indexOf('' + Math.max(...tdata.probabilities[start])));
-        update_bars(tool[0], tdata.probabilities[start]);
-        draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start], 10, 10);
-        place_items(tool[0], 10, 10, tdata.positions[start])
-
-        init_current(tool[0], 650, -10, 0)*/
-
     reportWindowSize()
 
 });
@@ -44,11 +32,7 @@ d3.json("data/main.json").then(function (data) {
 bars_init(tool[0], tool[1], tool[2]);
 drawImage(tool[0], 'assets/image3.jpeg', tool[2]);
 
-// draw_line(generate_fake()[1], tool[0], 100, 100, tool[1] - 100 - margin, (tool[2] / 2) - 50);
-
-
 function change(type) {
-
 
     let filename = (type === 'random/rest' ? type + "" + iz + ".json" : type + ".json");
 
@@ -59,9 +43,8 @@ function change(type) {
             let tbbox = tool[0].node().getBoundingClientRect();
             let traj_s = ((450 * tbbox.width) / 1300);
             tdata = data;
-            ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1]);
+            ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1], tdata.mask);
             draw_traj(tdata.positions, tool[0], traj_s, traj_s, 10, 10, false, 'rand');
-            // update_bars(tdata.probabilities[start], tool[0], tdata.probabilities[start].indexOf('' + Math.max(...tdata.probabilities[start])))
             update_bars(tool[0], tdata.probabilities[start]);
             draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start], 10, 10);
         }
@@ -75,6 +58,7 @@ function step() {
 
 
     if (tdata.hiddens[start + curStep]) {
+        up_curtxt(curStep, tdata.hiddens.length-1)
         let tbar = $('#timebar');
         tbar.val(curStep);
         update_time();
@@ -82,9 +66,7 @@ function step() {
         show_sel(curStep);
         draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start + curStep], 10, 10);
         drawImage(tool[0], 'data:image/png;base64,' + tdata.inputs[start + curStep], tool[2]);
-        // ve_update(tool[0], tdata.hiddens[start + curStep]);
         update_bars(tool[0], tdata.probabilities[start + curStep]);
-        // update_bars(tdata.probabilities[start + curStep], tool[0], tdata.probabilities[start + curStep].indexOf('' + Math.max(...tdata.probabilities[start + curStep])))
     } else {
         pl = false;
         $('.play ').attr('src', 'assets/play-sign.svg');
@@ -162,18 +144,16 @@ function reportWindowSize() {
     bars_init(tool[0], tool[1], tool[2]);
     update_bars(tool[0], tdata.probabilities[start]);
 
-    ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1]);
+    ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1], tdata.mask);
 
-    drawModel(tool[0], tool[2])
+    drawModel(tool[0], tool[2]);
     show_sel(start)
+    up_curtxt(curStep, tdata.hiddens.length-1)
 }
-
-// d3.select('#tool');
-
 
 function chain_load(type) {
 
-    for (let i = random.length; i < 18; i++) {
+    for (let i = random.length; i < 14; i++) {
         let filename = (type === 'random/rest' ? type + "" + i + ".json" : type + ".json");
 
         d3.json("data/" + filename).then(function (data) {
@@ -188,3 +168,16 @@ function chain_load(type) {
 }
 
 
+function load_step(st) {
+
+    curStep = st - 1;
+
+    step();
+
+}
+
+function up_curtxt(step, total) {
+
+    $('#stepctn').html('Step ' + (step < 10 ? '0' + step : step) + '/' + (total < 10 ? '0' + total : total))
+
+}

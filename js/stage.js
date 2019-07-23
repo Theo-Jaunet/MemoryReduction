@@ -30,9 +30,14 @@ function update_stage(nb) {
 
 $('.card').on('mouseover', function () {
 
-    console.log('lalala');
+    if (random.length < 14) {
+        chain_load('random/rest')
 
-    chain_load('random/rest')
+    } else {
+        for (let i = 0; i < random.length; i++) {
+            draw_traj(random[i].positions, tool[0], traj_s, traj_s, 10, 10, false, 'temptr');
+        }
+    }
 
 });
 
