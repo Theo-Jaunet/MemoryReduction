@@ -1,11 +1,14 @@
 let tool = [d3.select('#tool'), $('#tool').width(), $('#tool').height()];
 let tdata;
 let margin = 40;
-let iz = 0;
+let iz = 4;
 let start = 0;
 let pl = false;
 let curStep = 0;
+let isMono = true;
 let timer = null;
+
+let random = [];
 
 window.addEventListener('resize', reportWindowSize);
 
@@ -47,18 +50,20 @@ drawImage(tool[0], 'assets/image3.jpeg', tool[2]);
 function change(type) {
 
 
-    let filename = (type === 'rest' ? type + "" + iz + ".json" : type + ".json");
+    let filename = (type === 'random/rest' ? type + "" + iz + ".json" : type + ".json");
 
     d3.json("data/" + filename).then(function (data) {
-            iz += 1;
+            if (type === 'random/rest')
+                iz += 1;
             data = tofloat(data);
-
+            let tbbox = tool[0].node().getBoundingClientRect();
+            let traj_s = ((450 * tbbox.width) / 1300);
             tdata = data;
             ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1]);
-            draw_traj(tdata.positions, tool[0], 350, 350, margin, tool[2] - 350 - margin, false);
+            draw_traj(tdata.positions, tool[0], traj_s, traj_s, 10, 10, false, 'rand');
             // update_bars(tdata.probabilities[start], tool[0], tdata.probabilities[start].indexOf('' + Math.max(...tdata.probabilities[start])))
             update_bars(tool[0], tdata.probabilities[start]);
-            draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start]);
+            draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start], 10, 10);
         }
     )
 }
@@ -73,7 +78,7 @@ function step() {
         let tbar = $('#timebar');
         tbar.val(curStep);
         update_time();
-        show_current(tool[0], hst + (ve_w / 2), -10, curStep);
+        show_current(tool[0], (hst - 10) + (ve_w / 2), -10, curStep);
         show_sel(curStep);
         draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start + curStep], 10, 10);
         drawImage(tool[0], 'data:image/png;base64,' + tdata.inputs[start + curStep], tool[2]);
@@ -115,7 +120,7 @@ $('#timebar').on('input', function () {
     drawImage(tool[0], 'data:image/png;base64,' + tdata.inputs[start + curStep], tool[2]);
     // ve_update(tool[0], tdata.hiddens[start + curStep]);
     update_bars(tool[0], tdata.probabilities[start + curStep]);
-    show_current(tool[0], hst + (ve_w / 2), -10, curStep)
+    show_current(tool[0], (hst - 10) + (ve_w / 2), -10, curStep)
 
 });
 
@@ -141,7 +146,7 @@ function reportWindowSize() {
     tool[1] = tbbox.width;
     tool[2] = tbbox.height;
 
-    let traj_s = ((450 * tbbox.width) / 1300);
+    let traj_s = ((650 * tbbox.width) / 1300);
     drawImage(tool[0], 'assets/image3.jpeg', tool[2]);
 
     console.log(traj_s);
@@ -149,7 +154,7 @@ function reportWindowSize() {
     $('.distrib').remove();
     $('.arrow').remove();
     traj_init(traj_s, traj_s);
-    draw_traj(tdata.positions, tool[0], traj_s, traj_s, 10, 10, true);
+    draw_traj(tdata.positions, tool[0], traj_s, traj_s, 10, 10, true, 'main');
 
     place_items(tool[0], 10, 10, tdata.positions[start])
     draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start], 10, 10);
@@ -159,9 +164,27 @@ function reportWindowSize() {
 
     ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1]);
 
-
+    drawModel(tool[0], tool[2])
+    show_sel(start)
 }
 
 // d3.select('#tool');
+
+
+function chain_load(type) {
+
+    for (let i = random.length; i < 18; i++) {
+        let filename = (type === 'random/rest' ? type + "" + i + ".json" : type + ".json");
+
+        d3.json("data/" + filename).then(function (data) {
+            data = tofloat(data);
+            let tbbox = tool[0].node().getBoundingClientRect();
+            let traj_s = ((450 * tbbox.width) / 1300);
+            draw_traj(data.positions, tool[0], traj_s, traj_s, 10, 10, false, 'temptr');
+            random[i] = data
+        })
+
+    }
+}
 
 

@@ -29,7 +29,7 @@
 .container {
     position: relative;
     width: 100%;
-    max-width: 1920px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
     box-sizing: border-box;
@@ -605,7 +605,7 @@ there.
 @media (min-width: 1200px) {
 
     .button {
-        padding: 0 15px;
+        padding: 0 10px;
     }
 }
 
@@ -616,7 +616,7 @@ there.
     .button {
         height: 50px;
         line-height: 50px;
-        padding: 0 30px;
+        padding: 0 10px;
         vertical-align: bottom;
     }
 }

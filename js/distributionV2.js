@@ -1,24 +1,24 @@
-let v_space = 30;
+let v_space = 8;
 let or = ['270', '90', '0 ', '315', '45'];
 
-let bheight = 20;
+let bheight = 5;
 
-let scale = d3.scaleLinear().range([0, 90]).domain([0, 1]);
+let scale = d3.scaleLinear().range([0, 60]).domain([0, 1]);
 
 
 function bars_init(svg, width, height) {
 
     let g = svg.append('g').attr('class', 'distrib');
 
-    let st = height - 235;
+    let st = height - 65;
 
 
     g.selectAll('.bar').data([0, 0, 0, 0, 0]).enter()
         .append('rect')
         .attr('class', 'bar')
-        .attr('x', 470)
+        .attr('x', 740)
         .attr('y', (d, i) => {
-                draw_arrow(430, st + (i * v_space) + (i * bheight), or[i], i);
+                draw_arrow(720, st + (i * v_space) + (i * bheight), or[i], i);
                 return st + (i * v_space) + (i * bheight)
             }
         )
@@ -34,8 +34,11 @@ function bars_init(svg, width, height) {
 
 function update_bars(svg, data) {
 
-    let id = data.indexOf(''+Math.max(...data));
-    let bars = svg.selectAll(".bar").data(data).transition().duration(300).attr('width', (d) => scale(d) + 7).attr('fill', (d, i) => (i === id ? '#F2314B' : 'steelblue'))
+    let id = data.indexOf('' + Math.max(...data));
+    if (id === -1)
+        id = data.indexOf(Math.max(...data));
+
+    let bars = svg.selectAll(".bar").data(data).attr('width', (d) => scale(d) + 7).attr('fill', (d, i) => (i === id ? '#a92234' : 'steelblue'))
 }
 
 
@@ -45,10 +48,10 @@ function draw_arrow(x, y, z, ind) {
 
     g.append('line')
         .attr('class', 'hiddensli')
-        .attr('x1', 20)
-        .attr('x2', 20)
-        .attr('y1', 5)
-        .attr('y2', 30)
+        .attr('x1', 10)
+        .attr('x2', 10)
+        .attr('y1', 2.5)
+        .attr('y2', 15)
         .attr('stroke', '#183d4e')
         .attr("stroke-linejoin", "round")
         .attr('stroke_width', '4');
@@ -56,25 +59,25 @@ function draw_arrow(x, y, z, ind) {
 
     g.append('line')
         .attr('class', 'hiddensli')
-        .attr('x1', 20)
-        .attr('x2', 12)
-        .attr('y1', 5)
-        .attr('y2', 15)
+        .attr('x1', 10)
+        .attr('x2', 6)
+        .attr('y1', 2.5)
+        .attr('y2', 7.5)
         .attr('stroke', '#183d4e')
         .attr("stroke-linejoin", "round")
         .attr('stroke_width', '4');
 
     g.append('line')
         .attr('class', 'hiddensli')
-        .attr('x1', 20)
-        .attr('x2', 28)
-        .attr('y1', 5)
-        .attr('y2', 15)
+        .attr('x1', 10)
+        .attr('x2', 14)
+        .attr('y1', 2.5)
+        .attr('y2', 7.5)
         .attr("stroke-linejoin", "round")
         .attr('stroke', '#183d4e')
         .attr('stroke_width', '4');
 
-    g.attr('transform', 'translate(' + (ind === 1 ? x + 8 : x) + ',' + (ind === 4 || ind === 1 ? y - 14 : (ind === 0 ? y + 8 : (ind === 2 ? y - 8 : y))) + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')')
+    g.attr('transform', 'translate(' + (ind === 1 ? x + 4 : x) + ',' + (ind === 4 || ind === 1 ? y - 7 : (ind === 0 ? y + 4 : (ind === 2 ? y - 4 : y))) + ') rotate(' + z + ' ' + 4 + ' ' + 6.25 + ')')
 
 
 }

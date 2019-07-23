@@ -11,8 +11,8 @@
 
 .hiddensgrp rect {
 
-    stroke-width: 0.2px;
-    stroke: #555555;
+    stroke-width: 0.02px;
+    stroke: #FFF;
     cursor: pointer;
 }
 
@@ -20,6 +20,10 @@
     opacity: 0.6;
 }
 
+
+.walls {
+    stroke-width: 6px;
+}
 .nav {
     border: solid #555555 1px;
     cursor: pointer;
@@ -30,7 +34,7 @@
 }
 
 .selected {
-    border: solid #F2314B 2px !important;
+    border: solid #a92234 2px !important;
 }
 
 .play:hover {

@@ -17,7 +17,7 @@ function traj_init(width, height) {
 }
 
 
-function draw_traj(data, svg, width, height, offx, offy, cs) {
+function draw_traj(data, svg, width, height, offx, offy, cs,cla) {
 
     let line = d3.line()
         .x(function (d) {
@@ -35,6 +35,7 @@ function draw_traj(data, svg, width, height, offx, offy, cs) {
             .data([data])
             .attr("d", line)
             .attr('stroke', 'steelblue')
+            .style('stroke-width', '6px')
             .style("fill", "none")
 
     } else {
@@ -42,6 +43,7 @@ function draw_traj(data, svg, width, height, offx, offy, cs) {
         g.append("path")
             .data([data])
             .attr("d", line)
+            .attr('class', cla)
             .style('opacity', '0.3')
             .attr('stroke', 'steelblue')
             .style("fill", "none")
@@ -54,31 +56,58 @@ function place_items(svg, offx, offy, st) {
     let g = svg.select('.traj');
 
 
-    g.append("circle")
-        .attr('cx', traj_x(-80) + offx)
-        .attr('cy', traj_y(80) + offy)
-        .attr('r', '6')
-        .style('opacity', '0.8')
-        .attr('stroke', 'red')
-        .style("fill", "red");
+    /*
+        g.append("circle")
+            .attr('cx', traj_x(-80) + offx)
+            .attr('cy', traj_y(80) + offy)
+            .attr('r', '6')
+            .style('opacity', '0.8')
+            .attr('stroke', 'red')
+            .style("fill", "red");
+    */
 
 
-    g.append("circle")
-        .attr('cx', traj_x(-240) + offx)
-        .attr('cy', traj_y(80) + offy)
-        .attr('r', '6')
-        .style('opacity', '0.8')
-        .attr('stroke', 'blue')
-        .style("fill", "blue");
+    g.append("svg:image")
+        .attr('x', traj_x(-80) + offx - 16.5)
+        .attr('y', traj_y(80) + offy - 13.5)
+        .attr('width', 33)
+        .attr('height', 27)
+        .attr("xlink:href", 'assets/armor.png')
 
 
-    g.append("circle")
-        .attr('cx', traj_x(-415) + offx)
-        .attr('cy', traj_y(206) + offy)
-        .attr('r', '6')
-        .style('opacity', '0.8')
-        .attr('stroke', 'gray')
-        .style("fill", "gray");
+    /*
+        g.append("circle")
+            .attr('cx', traj_x(-240) + offx)
+            .attr('cy', traj_y(80) + offy)
+            .attr('r', '6')
+            .style('opacity', '0.8')
+            .attr('stroke', 'blue')
+            .style("fill", "blue");
+    */
+
+    g.append("svg:image")
+        .attr('x', traj_x(-240) + offx - 16.5)
+        .attr('y', traj_y(80) + offy - 13.5)
+        .attr('width', 33)
+        .attr('height', 27)
+        .attr("xlink:href", 'assets/soul.png');
+
+
+    /*    g.append("circle")
+            .attr('cx', traj_x(-415) + offx)
+            .attr('cy', traj_y(206) + offy)
+            .attr('r', '6')
+            .style('opacity', '0.8')
+            .attr('stroke', 'gray')
+            .style("fill", "gray");*/
+
+
+    g.append("svg:image")
+        .attr('x', traj_x(-415) + offx - 16.5)
+        .attr('y', traj_y(206) + offy - 13.5)
+        .attr('width', 33)
+        .attr('height', 27)
+        .attr("xlink:href", 'assets/hp.png');
 
 
     g.append("circle")
@@ -121,7 +150,7 @@ function draw_walls(svg, offx, offy) {
         .attr('y1', (d) => traj_y(d[1]) + offy)
         .attr('y2', (d) => traj_y(d[3]) + offy)
         .attr('stroke', '#555555')
-        .attr('stroke-with', '2px')
+        .attr('stroke-width', '6')
         .attr("stroke-linejoin", "round")
 }
 
@@ -130,7 +159,7 @@ function draw_agent_path(svg, pos, or, offx, offy) {
     d3.selectAll('.agent').remove();
 
     svg.append('path')
-        // .attr('d', "M 15.8,8.3 0.8,15.8 5,8.3 0.8,0.8 Z")
+    // .attr('d', "M 15.8,8.3 0.8,15.8 5,8.3 0.8,0.8 Z")
         .attr('d', "M 30.8,16.6 0.8,30.8 10,16.6 0.8,0.8 Z")
         .attr('class', 'agent')
         .attr('fill', '#a92234')
