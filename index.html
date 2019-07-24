@@ -102,22 +102,39 @@
         <div class="four columns" style="min-width: 350px">
             <h5 style="width: 100%" id="card_title"> Full Memory</h5>
             <p style="margin-top: 20px;width: 100%">
-                We begin with a fully trained agent using 100% of its memory.
+                We begin with a fully trained agent using 100% of its memory. During this interval, the agent moved towards the armor, and then towards where it started insted of reaching the health pack.
+                This suggests that the agent forgot that it saw the health pack at the beginning.
 
-                We can observe that once the agent gathered the armor at <a onclick="load_step(15)">step 15</a> the first 3 elements change their activations ....
 
                 <br>
                 <br>
+
+
+               Once the agent has gathered the armor in <a onclick="load_step(15)">step 15</a> the first <a>3 elements</a> change their activations from either active to inactive or the other way around.
+
                 <br>
                 <br>
 
-                has Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                mollit anim id est laborum.
+                The <a> last element</a> is inactive during this interval. How the agent would behave without it? <a onclick="change_DIY('DIY/red31', 31)">Let's find out! </a> We can see that the new trajectory is exactly the same as the previous one,
+                thus we can conclude that is element has no impact in the agent's decision process during this sequence.
 
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
+                <br>
+                <br>
+
+                What if we go further and remove more memory elements? This would be useful to have smaller models which may be more interpretable as they may contain less memory dimensions, but also requiring less computing power and
+                reduce the energy consumption footprint.
+
+
+                <br>
+
+                <!-- has Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                 aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                 mollit anim id est laborum.
+
+                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                 consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+ -->
             </p>
 
         </div>

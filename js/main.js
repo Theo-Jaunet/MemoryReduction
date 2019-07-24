@@ -326,10 +326,10 @@ function draw_arrowV2(x, y, z, ind) {
 
     g.append('rect')
         .attr('class', 'hiddensli')
-        .attr('x', x - 60)
-        .attr('y', y)
-        .attr('width', 100)
-        .attr('height', 100)
+        .attr('x', x - 100)
+        .attr('y', y - 80)
+        .attr('width', 210)
+        .attr('height', 150)
         .style('cursor', 'pointer')
         .attr('stroke', 'none')
         .attr('fill', 'rgba(255,255,255,0)');
@@ -353,14 +353,5 @@ $('body').on('click', '.scro rect', function () {
 })
 
 
-$('body').on('click', '.scro line', function () {
 
-    document.getElementById('navprob').scrollIntoView({block: 'center', behavior: 'smooth'})
-})
-
-
-$('body').on('click', '.scro text', function () {
-
-    document.getElementById('navprob').scrollIntoView({block: 'center', behavior: 'smooth'})
-})
 
