@@ -10,7 +10,7 @@ function bars_init(svg, width, height) {
 
     let g = svg.append('g').attr('class', 'distrib');
 
-    let st = height - 63;
+    let st = height - 78;
 
 
     g.selectAll('.bar').data([0, 0, 0, 0, 0]).enter()
@@ -37,8 +37,8 @@ function update_bars(svg, data) {
     let id = data.indexOf('' + Math.max(...data));
     if (id === -1)
         id = data.indexOf(Math.max(...data));
-
     let bars = svg.selectAll(".bar").data(data).attr('width', (d) => scale(d) + 7).attr('fill', (d, i) => (i === id ? '#a92234' : 'steelblue'))
+
 }
 
 

@@ -9,6 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+
     <!-- Mobile Specific Metas
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,23 +25,26 @@
     <link rel="stylesheet" href="css/custom.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="js/utils.js"></script>
+
     <script src="js/rough.js"></script>
 
 </head>
 <body>
 
+
 <!-- Primary Page Layout
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<div class="container">
+<div class="container" style="position: relative">
+
+    <div style="width: 35px;height: auto;display: inline-block;margin-right: 20px;position: absolute;left: 431px;top: 91px;z-index: 50">
+        <img class="play" style="width: 35px" src="assets/play-sign.svg">
+        <p id="stepctn" style="position: absolute;display: inline-block;left: -23px;width: 80px;top: 46px;user-focus: none;user-select: none">Step --/--</p>
+    </div>
     <div class="row" style="margin-top: 25px">
         <div class="five  columns" style="position: relative">
 
-            <h4>What if a DOOM Player has a reduced memory?</h4>
-            <div style="width: 35px;height: auto;display: inline-block;margin-right: 20px;position: absolute;right: 0;bottom: 0;">
-                <img class="play" style="width: 35px" src="assets/play-sign.svg">
-                <p id="stepctn" style="position: absolute;display: inline-block;left: 45px;width: 200px;top: 5px;user-focus: none;user-select: none">Step XX/YY</p>
-            </div>
+            <h4>What if a DOOM Player had a reduced memory?</h4>
+
         </div>
         <div class="seven columns">
             <div class=" nav left-card-arr button"><</div>
@@ -64,7 +68,15 @@
                                 <button>Unique</button>
                             </div>
                         </div>-->
-            <svg class="" id="tool" style="height: auto;width: 100%;min-height: 645px;min-width: 785px"></svg>
+            <svg class="" id="tool" style="height: auto;width: 100%;min-height: 660px;min-width: 785px">
+                <filter id="brightness">
+                    <feComponentTransfer>
+                        <feFuncR type="linear" slope="6"/>
+                        <feFuncG type="linear" slope="6"/>
+                        <feFuncB type="linear" slope="6"/>
+                    </feComponentTransfer>
+                </filter>
+            </svg>
             <div style="position: relative">
 
                 <!--                <div style="display: inline-block;width: 320px">
@@ -75,9 +87,14 @@
         <div class="four columns" style="min-width: 350px">
             <h5 style="width: 100%" id="card_title"> Full Memory</h5>
             <p style="margin-top: 20px;width: 100%">
-
+                We begin with a fully trained agent using 100% of its memory.
 
                 We can observe that once the agent gathered the armor at <a onclick="load_step(15)">step 15</a> the first 3 elements change their activations ....
+
+                <br>
+                <br>
+                <br>
+                <br>
 
                 has Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
                 aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
@@ -94,7 +111,7 @@
 
     <div class=" row">
         <div class="one-half column" style="margin-top: 25%">
-            <h4>Navigation Problems</h4>
+            <h4 id="navprob">Navigation Problems</h4>
 
             <ul>
 
@@ -199,6 +216,7 @@
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
+<script src="js/utils.js"></script>
 <script src="js/drawVector.js"></script>
 <script src="js/observation.js"></script>
 <script src="js/distributionV2.js"></script>

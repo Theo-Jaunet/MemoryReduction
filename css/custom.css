@@ -47,6 +47,10 @@ a {
     transform: scale(1.1);
 }
 
+.traj-bg {
+    opacity: 0.2 !important;
+}
+
 .hsel rect {
     /*stroke-width: 2.5px !important;*/
     stroke: #555555;

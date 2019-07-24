@@ -60,8 +60,8 @@ function draw_traj(data, svg, width, height, offx, offy, cs, cla) {
             .style("fill", "none")
     }
 
-    d3.select('.traj_bg').moveToFront()
-    d3.select('.traj_top').moveToFront()
+/*    d3.select('.traj_bg').moveToFront()
+    d3.select('.traj_top').moveToFront()*/
 }
 
 

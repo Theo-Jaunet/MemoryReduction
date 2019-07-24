@@ -3,28 +3,16 @@ function drawImage(svg, url, height) {
 
     $('#obs').remove();
     svg.append("svg:image")
-        .attr('x', 60)
-        .attr('y', height - 172)
-        .attr('width', 288)
+        .attr('x', 160)
+        .attr('y', height - 156)
+        .attr('width', 250)
         .attr('height', 162)
         .attr('id', 'obs')
-        // .style('transform', 'skew(0.5rad')
-        // .style('filter', 'brightness(1.3)')
+        .attr('stroke','#555555')
+        .attr('stroke-width','1px')
+        .attr("transform", "translate(160,65) skewY(-41) skewX(10)  scale(0.55,1) rotate(19) ")
         .attr("xlink:href", url)
-    // .style('filter', 'brightness(1.5)')
-
-    //
-    //     $('#obs').remove();
-    // svg.append("svg:image")
-    //     .attr('x', 60)
-    //     .attr('y', height - 172)
-    //     .attr('width', 288)
-    //     .attr('height', 162)
-    //     .attr('id', 'obs')
-    //     .style('filter', 'brightness(1.3)')
-    //     .attr("xlink:href", url)
-    //     .style('filter', 'brightness(1.5)')
-
+        .attr('filter','url(#brightness)')
 
 }
 
@@ -34,12 +22,12 @@ function drawModel(svg, height) {
 
     $('#model').remove();
     svg.append("svg:image")
-        .attr('x', 400)
-        .attr('y', height - 120)
+        .attr('x', 405)
+        .attr('y', height - 144)
         .attr('width', 300)
         .attr('height', 160)
         .attr('id', 'model')
-        .attr("xlink:href", 'assets/DRL.svg')
+        .attr("xlink:href", 'assets/DRL.svg');
 
     link_model(svg, tdata.hiddens)
 }

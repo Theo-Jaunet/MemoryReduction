@@ -9,9 +9,3 @@ function draw_area(svg, dot) {
 
 }
 
-
-function svg_click() {
-    console.log(d3.mouse(this));
-
-    draw_area(tool[0], d3.mouse(this))
-}
