@@ -81,7 +81,7 @@ function meta_change(filename, index) {
 
 
     });
-    }
+}
 
 
 function load_data(data, index) {
@@ -218,7 +218,7 @@ function reportWindowSize() {
 
 
     $('#card_title').html(stages_titles[stage]);
-    $('#card_txt').html(stages_txt[stage]);
+    // $('#card_txt').html(stages_txt[stage]);
 
 }
 
@@ -300,6 +300,41 @@ function loadALlTraj() {
     })
 }
 
+
+function meta_switch(run) {
+
+
+    iz = run
+
+    switch (stage) {
+        case  "0":
+            if (mains[iz] !== undefined) {
+                load_data(mains[iz])
+            } else {
+                meta_change('random/rest' + iz + '.json', -1, random)
+            }
+            break;
+        case  "1":
+            if (random[iz] !== undefined) {
+                load_data(random[iz])
+            } else {
+                meta_change('random/rest' + iz + '.json', -1, random)
+            }
+            break;
+        case  "2":
+            if (tops[iz] !== undefined) {
+                load_data(tops[iz])
+            } else {
+                meta_change('random/rest' + iz + '.json', -1, random)
+            }
+            break;
+        case  "3":
+            break;
+
+    }
+
+
+}
 
 function draw_arrowV2(x, y, z, ind) {
 

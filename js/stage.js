@@ -46,12 +46,13 @@ function update_stage(nb) {
     stage = '' + nb;
 
     $('#card_title').html(stages_titles[stage]);
-    $('#card_txt').html(stages_txt[stage]);
+    // $('#card_txt').html(stages_txt[stage]);
 
     if (stage !== '4') {
         $('#singleRed').remove();
     }
-    d3.select('#linear-gradient stop').attr('offset', '0%')
+      d3.select('#linear-gradient stop').interrupt();
+    d3.select('#linear-gradient stop').attr('offset', '0%');
 
     let tbbox = tool[0].node().getBoundingClientRect();
     let traj_s = ((650 * tbbox.width) / 1300);
@@ -102,7 +103,7 @@ function update_stage(nb) {
             break;
         case "4":
             iz = 0;
-            if (mains[iz] !== undefined) {
+            if (mains[iz] === undefined) {
                 meta_change('main.json', -1, mains);
             } else {
                 load_data(mains[iz])

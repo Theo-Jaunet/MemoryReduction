@@ -104,9 +104,9 @@ function show_sel(step) {
 function mask_elems(svg, mask, nb) {
 
 
-    d3.select('#linear-gradient stop').attr('offset', '0%')
-
     if (mask !== undefined) {
+        d3.select('#linear-gradient stop').interrupt();
+        d3.select('#linear-gradient stop').attr('offset', '0%');
 
         let tsvg = rough.svg(svg);
 
@@ -147,7 +147,10 @@ function mask_elem(index) {
     let g = tool[0].append('g').attr('id', 'singleRed');
     let tsvg = rough.svg(tool[0]);
     let nb = tdata.hiddens.length;
-    d3.select('#linear-gradient stop').attr('offset', '0%')
+
+        d3.select('#linear-gradient stop').interrupt();
+        d3.select('#linear-gradient stop').attr('offset', '0%');
+
     change('DIY/red' + index);
 
     let t = tsvg.rectangle(hst - getRandomArbitrary(0, 12), (index * ve_h) + 20, (ve_w * tdata.hiddens.length + (0.02 * tdata.hiddens.length)) + getRandomArbitrary(0, 12), ve_h * 0.8, {
