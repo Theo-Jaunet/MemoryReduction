@@ -51,21 +51,22 @@
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <div class="container" style="position: relative">
 
-    <div style="width: 35px;height: auto;display: inline-block;margin-right: 20px;position: absolute;left: 431px;top: 91px;z-index: 50">
+    <div style="width: 35px;height: auto;display: inline-block;margin-right: 20px;position: absolute;left: 424px;top: 121px;z-index: 50">
         <img class="play" style="width: 35px" src="assets/play-sign.svg">
         <p id="stepctn" style="position: absolute;display: inline-block;left: -23px;width: 80px;top: 46px;user-focus: none;user-select: none">Step --/--</p>
     </div>
-    <div class="row" style="margin-top: 25px">
+    <div class="row" style="margin-top: 15px">
         <div class="five  columns" style="position: relative">
 
-            <h4>What if a DOOM Player had a reduced memory?</h4>
+            <p style="max-height: 100px;">We trained an agent to play DOOM using Deep Reinforcement learning. The agent has to pick items in a specific order : Armor -> Health Pack -> and Soul-sphere, with the shortest path possible.
+                Let’s explore how changing the train agent memory influences its trajectory!</p>
 
         </div>
         <div class="seven columns">
             <div class=" nav left-card-arr button"><</div>
             <div index="0" class=" nav selected card button">Full Memory</div>
             <div index="1" class=" nav card button">Random</div>
-            <div index="2" class=" nav card button">Top Activated</div>
+            <div index="2" class=" nav card button">Top Elements</div>
             <div index="3" class=" nav card button">Selection</div>
             <div index="4" class=" nav card button">Do it Yourself</div>
             <div class=" nav right-card-arr button">></div>
@@ -74,16 +75,8 @@
 
     <div class=" row" style="max-height: 650px">
         <div class="eight columns">
-            <!--            <div class="twelve columns" style="text-align: center">
-                            <div id="controls">
-                                <button onclick="change('main')">>Reset</button>
-                                <button onclick="change('rest')">Random</button>
-                                <button onclick="change('tophalf')">Top activated</button>
-                                <button id="play" onclick="play()">Play</button>
-                                <button>Unique</button>
-                            </div>
-                        </div>-->
             <svg class="" id="tool" style="height: auto;width: 100%;min-height: 660px;min-width: 785px">
+                <defs>
                 <filter id="brightness">
                     <feComponentTransfer>
                         <feFuncR type="linear" slope="6"/>
@@ -91,6 +84,11 @@
                         <feFuncB type="linear" slope="6"/>
                     </feComponentTransfer>
                 </filter>
+                    <linearGradient id="linear-gradient" gradientTransform="rotate(0)">
+                    <stop offset="0%" stop-color="rgba(10,10,10,1)"></stop>
+                    <stop offset="0%" stop-color="rgba(10,10,10,0)"></stop>
+                    </linearGradient>
+                </defs>
             </svg>
             <div style="position: relative">
 
@@ -101,101 +99,107 @@
         </div>
         <div class="four columns" style="min-width: 350px">
             <h5 style="width: 100%" id="card_title"> Full Memory</h5>
-            <p style="margin-top: 20px;width: 100%">
-                We begin with a fully trained agent using 100% of its memory. During this interval, the agent moved towards the armor, and then towards where it started insted of reaching the health pack.
-                This suggests that the agent forgot that it saw the health pack at the beginning.
+            <p id="card_txt" style="margin-top: 20px;width: 100%">
+
+                If some memory elements are essential, are they among the top activated? the top changing? or top projected?
+                We now sort the memory according to different metrics and remove either the bottom 50% or 75%.
 
 
                 <br>
-                <br>
-
-
-               Once the agent has gathered the armor in <a onclick="load_step(15)">step 15</a> the first <a>3 elements</a> change their activations from either active to inactive or the other way around.
-
-                <br>
-                <br>
-
-                The <a> last element</a> is inactive during this interval. How the agent would behave without it? <a onclick="change_DIY('DIY/red31', 31)">Let's find out! </a> We can see that the new trajectory is exactly the same as the previous one,
-                thus we can conclude that is element has no impact in the agent's decision process during this sequence.
-
-
-                <br>
-                <br>
-
-                What if we go further and remove more memory elements? This would be useful to have smaller models which may be more interpretable as they may contain less memory dimensions, but also requiring less computing power and
-                reduce the energy consumption footprint.
-
+                Among the top activated elements we can observe that the 50% .. XX, and the 25% YY
 
                 <br>
 
-                <!-- has Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                 aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                 mollit anim id est laborum.
+                While using only the most changing elements the agent XX, and YY
 
-                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                 consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
- -->
+
+                <br>
+                Finally, despite only having 13 elements removed in <a> run XX</a>, the agent ended up confused and turning around.
+                This suggest that some elements may be essential for the agent's decisions.
+
+                <br>
+
+
+                This suggests that despite having core information represented in the top elements, the agent performances can still be a bit erratic, therefore this cannot be a reliable reducing strategy.
+                Perhaps, Humans can be of assistance in this matter.
+                <br>
             </p>
 
         </div>
     </div>
 
 
-    <div class=" row">
-        <div class="one-half column" style="margin-top: 25%">
-            <h4 id="navprob">Navigation Problems</h4>
+    <div class=" row" style="text-align: center">
+        <div class="twelve columns" style="margin-top: 25%;display: inline-block">
+            <div style="text-align: left;width: 800px;display: inline-block">
+                <h4 id="navprob">Navigation Problems</h4>
 
-            <ul>
+                <ul>
 
-                <li>
-                    What are navigation problems
-                </li>
-                <li>
-                    Why are they important
-                </li>
-                <li>
-                    Different approaches to tackle this problem
-                </li>
-                <li>
-                    Our navigation problem: K-item in which the agent must gather items in a pre-defined order
-                </li>
-            </ul>
+                    <li>
+                        What are navigation problems
+                    </li>
+                    <li>
+                        Why are they important
+                    </li>
+                    <li>
+                        Different approaches to tackle this problem
+                    </li>
+                    <li>
+                        Our navigation problem: K-item in which the agent must gather items in a pre-defined order
+                    </li>
+                </ul>
+                <p>
+                    has Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                    mollit anim id est laborum.
+
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                    laborum.
+                </p>
+            </div>
         </div>
     </div>
 
-    <div class=" row">
-        <div class="one-half column" style="margin-top: 25%">
-            <h4>Deep Reinforcement Learning and Memory</h4>
 
-            <ul>
-                <li>
-                    The Rl model we used
-                </li>
-                <li>
-                    How it works
-                </li>
-                <li>
-                    How we trained it (e.g., + 1 for gathering an item)
-                </li>
-            </ul>
+    <div class=" row" style="text-align: center">
+        <div class="twelve columns" style="margin-top: 25%;display: inline-block">
+            <div style="text-align: left;width: 800px;display: inline-block">
+                <h4>Deep Reinforcement Learning and Memory</h4>
+
+                <ul>
+                    <li>
+                        The Rl model we used
+                    </li>
+                    <li>
+                        How it works
+                    </li>
+                    <li>
+                        How we trained it (e.g., + 1 for gathering an item)
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <div class=" row">
-        <div class="one-half column" style="margin-top: 25%">
-            <h4> Why Manipulating the Memory?</h4>
-            <ul>
-                <li>
-                    Interpretability
-                </li>
-                <li>
-                    Model Optimization ( can it be smaller -> reduce computation time and energy )
-                </li>
+    <div class=" row" style="text-align: center">
+        <div class="twelve columns" style="margin-top: 25%;display: inline-block">
+            <div style="text-align: left;width: 800px;display: inline-block">
+                <h4> Why Manipulating the Memory?</h4>
+                <ul>
+                    <li>
+                        Interpretability
+                    </li>
+                    <li>
+                        Model Optimization ( can it be smaller -> reduce computation time and energy )
+                    </li>
 
-                <li>
-                    Performance optimization: Is there dimensions that reduce the angent performances or cause bad behavior (e.g., non-optimal trajectories)
-                </li>
-            </ul>
+                    <li>
+                        Performance optimization: Is there dimensions that reduce the angent performances or cause bad behavior (e.g., non-optimal trajectories)
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     <!--<div class=" row">-->
@@ -208,22 +212,24 @@
     <!--</div>-->
     <!---->
 
-    <div class=" row">
-        <div class="one-half column" style="margin-top: 15%">
-            <h4> Memory Reduction</h4>
-            <p> Blalbalbalblablalbal</p>
-            <ul>
-                <li>How do we reduce the memory</li>
+    <div class=" row" style="text-align: center">
+        <div class="twelve columns" style="margin-top: 25%;display: inline-block">
+            <div style="text-align: left;width: 800px;display: inline-block">
+                <h4> Memory Reduction</h4>
+                <p> Blalbalbalblablalbal</p>
                 <ul>
-                    <li> Memory Mask</li>
-                    <li> Multiplication with memory vector</li>
+                    <li>How do we reduce the memory</li>
+                    <ul>
+                        <li> Memory Mask</li>
+                        <li> Multiplication with memory vector</li>
+                    </ul>
+                    <li> Figure to illustrate</li>
+                    <svg id="tool" style="border:solid slategray 1px;height: 100%"></svg>
+                    <li> But how can we select which element should be erased and which to preserve?</li>
+
                 </ul>
-                <li> Figure to illustrate</li>
-                <svg id="tool" style="border:solid slategray 1px;height: 100%"></svg>
-                <li> But how can we select which element should be erased and which to preserve?</li>
 
-            </ul>
-
+            </div>
         </div>
     </div>
     <!--<div class=" row">-->
@@ -236,17 +242,18 @@
     <!--</div>-->
     <!--</div>-->
 
-    <div class="row">
-        <div class="twelve column" style="margin-top: 2%">
-            <h2>Memory Reduction</h2>
-            <p>Théo Jaunet, Romain Vuillemot and Christian Wolf</p>
+    <div class="row" style="text-align: center">
+        <div class="twelve columns" style="margin-top: 25%;display: inline-block">
+            <div style="text-align: left;width: 800px;display: inline-block">
+                <h5>Authors</h5>
+                <p>Théo Jaunet, Romain Vuillemot and Christian Wolf</p>
+            </div>
         </div>
     </div>
-</div>
 
 
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <!-- End Document
+      –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
 <script src="js/utils.js"></script>
 <script src="js/drawVector.js"></script>

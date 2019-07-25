@@ -13,7 +13,7 @@ let drag_behavior = d3.drag()
     .on("drag", dragged);
 
 function ve_init_rows(svg, data, height, width, mask, elem) {
-
+    d3.select('#linear-gradient stop').attr('offset', '0%')
     svg.selectAll('.hiddensgrp').remove();
 
     let g = svg.append('g').attr('class', 'hiddensgrp').attr('id', 'hiddensgrp');
@@ -24,7 +24,7 @@ function ve_init_rows(svg, data, height, width, mask, elem) {
     }
 
     ve_h = Math.min(((height - 120) / data[0].length), 60);
-    ve_w = Math.min((width - hst-10) / data.length, 13);
+    ve_w = Math.min((width - hst - 10) / data.length, 13);
 
     for (let w = 0; w < data.length; w++) {
 
@@ -53,7 +53,9 @@ function ve_init_rows(svg, data, height, width, mask, elem) {
     if (elem > -1)
         mask_elem(elem);
 
-    d3.select('#singleRed').moveToFront()
+    d3.select('#singleRed').moveToFront();
+
+    show_sel(curStep);
 
 }
 
@@ -101,24 +103,39 @@ function show_sel(step) {
 
 function mask_elems(svg, mask, nb) {
 
+
+    d3.select('#linear-gradient stop').attr('offset', '0%')
+
     if (mask !== undefined) {
-        console.log(mask);
+
         let tsvg = rough.svg(svg);
 
         $('#hiddensgrp path').remove();
 
         for (let i = 0; i < mask.length; i++) {
 
-            if (mask[i] === 0) {
+            if (mask[i] < 0.1) {
                 let t = tsvg.rectangle(hst - getRandomArbitrary(0, 12), (i * ve_h) + 20 + (0.2 * ve_h), (ve_w * nb + (0.02 * nb)) + getRandomArbitrary(0, 12), ve_h * 0.6, {
-                    fill: "rgb(10,10,10)",
+                    fill: "url(#linear-gradient)",
                     fillWeight: getRandomArbitrary(5, 9), // thicker lines for hachure
                     hachureAngle: getRandomArbitrary(10, 70), // angle of hachure,
                     hachureGap: getRandomArbitrary(3, 4),
                     stroke: 'none'
                 });
 
+
+                // $(t).css('    stroke-dasharray: 5000 50000;
                 document.getElementById('hiddensgrp').appendChild(t)
+                d3.select('#linear-gradient stop').transition().duration(2500).attr('offset', '100%')
+                /*
+
+                                d3.selectAll('#hiddensgrp path').style('stroke-dasharray', () => '2600px 2600px')
+                                    .style('stroke-dashoffset', '2600px')
+                                    .transition().duration(20000)
+                                    .style('stroke-dashoffset', '1800')
+                */
+
+
             }
         }
     }
@@ -130,22 +147,22 @@ function mask_elem(index) {
     let g = tool[0].append('g').attr('id', 'singleRed');
     let tsvg = rough.svg(tool[0]);
     let nb = tdata.hiddens.length;
-
+    d3.select('#linear-gradient stop').attr('offset', '0%')
     change('DIY/red' + index);
 
     let t = tsvg.rectangle(hst - getRandomArbitrary(0, 12), (index * ve_h) + 20, (ve_w * tdata.hiddens.length + (0.02 * tdata.hiddens.length)) + getRandomArbitrary(0, 12), ve_h * 0.8, {
-        fill: "rgb(10,10,10)",
+        fill: "url(#linear-gradient)",
         fillWeight: getRandomArbitrary(5, 9), // thicker lines for hachure
         hachureAngle: getRandomArbitrary(10, 70), // angle of hachure,
         hachureGap: getRandomArbitrary(3, 4),
         stroke: 'none'
-
     });
 
-    document.getElementById('singleRed').appendChild(t)
+    document.getElementById('singleRed').appendChild(t);
+
 
     d3.select('#singleRed').moveToFront()
-
+    d3.select('#linear-gradient stop').transition().duration(1500).attr('offset', '100%')
 }
 
 function link_model(svg, data) {
@@ -213,8 +230,6 @@ function dragged() {
         let mi = -1;
 
         for (let i = 0; i < tdata.hiddens.length; i++) {
-            console.log(Math.abs(dx - hst + (ve_w * (i - 1 > 0 ? i - 1 : 0.2) + (ve_w / 2) - 10)));
-            console.log(dx);
             if (md > Math.abs(dx - (hst + (ve_w * (i - 1 > 0 ? i - 1 : 0.2) + (ve_w / 2) - 10)))) {
 
                 md = Math.abs(dx - (hst + (ve_w * (i - 1 > 0 ? i - 1 : 0.2) + (ve_w / 2) - 10)));

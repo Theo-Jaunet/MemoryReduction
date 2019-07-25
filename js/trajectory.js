@@ -180,3 +180,32 @@ function draw_agent_path(svg, pos, or, offx, offy) {
         .attr('transform', 'translate(' + ((traj_x(pos[0]) - 15) + offx) + ',' + ((traj_y(pos[1]) - 15) + offy) + ') rotate(' + (360 - or) + ' ' + (15) + ' ' + (15) + ')')
 
 }
+
+
+
+
+
+/*
+    let repeat = () => {
+      var data = d3.range(11).map(function(){return Math.random()*10})
+      // Uncomment following line to clear the previously drawn line
+      //svg.selectAll("path").remove();
+      // Set a light grey class on old paths
+      svg.selectAll("path").attr("class", "old");
+      var path = svg.append("path")
+        .attr("d", line(data))
+        .attr("stroke", "darkgrey")
+        .attr("stroke-width", "2")
+        .attr("fill", "none");
+      var totalLength = path.node().getTotalLength();
+      path
+        .attr("stroke-dasharray", totalLength + " " + totalLength)
+        .attr("stroke-dashoffset", totalLength)
+        .transition()
+          .duration(4000)
+          .ease(d3.easeLinear)
+          .attr("stroke-dashoffset", 0)
+          .on("end", repeat);
+    };
+    repeat();
+*/

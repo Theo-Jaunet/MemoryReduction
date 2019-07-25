@@ -1,7 +1,7 @@
 let tool = [d3.select('#tool'), $('#tool').width(), $('#tool').height()];
 let tdata;
 let margin = 40;
-let iz = 4;
+let iz = 0;
 let start = 0;
 let pl = false;
 let curStep = 0;
@@ -9,24 +9,9 @@ let isMono = true;
 let timer = null;
 let top_list = ['halfact', 'quatact', 'halfch', 'quatch', 'halftsn', 'quattsn'];
 let tops = [];
-let diy = []
+let diy = [];
 let random = [];
-
-// window.addEventListener('resize', reportWindowSize);
-
-$(function () {
-    /**
-     * Smooth scrolling to a specific element
-     **/
-    function scrollTo(target) {
-        if (target.length) {
-            $("html, body").stop().animate({scrollTop: target.offset().top}, 1500);
-        }
-    }
-
-
-});
-
+let mains = [];
 
 let area = d3.line()
     .x(function (d) {
@@ -42,7 +27,8 @@ d3.json("data/main.json").then(function (data) {
 
     reportWindowSize();
     loadALlTraj();
-    draw_arrowV2(100, tool[2] - 50, 180, -1)
+    draw_arrowV2(500, tool[2] - 30, 180, -1)
+
 });
 
 bars_init(tool[0], tool[1], tool[2]);
@@ -71,8 +57,7 @@ function change_DIY(type, index) {
     let filename = (type === 'random/rest' ? type + "" + iz + ".json" : type + ".json");
 
     d3.json("data/" + filename).then(function (data) {
-        if (type === 'random/rest')
-            iz += 1;
+        curStep = 0;
         data = tofloat(data);
         let tbbox = tool[0].node().getBoundingClientRect();
         let traj_s = ((450 * tbbox.width) / 1300);
@@ -82,25 +67,54 @@ function change_DIY(type, index) {
         update_bars(tool[0], tdata.probabilities[start]);
         draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start], 10, 10);
         // mask_elem(index)
+        show_sel(curStep);
+        up_curtxt(curStep, tdata.hiddens.length - 1);
     })
 }
 
 
-function change_Top(type, index) {
-    let filename = (type === 'random/rest' ? type + "" + iz + ".json" : type + ".json");
+function meta_change(filename, index) {
 
     d3.json("data/" + filename).then(function (data) {
 
-        data = tofloat(data);
-        let tbbox = tool[0].node().getBoundingClientRect();
-        let traj_s = ((450 * tbbox.width) / 1300);
-        tdata = data;
-        ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1], tdata.mask, index);
-        draw_traj(tdata.positions, tool[0], traj_s, traj_s, 10, 10, false, 'rand');
-        update_bars(tool[0], tdata.probabilities[start]);
-        draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start], 10, 10);
-        // mask_elem(index)
-    })
+        load_data(data, index)
+
+
+    });
+    }
+
+
+function load_data(data, index) {
+    data = tofloat(data);
+    let tbbox = tool[0].node().getBoundingClientRect();
+    let traj_s = ((450 * tbbox.width) / 1300);
+    tdata = data;
+    ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1], tdata.mask, index);
+    draw_traj(tdata.positions, tool[0], traj_s, traj_s, 10, 10, false, 'sec-traj');
+    update_bars(tool[0], tdata.probabilities[start]);
+    draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start], 10, 10);
+    show_sel(curStep);
+    up_curtxt(curStep, tdata.hiddens.length - 1);
+    switch (stage) {
+        case  "0":
+            if (mains[iz] === undefined) {
+                mains[iz] = data;
+            }
+            break;
+        case  "1":
+            if (random[iz] === undefined) {
+                random[iz] = data;
+            }
+            break;
+        case  "2":
+            if (tops[iz] === undefined) {
+                tops[iz] = data;
+            }
+            break;
+        case  "3":
+            break;
+
+    }
 }
 
 
@@ -190,7 +204,7 @@ function reportWindowSize() {
     traj_init(traj_s, traj_s);
     draw_traj(tdata.positions, tool[0], traj_s, traj_s, 10, 10, true, 'main');
 
-    place_items(tool[0], 10, 10, tdata.positions[start])
+    place_items(tool[0], 10, 10, tdata.positions[start]);
     draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start], 10, 10);
 
     bars_init(tool[0], tool[1], tool[2]);
@@ -199,13 +213,18 @@ function reportWindowSize() {
     ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1], tdata.mask, -1);
 
     drawModel(tool[0], tool[2]);
-    show_sel(start)
-    up_curtxt(curStep, tdata.hiddens.length - 1)
+    show_sel(start);
+    up_curtxt(curStep, tdata.hiddens.length - 1);
+
+
+    $('#card_title').html(stages_titles[stage]);
+    $('#card_txt').html(stages_txt[stage]);
+
 }
 
 function chain_load(type) {
 
-    for (let i = random.length; i < 14; i++) {
+    for (let i = random.length; i < 11; i++) {
         let filename = (type === 'random/rest' ? type + "" + i + ".json" : type + ".json");
         d3.json("data/" + filename).then(function (data) {
             data = tofloat(data);
@@ -288,8 +307,8 @@ function draw_arrowV2(x, y, z, ind) {
 
 
     g.append('text')
-        .attr('x', x - 100)
-        .attr('y', y - 40)
+        .attr('x', x + 10)
+        .attr('y', y + 15)
         .text('Scroll for more information')
 
     g.append('line')
@@ -326,9 +345,9 @@ function draw_arrowV2(x, y, z, ind) {
 
     g.append('rect')
         .attr('class', 'hiddensli')
-        .attr('x', x - 100)
-        .attr('y', y - 80)
-        .attr('width', 210)
+        .attr('x', x - 50)
+        .attr('y', y)
+        .attr('width', 230)
         .attr('height', 150)
         .style('cursor', 'pointer')
         .attr('stroke', 'none')
@@ -340,7 +359,7 @@ function draw_arrowV2(x, y, z, ind) {
 
     function animateScro() {
 
-        g.selectAll('line').transition().duration(3000).attr('transform', 'translate(' + x + ',' + y + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')').transition().duration(3000).attr('transform', 'translate(' + x + ',' + (y + 20) + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')').on("end", animateScro);
+        g.selectAll('line').transition().duration(3000).attr('transform', 'translate(' + x + ',' + y + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')').transition().duration(3000).attr('transform', 'translate(' + x + ',' + (y + 10) + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')').on("end", animateScro);
 
     }
 
