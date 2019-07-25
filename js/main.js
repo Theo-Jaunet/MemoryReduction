@@ -218,7 +218,7 @@ function reportWindowSize() {
 
 
     $('#card_title').html(stages_titles[stage]);
-    // $('#card_txt').html(stages_txt[stage]);
+    $('#card_txt').html(stages_txt[stage]);
 
 }
 
@@ -311,21 +311,21 @@ function meta_switch(run) {
             if (mains[iz] !== undefined) {
                 load_data(mains[iz])
             } else {
-                meta_change('random/rest' + iz + '.json', -1, random)
+                meta_change('main.json', -1)
             }
             break;
         case  "1":
             if (random[iz] !== undefined) {
                 load_data(random[iz])
             } else {
-                meta_change('random/rest' + iz + '.json', -1, random)
+                meta_change('random/rest' + iz + '.json', -1,)
             }
             break;
         case  "2":
             if (tops[iz] !== undefined) {
                 load_data(tops[iz])
             } else {
-                meta_change('random/rest' + iz + '.json', -1, random)
+                meta_change('top/' + top_list[iz] + '.json', -1)
             }
             break;
         case  "3":

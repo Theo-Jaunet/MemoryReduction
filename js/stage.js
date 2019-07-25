@@ -13,31 +13,43 @@ let stages_txt = [' We begin with a fully trained agent using 100% of its memory
 '                <br>\n' +
 '                What if we go further and remove more memory elements? This would be useful to have smaller models which may be more interpretable as they may contain less memory dimensions, but also requiring less computing power and reduce the energy consumption footprint.     \n' +
 '                <br>\n',
+
+
     '  How many memory elements can we remove without affecting the agent\'s performance?\n' +
-    '                And how can we decide which elements can be remove?\n' +
+    '                And how can we decide which elements can be removed?\n' +
     '                A naive approach is to randomly remove memory element regardless of their activation. Now, each element has 50% chance to be erased.\n' +
     '\n' +
     '                <br>\n' +
     '\n' +
-    '                We can observe that despite having only 18 elements (i.e. 56% of its memory), the agent is still able to gather the armor in the same amount of steps.\n' +
-    '                However, instead of turning around the agent continues in the same direction. In <a>run 3, step 13</a>, the agent gathered the armor and then rushed into the wall.\n' +
+    '                Despite having only 18 elements (i.e. 56% of its memory), the agent is still able to gather the armor in the same amount of steps.\n' +
+    '                However, instead of turning around it continued in the same direction. In the <a onclick="meta_switch(2)">second run</a>, the agent also gathered the armor but then rushed into the wall.\n' +
     '                <br>\n' +
     '\n' +
-    '                While having more than 62% of its memory elements removed, the agent moved towards the health pack instead of the armor and avoided it.\n' +
-    '                Such trajectory is either confident like <a> run 5</a> or such hesitant such as <a> run 4</a> in which the agent first aim for the soul-sphere and then move towards the health pack.\n' +
-    '                Similarly, in <a> run 6</a> where almost 72% of the memory is reduced, the agent first aim for the soul-sphere, and got stuck in a loop alternating left and right actions.\n' +
+    '                While having more than 62% of its memory elements removed, the agent moved towards the health pack instead og the armor.\n' +
+    '                Such trajectory is either confident like <a  onclick="meta_switch(4)"> this run</a> or hesitant as in <a  onclick="meta_switch(3)"> run 3</a> during which the agent first aimed for the soul-sphere and then moved towards the health pack.\n' +
+    '                Similarly, in <a  onclick="meta_switch(5)"> run 5</a> with almost 72% of the memory reduced, the agent aimed for the soul-sphere, and got stuck in a loop alternating left and right actions in front of it.\n' +
     '\n' +
     '\n' +
     '                <br>\n' +
-    '                Finally, despite only having 13 elements removed in <a> run XX</a>, the agent ended up confused and turning around.\n' +
+    '                Finally, despite only having 13 elements removed in the<a  onclick="meta_switch(10)"> last run</a>, the agent ended up confused and turned around.\n' +
     '                This suggest that some elements may be essential for the agent\'s decisions.\n' +
     '\n' +
     '                <br>\n' +
-    '                <!--\n' +
-    '                                We can also observe that removing some dimensions may have a an impact on other dimensions values, as the element XX,\n' +
-    '                                remains inactive during the run 3 despite being active while the agent used its full memory.-->\n' +
-    '\n' +
-    '                <br>\n', '', '', ''];
+    '                <br>\n',
+
+
+    '                If some memory elements are essential, are they among the top activated? the top changing? or top projected?\n' +
+    '                We now sort the memory according to different metrics and remove either the bottom 50% or 75%.\n' +
+    '                <br><br>\n' +
+    '                Among the top activated elements we can observe that in <a onclick="meta_switch(0)"> run with 50% </a>\n' +
+    '                memory, the agent moved towards the armor but avoided it.\n' +
+    '               In the <a onclick="meta_switch(1)"> run with 25% </a> memory, the agent seems lost and moved in circle. This may indicate that key elements may be in the second top quarter of elements.\n' +
+    '                <br><br>\n' +
+    '                While using only the most changing elements the  <a onclick="meta_switch(2)"> run with 50% </a>, the agent moved towards the armor but turned around. But, in the <a onclick="meta_switch(3)"> one with 25% </a>, despite sub-optimal trajectory, the agent successfullt gathered the armor.\n' +
+    '                One hypothesis to draw is that some elements may be cancelling each others.\n' +
+    '                <br><br>\n' +
+    '                This suggests that despite having core information represented in the top elements, the agent performances can still be a bit erratic, therefore this cannot be a reliable reducing strategy.\n' +
+    '                Perhaps, Humans can be of assistance in this matter.', '', ''];
 
 
 function update_stage(nb) {
@@ -46,12 +58,12 @@ function update_stage(nb) {
     stage = '' + nb;
 
     $('#card_title').html(stages_titles[stage]);
-    // $('#card_txt').html(stages_txt[stage]);
+    $('#card_txt').html(stages_txt[stage]);
 
     if (stage !== '4') {
         $('#singleRed').remove();
     }
-      d3.select('#linear-gradient stop').interrupt();
+    d3.select('#linear-gradient stop').interrupt();
     d3.select('#linear-gradient stop').attr('offset', '0%');
 
     let tbbox = tool[0].node().getBoundingClientRect();
@@ -84,7 +96,7 @@ function update_stage(nb) {
             }
             break;
         case  "2":
-            // iz = 0;
+            iz = 0;
 
             if (tops[iz] === undefined) {
                 meta_change('top/' + top_list[iz] + '.json', -1, tops);
