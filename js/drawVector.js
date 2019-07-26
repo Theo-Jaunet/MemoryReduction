@@ -5,14 +5,16 @@ let col = d3.scaleLinear().domain([-1, 0, 1]).range(['#2266a6', '#effce5', '#bf6
 let hst = 800;
 let sels = [-1, -1];
 let old_sels = [-1, -1];
-
+let cur_tri = 'act';
 let mono_col = d3.scaleLinear().domain([0.35, 1]).range(['#FFF', '#bf542f']).interpolate(d3.interpolateHcl);
+let goplz = false;
+let tri = {
+    'act': [17, 19, 16, 6, 1, 4, 12, 10, 8, 14, 11, 27, 29, 15, 30, 7, 22, 25, 0, 3, 13, 21, 5, 24, 18, 28, 2, 26, 20, 23, 9, 31],
+    'ch': [29, 12, 8, 7, 25, 15, 11, 24, 3, 30, 14, 22, 20, 21, 19, 27, 18, 2, 23, 9, 0, 5, 28, 10, 13, 4, 6, 26, 16, 1, 31, 17]
+};
 
-// let mono_col =  d3.scaleLinear().domain([0, 0.6, 0.8, 1]).range(["EFF0E8", '#f2e7e9', "#aa5b65", "#6b111c"]).interpolate(d3.interpolateHcl);
+tri['nm'] = d3.range(32);
 
-let drag_behavior = d3.drag()
-    .on("start", dragstarted)
-    .on("drag", dragged);
 
 function ve_init_rows(svg, data, height, width, mask, elem) {
     d3.select('#linear-gradient stop').attr('offset', '0%');
@@ -25,7 +27,7 @@ function ve_init_rows(svg, data, height, width, mask, elem) {
         hst += 30
     }
 
-    ve_h = Math.min(((height - 120) / data[0].length), 60);
+    ve_h = Math.min(((height - 140) / data[0].length), 60);
     ve_w = Math.min((width - hst - 10) / data.length, 13);
 
     for (let w = 0; w < data.length; w++) {
@@ -35,45 +37,57 @@ function ve_init_rows(svg, data, height, width, mask, elem) {
             .data(data[w])
             .enter()
             .append('rect')
-            .attr('order', (d, i) => i)
+            .style('cursor', (stage === '4' ? 'pointer' : 'default'))
+            .attr('order', (d, i) => {
+                if (goplz) return tri[cur_tri][i]; else return i
+            })
             .attr('x', (hst + (w * ve_w)))
             .attr('y', (d, i) => {
-
-                return (i * ve_h) + 20
+                if (goplz) return (tri[cur_tri].indexOf(i) * ve_h) + 20; else return (i * ve_h) + 20
             }).attr('nb', (d, i) => {
             return i
         }).attr('width', ve_w)
             .attr('height', ve_h)
-            .attr('fill', (d) => {
+            .attr('fill', (d, i) => {
+                if (mask !== undefined && mains[0] !== undefined) {
+                    if (mask[i] < 0.1) {
+                        d = mains[0].hiddens[w][i]
+                    }
+                } else if (elem !== undefined) {
+                    if (elem.length > 0) {
+                        if (i === elem[0] || i === elem[1])
+                            d = mains[0].hiddens[w][i]
+                    }
+                }
                 return (isMono ? mono_col(Math.abs(d)) : col(d))
             }).on('click', svg_click);
     }
 
+
     ve_rows = g.selectAll('rect');
-    init_current(tool[0], (hst - 10) + (ve_w / 2) + (curStep* ve_w), -10, 0);
-    mask_elems(tool[0], mask, data.length);
 
-    if (elem !== undefined)
-        if (elem.length > 0) {
-            sels = elem;
-            mask_elem(sels);
 
-            d3.select('#singleRed').moveToFront();
+    init_current(tool[0], (hst - 10) + (ve_w / 2) + (curStep * ve_w), -10, 0);
+
+    if (stage !== '2' || goplz) {
+
+        if (goplz) {
+            // ve_update_reorder(cur_tri)
         }
+        mask_elems(tool[0], mask, data.length);
 
+        if (elem !== undefined)
+            if (elem.length > 0) {
+                sels = elem;
+                mask_elem(sels);
 
+                d3.select('#singleRed').moveToFront();
+            }
+
+    }
     show_sel(curStep);
 
 }
-
-function ve_update(svg, data) {
-
-    ve_rows.transition().duration(200)
-        .attr('fill', (d, i) => {
-            return col(data[i])
-        })
-}
-
 
 function init_current(svg, offx, offy, step) {
 
@@ -83,10 +97,9 @@ function init_current(svg, offx, offy, step) {
     svg.append('path')
         .attr('d', "M 30.8,16.6 0.8,30.8 10,16.6 0.8,0.8 Z")
         .attr('class', 'curt')
-        .attr('fill', '#a92234')
+        .attr('fill', '#183d4e')
         .style('cursor', 'grab')
         .attr('transform', 'translate(' + (ve_w * (step - 1) + (ve_w / 2) + offx) + ',' + (0 + offy) + ') rotate(' + (90) + ' ' + (15) + ' ' + (15) + ')')
-        .call(drag_behavior)
 
 }
 
@@ -122,7 +135,13 @@ function mask_elems(svg, mask, nb) {
         for (let i = 0; i < mask.length; i++) {
 
             if (mask[i] < 0.1) {
-                let t = tsvg.rectangle(hst - getRandomArbitrary(0, 12), (i * ve_h) + 20 + (0.2 * ve_h), (ve_w * nb + (0.02 * nb)) + getRandomArbitrary(0, 12), ve_h * 0.6, {
+
+                let ind = i;
+
+                if (goplz) {
+                    ind = tri[cur_tri].indexOf(i)
+                }
+                let t = tsvg.rectangle(hst - getRandomArbitrary(0, 12), (ind * ve_h) + 20 + (0.2 * ve_h), (ve_w * nb + (0.02 * nb)) + getRandomArbitrary(0, 12), ve_h * 0.6, {
                     fill: "url(#linear-gradient)",
                     fillWeight: getRandomArbitrary(5, 9), // thicker lines for hachure
                     hachureAngle: getRandomArbitrary(10, 70), // angle of hachure,
@@ -134,6 +153,8 @@ function mask_elems(svg, mask, nb) {
                 // $(t).css('    stroke-dasharray: 5000 50000;
                 document.getElementById('hiddensgrp').appendChild(t)
                 d3.select('#linear-gradient stop').transition().duration(2500).attr('offset', '100%')
+                let tg = d3.select(t).attr('index', ind).attr('class', 'mask').data([ind])
+                tg.selectAll('path').data([ind])
                 /*
 
                                 d3.selectAll('#hiddensgrp path').style('stroke-dasharray', () => '2600px 2600px')
@@ -246,52 +267,37 @@ function svg_click() {
 }
 
 
-function dragstarted() {
+function ve_update_reorder(type) {
+    /*    if (type !== cur_tri) {
+            d3.selectAll('.mask path').transition()
+                .duration(2575)
+                .style('transform', (d) => {
 
 
-}
+                    // let v1 = ve_h * d;
+                    let v1 = ve_h * tri[cur_tri].indexOf(d);
 
+                    return 'translateY(' + (Math.abs(v1 - (ve_h * tri[type].indexOf(d))) + 20 + 'px)');
+                })
+        }*/
 
-function dragged() {
-
-
-    let tm = hst + (ve_w * (tdata.hiddens.length - 1) + (ve_w / 2) - 10);
-
-    let dx = d3.event.sourceEvent.offsetX;
-
-    if (dx < hst - 10) {
-        dx = hst - 10
-    } else if (dx > tm) {
-        dx = tm
+    if (type === 'act') {
+        cur_tri = type;
+        or = tri[cur_tri]
     } else {
-
-        let md = 999;
-        let mi = -1;
-
-        for (let i = 0; i < tdata.hiddens.length; i++) {
-            if (md > Math.abs(dx - (hst + (ve_w * (i - 1 > 0 ? i - 1 : 0.2) + (ve_w / 2) - 10)))) {
-
-                md = Math.abs(dx - (hst + (ve_w * (i - 1 > 0 ? i - 1 : 0.2) + (ve_w / 2) - 10)));
-                mi = i
-
-            }
-        }
-
-        curStep = mi;
-
-
-        d3.selectAll('.curt')
-            .attr("transform", shape => "translate(" + (dx) + ",-10)  rotate(90 15 15) ");
-        up_curtxt(curStep, tdata.hiddens.length - 1);
-
-        show_sel(mi);
-        draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start + curStep], 10, 10);
-        drawImage(tool[0], 'data:image/png;base64,' + tdata.inputs[start + mi], tool[2]);
-        update_bars(tool[0], tdata.probabilities[start + mi]);
-        show_current(tool[0], (hst - 10) + (ve_w / 2), -10, mi)
-
+        cur_tri = type;
+        or = tri[cur_tri]
     }
+
+    ve_rows
+        .attr('order', (d, i) => or.indexOf(i % 32))
+        .transition()
+        .duration(2575)
+        .attr('y', (d, i) => {
+            return (ve_h * or.indexOf(i % 32)) + 20;
+        }).on('end', mask_elems(tool[0], tdata.mask, tdata.hiddens.length))
 }
+
 
 function deler() {
 

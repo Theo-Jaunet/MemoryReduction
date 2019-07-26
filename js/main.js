@@ -26,51 +26,16 @@ d3.json("data/main.json").then(function (data) {
     tdata = data;
 
     reportWindowSize();
+
+    mains[0] = data;
     loadALlTraj();
     draw_arrowV2(500, tool[2] - 30, 180, -1)
+
 
 });
 
 bars_init(tool[0], tool[1], tool[2]);
 drawImage(tool[0], 'assets/image3.jpeg', tool[2]);
-
-function change(type) {
-
-    let filename = (type === 'random/rest' ? type + "" + iz + ".json" : type + ".json");
-
-    d3.json("data/" + filename).then(function (data) {
-        if (type === 'random/rest')
-            iz += 1;
-        data = tofloat(data);
-        let tbbox = tool[0].node().getBoundingClientRect();
-        let traj_s = ((450 * tbbox.width) / 1300);
-        tdata = data;
-        ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1], tdata.mask, -1);
-        draw_traj(tdata.positions, tool[0], traj_s, traj_s, 10, 10, false, 'rand');
-        update_bars(tool[0], tdata.probabilities[start]);
-        draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start], 10, 10);
-    })
-}
-
-
-function change_DIY(type, index) {
-    let filename = (type === 'random/rest' ? type + "" + iz + ".json" : type + ".json");
-
-    d3.json("data/" + filename).then(function (data) {
-        // curStep = 0;
-        data = tofloat(data);
-        let tbbox = tool[0].node().getBoundingClientRect();
-        let traj_s = ((450 * tbbox.width) / 1300);
-        tdata = data;
-        ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1], tdata.mask, index);
-        draw_traj(tdata.positions, tool[0], traj_s, traj_s, 10, 10, false, 'rand');
-        update_bars(tool[0], tdata.probabilities[start]);
-        draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start], 10, 10);
-        // mask_elem(index)
-        show_sel(curStep);
-        up_curtxt(curStep, tdata.hiddens.length - 1);
-    })
-}
 
 
 function meta_change(filename, index) {
@@ -78,23 +43,26 @@ function meta_change(filename, index) {
     d3.json("data/" + filename).then(function (data) {
 
         load_data(data, index)
-
-
     });
 }
-
 
 function load_data(data, index) {
     data = tofloat(data);
     let tbbox = tool[0].node().getBoundingClientRect();
     let traj_s = ((450 * tbbox.width) / 1300);
     tdata = data;
+
     ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1], tdata.mask, index);
-    draw_traj(tdata.positions, tool[0], traj_s, traj_s, 10, 10, false, 'sec-traj');
+    draw_traj(tdata.positions, tool[0], traj_s, traj_s, false, 'sec-traj');
     update_bars(tool[0], tdata.probabilities[start + curStep]);
-    draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start+ curStep], 10, 10);
+    draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start + curStep]);
     show_sel(curStep);
     up_curtxt(curStep, tdata.hiddens.length - 1);
+
+    $('#timebar').attr('max', tdata.hiddens.length - 1);
+
+    $('#timebar').val(curStep);
+    update_time()
     switch (stage) {
         case  "0":
             if (mains[iz] === undefined) {
@@ -107,9 +75,10 @@ function load_data(data, index) {
             }
             break;
         case  "2":
-            if (tops[iz] === undefined) {
-                tops[iz] = data;
-            }
+            if (goplz)
+                if (tops[iz] === undefined) {
+                    tops[iz] = data;
+                }
             break;
         case  "3":
             break;
@@ -133,7 +102,7 @@ function step() {
         update_time();
         show_current(tool[0], (hst - 10) + (ve_w / 2), -10, curStep);
         show_sel(curStep);
-        draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start + curStep], 10, 10);
+        draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start + curStep]);
         drawImage(tool[0], 'data:image/png;base64,' + tdata.inputs[start + curStep], tool[2]);
         update_bars(tool[0], tdata.probabilities[start + curStep]);
     } else {
@@ -167,10 +136,11 @@ $('#timebar').on('input', function () {
 
     curStep = parseInt($(this).val());
     show_sel(curStep);
-    draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start + curStep], 10, 10);
+    draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start + curStep]);
     drawImage(tool[0], 'data:image/png;base64,' + tdata.inputs[start + curStep], tool[2]);
     // ve_update(tool[0], tdata.hiddens[start + curStep]);
     update_bars(tool[0], tdata.probabilities[start + curStep]);
+    up_curtxt(curStep, tdata.hiddens.length - 1)
     show_current(tool[0], (hst - 10) + (ve_w / 2), -10, curStep)
 
 });
@@ -197,7 +167,7 @@ function reportWindowSize() {
     tool[1] = tbbox.width;
     tool[2] = tbbox.height;
 
-    let traj_s = ((650 * tbbox.width) / 1300);
+    let traj_s = ((750 * tbbox.width) / 1300);
     drawImage(tool[0], 'assets/image3.jpeg', tool[2]);
 
     console.log(traj_s);
@@ -205,10 +175,10 @@ function reportWindowSize() {
     $('.distrib').remove();
     $('.arrow').remove();
     traj_init(traj_s, traj_s);
-    draw_traj(tdata.positions, tool[0], traj_s, traj_s, 10, 10, true, 'main');
+    draw_traj(tdata.positions, tool[0], traj_s, traj_s, true, 'main');
 
-    place_items(tool[0], 10, 10, tdata.positions[start]);
-    draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start], 10, 10);
+    place_items(tool[0], tdata.positions[start]);
+    draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start]);
 
     bars_init(tool[0], tool[1], tool[2]);
     update_bars(tool[0], tdata.probabilities[start]);
@@ -223,7 +193,6 @@ function reportWindowSize() {
     $('#card_title').html(stages_titles[stage]);
     $('#card_txt').html(stages_txt[stage]);
 
-
 }
 
 function chain_load(type) {
@@ -233,8 +202,8 @@ function chain_load(type) {
         d3.json("data/" + filename).then(function (data) {
             data = tofloat(data);
             let tbbox = tool[0].node().getBoundingClientRect();
-            let traj_s = ((450 * tbbox.width) / 1300);
-            draw_traj(data.positions, tool[0], traj_s, traj_s, 10, 10, false, 'temptr');
+            let traj_s = ((400 * tbbox.width) / 1300);
+            draw_traj(data.positions, tool[0], traj_s, traj_s, false, 'temptr');
             random[i] = data
         })
 
@@ -250,7 +219,7 @@ function chain_load_top() {
             data = tofloat(data);
             let tbbox = tool[0].node().getBoundingClientRect();
             let traj_s = ((450 * tbbox.width) / 1300);
-            draw_traj(data.positions, tool[0], traj_s, traj_s, 10, 10, false, 'temptr');
+            draw_traj(data.positions, tool[0], traj_s, traj_s, false, 'temptr');
             top[i] = data
         })
 
@@ -265,10 +234,9 @@ function chain_load_DIY() {
             data = tofloat(data);
             let tbbox = tool[0].node().getBoundingClientRect();
             let traj_s = ((450 * tbbox.width) / 1300);
-            draw_traj(data.positions, tool[0], traj_s, traj_s, 10, 10, false, 'temptr');
+            draw_traj(data.positions, tool[0], traj_s, traj_s, false, 'temptr');
             diy[i] = data
         })
-
     }
 }
 
@@ -299,7 +267,7 @@ function loadALlTraj() {
         let keys = Object.keys(data);
 
         for (let i = 0; i < keys.length; i++) {
-            draw_traj(data[keys[i]], tool[0], traj_s, traj_s, 10, 10, false, 'traj-bg');
+            draw_traj(data[keys[i]], tool[0], traj_s, traj_s, false, 'traj-bg');
         }
 
     })
@@ -307,8 +275,6 @@ function loadALlTraj() {
 
 
 function meta_switch(run) {
-
-
     iz = run
 
     switch (stage) {
@@ -327,17 +293,19 @@ function meta_switch(run) {
             }
             break;
         case  "2":
+
+            goplz = true;
+
             if (tops[iz] !== undefined) {
                 load_data(tops[iz])
             } else {
+
                 meta_change('top/' + top_list[iz] + '.json', -1)
             }
             break;
         case  "3":
             break;
-
     }
-
 
 }
 
@@ -347,16 +315,16 @@ function draw_arrowV2(x, y, z, ind) {
 
 
     g.append('text')
-        .attr('x', x + 10)
-        .attr('y', y + 15)
-        .text('Scroll for more information')
+        .attr('x', x - 10)
+        .attr('y', y - 5)
+        .text('More information');
 
     g.append('line')
         .attr('class', 'hiddensli')
-        .attr('x1', 20 * 1.5)
-        .attr('x2', 20 * 1.5)
-        .attr('y1', 5 * 1.5)
-        .attr('y2', 30 * 1.5)
+        .attr('x1', 20 * 0.8)
+        .attr('x2', 20 * 0.8)
+        .attr('y1', 5 * 0.8)
+        .attr('y2', 30 * 0.8)
         .attr('stroke', '#183d4e')
         .attr("stroke-linejoin", "round")
         .attr('stroke_width', '4');
@@ -364,42 +332,42 @@ function draw_arrowV2(x, y, z, ind) {
 
     g.append('line')
         .attr('class', 'hiddensli')
-        .attr('x1', 20 * 1.5)
-        .attr('x2', 12 * 1.5)
-        .attr('y1', 5 * 1.5)
-        .attr('y2', 15 * 1.5)
+        .attr('x1', 20 * 0.8)
+        .attr('x2', 12 * 0.8)
+        .attr('y1', 5 * 0.8)
+        .attr('y2', 15 * 0.8)
         .attr('stroke', '#183d4e')
         .attr("stroke-linejoin", "round")
         .attr('stroke_width', '4');
 
     g.append('line')
         .attr('class', 'hiddensli')
-        .attr('x1', 20 * 1.5)
-        .attr('x2', 28 * 1.5)
-        .attr('y1', 5 * 1.5)
-        .attr('y2', 15 * 1.5)
+        .attr('x1', 20 * 0.8)
+        .attr('x2', 28 * 0.8)
+        .attr('y1', 5 * 0.8)
+        .attr('y2', 15 * 0.8)
         .attr("stroke-linejoin", "round")
         .attr('stroke', '#183d4e')
-        .attr('stroke_width', '4')
+        .attr('stroke_width', '4');
 
 
     g.append('rect')
         .attr('class', 'hiddensli')
         .attr('x', x - 50)
-        .attr('y', y)
-        .attr('width', 230)
-        .attr('height', 150)
+        .attr('y', y - 17)
+        .attr('width', 160)
+        .attr('height', 100)
         .style('cursor', 'pointer')
         .attr('stroke', 'none')
         .attr('fill', 'rgba(255,255,255,0)');
 
-    g.selectAll('line').attr('transform', 'translate(' + x + ',' + y + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')')
+    g.selectAll('line').attr('transform', 'translate(' + (x + 55) + ',' + y + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')')
 
     animateScro();
 
     function animateScro() {
 
-        g.selectAll('line').transition().duration(3000).attr('transform', 'translate(' + x + ',' + y + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')').transition().duration(3000).attr('transform', 'translate(' + x + ',' + (y + 10) + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')').on("end", animateScro);
+        g.selectAll('line').transition().duration(3000).attr('transform', 'translate(' + (x + 55) + ',' + (y + 10) + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')').transition().duration(3000).attr('transform', 'translate(' + (x + 55) + ',' + y + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')').on("end", animateScro);
 
     }
 
@@ -408,8 +376,8 @@ function draw_arrowV2(x, y, z, ind) {
 
 $('body').on('click', '.scro rect', function () {
 
-    document.getElementById('navprob').scrollIntoView({block: 'center', behavior: 'smooth'})
-})
+    document.getElementById('scrolltxt').scrollIntoView({block: 'center', behavior: 'smooth'})
+});
 
 
 function highelems(elems) {
@@ -422,12 +390,11 @@ function highelems(elems) {
     for (let i = 0; i < elems.length; i++) {
 
         tool[0].selectAll('.hiddensgrp rect[order="' + elems[i] + '"]').interrupt().style('opacity', '1')
-
     }
-
 }
 
 
 function resetelems() {
     tool[0].selectAll('.hiddensgrp rect[order]').transition().duration(900).style('opacity', '1');
 }
+

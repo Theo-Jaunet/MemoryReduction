@@ -1,10 +1,11 @@
 let mapx, mapy, traj_x, traj_y;
-
+let offx = -5;
+let offy = -30;
 
 function traj_init(width, height) {
 
-    mapx = [-500, 100];
-    mapy = [300, -200];
+    mapx = [-500, 175];
+    mapy = [600, -170];
 
 
     traj_x = d3.scaleLinear().range([0, width]);
@@ -17,7 +18,7 @@ function traj_init(width, height) {
 }
 
 
-function draw_traj(data, svg, width, height, offx, offy, cs, cla) {
+function draw_traj(data, svg, width, height, cs, cla) {
 
     let line = d3.line()
         .x(function (d) {
@@ -67,14 +68,14 @@ function draw_traj(data, svg, width, height, offx, offy, cs, cla) {
 }
 
 
-function place_items(svg, offx, offy, st) {
+function place_items(svg, st) {
 
     let g = svg.select('.traj');
 
 
     g.append("svg:image")
-        .attr('x', traj_x(-80) + offx - 16.5)
-        .attr('y', traj_y(80) + offy - 13.5)
+        .attr('x', traj_x(-80) + offx - 16.5-12)
+        .attr('y', traj_y(80) + offy - 13.5+1)
         .attr('id', 'armor')
         .attr('width', 33)
         .attr('height', 27)
@@ -82,16 +83,16 @@ function place_items(svg, offx, offy, st) {
 
 
     g.append("svg:image")
-        .attr('x', traj_x(-240) + offx - 16.5)
-        .attr('y', traj_y(80) + offy - 13.5)
+        .attr('x', traj_x(-240) + offx - 16.5-12)
+        .attr('y', traj_y(80) + offy - 13.5+1)
         .attr('width', 33)
         .attr('height', 27)
         .attr("xlink:href", 'assets/soul.png');
 
 
     g.append("svg:image")
-        .attr('x', traj_x(-415) + offx - 16.5)
-        .attr('y', traj_y(206) + offy - 13.5)
+        .attr('x', traj_x(-415) + offx - 16.5-12)
+        .attr('y', traj_y(206) + offy - 13.5+1)
         .attr('width', 33)
         .attr('height', 27)
         .attr("xlink:href", 'assets/hp.png');
@@ -103,12 +104,12 @@ function place_items(svg, offx, offy, st) {
         .attr('r', '7')
         .style('opacity', '0.8')
         .attr('stroke', 'black')
-        .style("fill", "black")
+        .style("fill", "black");
 
 
     g.append("text")
-        .attr('x', traj_x(st[0]) + offx - 15)
-        .attr('y', traj_y(st[1]) + offy - 300)
+        .attr('x', traj_x(st[0]) + offx +35)
+        .attr('y', traj_y(st[1]) + offy -190)
         .attr('font-size', '12pt')
         .style('opacity', '0.8')
         .text('Fail')
@@ -126,11 +127,11 @@ function place_items(svg, offx, offy, st) {
 
 
     g.append("text")
-        .attr('x', traj_x(st[0]) + offx +250)
+        .attr('x', traj_x(st[0]) + offx + 277)
         .attr('y', traj_y(st[1]) + offy + 65)
         .attr('font-size', '12pt')
         .style('opacity', '0.8')
-        .text('Sub-optimal')
+        .text('Not Optimal')
         .attr('font-weight', '600')
         .style("fill", "black");
 
@@ -151,8 +152,8 @@ function draw_walls(svg, offx, offy) {
         .data(walls)
         .enter()
         .append('line')
-        .attr('x1', (d) => traj_x(d[0]) + offx)
-        .attr('x2', (d) => traj_x(d[2]) + offx)
+        .attr('x1', (d) => traj_x(d[0]) + offx-8)
+        .attr('x2', (d) => traj_x(d[2]) + offx-8)
         .attr('y1', (d) => traj_y(d[1]) + offy)
         .attr('y2', (d) => traj_y(d[3]) + offy)
         .attr('stroke', '#555555')
@@ -160,7 +161,7 @@ function draw_walls(svg, offx, offy) {
         .attr("stroke-linejoin", "round")
 }
 
-function draw_agent_path(svg, pos, or, offx, offy) {
+function draw_agent_path(svg, pos, or) {
 
     d3.selectAll('.agent').remove();
 

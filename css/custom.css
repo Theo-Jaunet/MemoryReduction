@@ -9,30 +9,34 @@
     stroke-width: 2px;
 }
 
-
 a {
     cursor: pointer;
 }
+
 .hiddensgrp rect {
 
     stroke-width: 0.02px;
     stroke: #FFF;
-    cursor: pointer;
+}
+
+.item-icon {
+    width: 20px;
+    height: auto;
 }
 
 .hiddensgrp rect:hover {
     opacity: 0.6;
 }
 
-
 .walls {
     stroke-width: 6px;
 }
+
 .nav {
     border: solid #555555 1px;
     cursor: pointer;
-/*    padding: 25px;
-    display: inline-block;*/
+    /*    padding: 25px;
+        display: inline-block;*/
     user-select: none;
     outline: none;
 }

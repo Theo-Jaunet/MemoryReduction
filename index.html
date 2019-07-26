@@ -51,14 +51,18 @@
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <div class="container" style="position: relative">
 
-    <div style="width: 35px;height: auto;display: inline-block;margin-right: 20px;position: absolute;left: 424px;top: 121px;z-index: 50">
-        <img class="play" style="width: 35px" src="assets/play-sign.svg">
-        <p id="stepctn" style="position: absolute;display: inline-block;left: -23px;width: 80px;top: 46px;user-focus: none;user-select: none">Step --/--</p>
+    <div style="width: 35px;height: auto;display: inline-block;margin-right: 20px;position: absolute;left: 488.5px;top: 74px;z-index: 50">
+        <img class="play" style="width: 35px;position: absolute;left: -43px" src="assets/play-sign.svg">
+        <input id="timebar" type="range" min="0" max="35" step="1" value="0" style="width: 292.5px;position: absolute;top: 14px;">
+        <p id="stepctn" style="position: absolute;display: inline-block;left: 80px;width: 80px;top: -18px;user-focus: none;user-select: none">Step --/--</p>
     </div>
     <div class="row" style="margin-top: 15px">
         <div class="five  columns" style="position: relative">
-
-            <p style="max-height: 100px;">We trained an agent to play DOOM using Deep Reinforcement learning. The agent has to pick items in a specific order : Armor -> Health Pack -> and Soul-sphere, with the shortest path possible.
+            <h5> What if an artificial doom Player had reduced memory?</h5>
+            <p style="max-height: 100px;">We trained an agent to play DOOM using Deep Reinforcement learning.
+                The agent has to gather items in a specific order : <br>Armor <img src="assets/armor.png" class="item-icon"> -> Health Pack <img src="assets/hp.png" class="item-icon"> -> and Soul-sphere <img src="assets/soul.png"
+                                                                                                                                                                                                                class="item-icon"> , with the
+                shortest path possible.
                 Let’s explore how changing the train agent memory influences its trajectory!</p>
 
         </div>
@@ -73,9 +77,9 @@
         </div>
     </div>
 
-    <div class=" row" style="max-height: 650px">
+    <div class=" row" style="max-height: 665px;position: absolute;top:91px">
         <div class="eight columns">
-            <svg class="" id="tool" style="height: auto;width: 100%;min-height: 660px;min-width: 785px">
+            <svg class="" id="tool" style="height: auto;width: 100%;min-height: 685px;min-width: 785px">
                 <defs>
                     <filter id="brightness">
                         <feComponentTransfer>
@@ -90,12 +94,6 @@
                     </linearGradient>
                 </defs>
             </svg>
-            <div  style="position: relative">
-
-                <!--                <div style="display: inline-block;width: 320px">
-                                    <input id="timebar" type="range" min="0" max="39" step="1" value="0" style="width: 290px;position: absolute;top: 14px;">
-                                </div>-->
-            </div>
         </div>
         <div class="four columns" style="min-width: 350px">
             <h5 style="width: 100%" id="card_title"> Full Memory</h5>
@@ -107,41 +105,7 @@
     </div>
 
 
-    <div class=" row" style="text-align: center">
-        <div class="twelve columns" style="margin-top: 25%;display: inline-block">
-            <div style="text-align: left;width: 800px;display: inline-block">
-                <h4 id="navprob">Navigation Problems</h4>
-
-                <ul>
-
-                    <li>
-                        What are navigation problems
-                    </li>
-                    <li>
-                        Why are they important
-                    </li>
-                    <li>
-                        Different approaches to tackle this problem
-                    </li>
-                    <li>
-                        Our navigation problem: K-item in which the agent must gather items in a pre-defined order
-                    </li>
-                </ul>
-                <p>
-                    has Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                    mollit anim id est laborum.
-
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                    laborum.
-                </p>
-            </div>
-        </div>
-    </div>
-
-
-    <div class=" row" style="text-align: center">
+    <div class=" row" id="scrolltxt" style="text-align: center;margin-top: 60vh">
         <div class="twelve columns" style="margin-top: 25%;display: inline-block">
             <div style="text-align: left;width: 800px;display: inline-block">
                 <h4>Deep Reinforcement Learning and Memory</h4>

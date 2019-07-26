@@ -10,7 +10,7 @@ let stages_txt = [
     'Once the agent has gathered the armor in <a onclick="load_step(15)">step 15</a> the first <a onmouseover="highelems([0,1,2])" onmouseout="resetelems()">3 elements</a> changed their activations from either active to inactive or the other way around.' +
     '<br>' +
     '<br>' +
-    'The <a onmouseover="highelems([31])" onmouseout="resetelems()"> last element</a> is inactive during this trajectoy. How the agent would behave without it? <a onclick="meta_change(\'nDIY/red31_-1.json\', [31,-1])">Let\'s find out! </a><br> We can see that the new trajectory is exactly the same as the previous one, thus we can conclude that is element has no impact in the agent\'s decision process for this sequence.' +
+    'The <a onmouseover="highelems([31])" onmouseout="resetelems()"> last element</a> is inactive during this trajectory. How the agent would behave without it? <a onclick="meta_change(\'nDIY/red31_-1.json\', [31,-1])">Let\'s find out! </a><br> We can see that the new trajectory is exactly the same as the previous one, thus we can conclude that is element has no impact in the agent\'s decision process for this sequence.' +
     '<br>' +
     '<br>' +
     'What if we go further and remove more memory elements? Having smaller models would be useful as they may be more interpretable, but also requiring less computing power and less energy consumption footprint.     ' +
@@ -32,12 +32,14 @@ let stages_txt = [
     'This suggest that some elements may be essential for the agent\'s decisions.' +
     '<br>' +
     '<br>',
-    'If some memory elements are essential, are they among the top activated? The top changing? Or top projected?' +
+
+
+    'If some memory elements are essential, are they among the <a onclick="ve_update_reorder(\'act\')">top activated?</a> The <a  onclick="ve_update_reorder(\'ch\')">top changing?</a> ' +
     'We now sort the memory according to different metrics and remove either the bottom 50% or 75%.' +
     '<br><br>' +
-    'Among the top activated elements we can observe that in <a onclick="meta_switch(0)"> run with 50% </a>' +
-    'memory, the agent moved towards the armor but avoided it.' +
-    'n the <a onclick="meta_switch(1)"> run with 25% </a> memory, the agent seems lost and moved in circle. This may indicate that key elements may be in the second top quarter of elements.' +
+    'Among the top activated elements we can observe that in <a onclick="meta_switch(0)"> with 50% memory </a>' +
+    ', the agent moved towards the armor but avoided it.' +
+    ' With <a onclick="meta_switch(1)">  25% memory </a>, the agent seems lost and moved in circle. This may indicate that key elements may be in the second top quarter of elements.' +
     '<br><br>' +
     'While using only the most changing elements the  <a onclick="meta_switch(2)"> run with 50% </a>, the agent moved towards the armor but turned around. But, in the <a onclick="meta_switch(3)"> one with 25% </a>, despite sub-optimal trajectory, the agent successfullt gathered the armor.' +
     'One hypothesis to draw is that some elements may be cancelling each others.' +
@@ -56,7 +58,7 @@ let stages_txt = [
 
 
 function update_stage(nb) {
-
+    goplz = false;
 
     stage = '' + nb;
     resetelems();
@@ -92,29 +94,41 @@ function update_stage(nb) {
             $('.random').remove();
 
             for (let i = 0; i < random.length; i++) {
-                draw_traj(random[i].positions, tool[0], traj_s, traj_s, 10, 10, false, 'sec-traj');
+                draw_traj(random[i].positions, tool[0], traj_s, traj_s, false, 'sec-traj');
             }
             if (random.length < 11) {
                 chain_load('random/rest')
             }
             break;
         case  "2":
+            /*            iz = 0;
+
+                        if (tops[iz] === undefined) {
+                            meta_change('top/' + top_list[iz] + '.json', -1, tops);
+                        } else {
+                            load_data(tops[iz])
+                        }
+
+                        for (let i = 0; i < tops.length; i++) {
+                            draw_traj(tops[i].positions, tool[0], traj_s, traj_s, false, 'temptr');
+                        }
+*/
+            /*chain_load_top();*/
+
             iz = 0;
-
-            if (tops[iz] === undefined) {
-                meta_change('top/' + top_list[iz] + '.json', -1, tops);
+            if (mains[iz] === undefined) {
+                meta_change('main.json', -1, mains);
             } else {
-                load_data(tops[iz])
+                load_data(mains[iz])
             }
-
-            for (let i = 0; i < tops.length; i++) {
-                draw_traj(tops[i].positions, tool[0], traj_s, traj_s, 10, 10, false, 'temptr');
-            }
-
-            chain_load_top();
             break;
         case "3":
-            change('main');
+            iz = 0;
+            if (mains[iz] === undefined) {
+                meta_change('main.json', -1, mains);
+            } else {
+                load_data(mains[iz])
+            }
             break;
         case "4":
             iz = 0;
@@ -125,7 +139,12 @@ function update_stage(nb) {
             }
             break;
         default:
-            change('main');
+            iz = 0;
+            if (mains[iz] === undefined) {
+                meta_change('main.json', -1, mains);
+            } else {
+                load_data(mains[iz])
+            }
             break;
     }
 }
@@ -141,7 +160,7 @@ $('.card').on('mouseover', function () {
             break;
         case "1":
             for (let i = 0; i < random.length; i++) {
-                draw_traj(random[i].positions, tool[0], traj_s, traj_s, 10, 10, false, 'temptr');
+                draw_traj(random[i].positions, tool[0], traj_s, traj_s, false, 'temptr');
             }
 
             if (random.length < 14) {
@@ -151,7 +170,7 @@ $('.card').on('mouseover', function () {
         case  "2":
 
             for (let i = 0; i < top.length; i++) {
-                draw_traj(top[i].positions, tool[0], traj_s, traj_s, 10, 10, false, 'temptr');
+                draw_traj(top[i].positions, tool[0], traj_s, traj_s, false, 'temptr');
             }
             if (top.length < 3) {
                 chain_load_top();
@@ -163,7 +182,7 @@ $('.card').on('mouseover', function () {
         case  "4":
 
             for (let i = 0; i < diy.length; i++) {
-                draw_traj(diy[i].positions, tool[0], traj_s, traj_s, 10, 10, false, 'temptr');
+                draw_traj(diy[i].positions, tool[0], traj_s, traj_s, false, 'temptr');
             }
 
             if (diy.length < 10) {
@@ -171,7 +190,6 @@ $('.card').on('mouseover', function () {
             }
             break;
         default:
-            change('main');
             break;
     }
 

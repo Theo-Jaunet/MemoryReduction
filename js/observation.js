@@ -4,7 +4,7 @@ function drawImage(svg, url, height) {
     $('#obs').remove();
     svg.append("svg:image")
         .attr('x', 160)
-        .attr('y', height - 156)
+        .attr('y', height - 166)
         .attr('width', 250)
         .attr('height', 162)
         .attr('id', 'obs')
@@ -23,7 +23,7 @@ function drawModel(svg, height) {
     $('#model').remove();
     svg.append("svg:image")
         .attr('x', 405)
-        .attr('y', height - 144)
+        .attr('y', height - 150)
         .attr('width', 300)
         .attr('height', 160)
         .attr('id', 'model')
