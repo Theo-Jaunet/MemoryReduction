@@ -57,7 +57,7 @@ function change_DIY(type, index) {
     let filename = (type === 'random/rest' ? type + "" + iz + ".json" : type + ".json");
 
     d3.json("data/" + filename).then(function (data) {
-        curStep = 0;
+        // curStep = 0;
         data = tofloat(data);
         let tbbox = tool[0].node().getBoundingClientRect();
         let traj_s = ((450 * tbbox.width) / 1300);
@@ -91,8 +91,8 @@ function load_data(data, index) {
     tdata = data;
     ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1], tdata.mask, index);
     draw_traj(tdata.positions, tool[0], traj_s, traj_s, 10, 10, false, 'sec-traj');
-    update_bars(tool[0], tdata.probabilities[start]);
-    draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start], 10, 10);
+    update_bars(tool[0], tdata.probabilities[start + curStep]);
+    draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start+ curStep], 10, 10);
     show_sel(curStep);
     up_curtxt(curStep, tdata.hiddens.length - 1);
     switch (stage) {
@@ -112,6 +112,9 @@ function load_data(data, index) {
             }
             break;
         case  "3":
+            break;
+        case  "4":
+            diy[iz] = data;
             break;
 
     }
@@ -220,6 +223,7 @@ function reportWindowSize() {
     $('#card_title').html(stages_titles[stage]);
     $('#card_txt').html(stages_txt[stage]);
 
+
 }
 
 function chain_load(type) {
@@ -297,6 +301,7 @@ function loadALlTraj() {
         for (let i = 0; i < keys.length; i++) {
             draw_traj(data[keys[i]], tool[0], traj_s, traj_s, 10, 10, false, 'traj-bg');
         }
+
     })
 }
 
@@ -407,5 +412,22 @@ $('body').on('click', '.scro rect', function () {
 })
 
 
+function highelems(elems) {
+
+    //TODO: Detected close elements
 
 
+    tool[0].selectAll('.hiddensgrp rect[order]').transition().duration(900).style('opacity', '0.3');
+
+    for (let i = 0; i < elems.length; i++) {
+
+        tool[0].selectAll('.hiddensgrp rect[order="' + elems[i] + '"]').interrupt().style('opacity', '1')
+
+    }
+
+}
+
+
+function resetelems() {
+    tool[0].selectAll('.hiddensgrp rect[order]').transition().duration(900).style('opacity', '1');
+}

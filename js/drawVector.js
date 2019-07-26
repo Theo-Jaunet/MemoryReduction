@@ -3,6 +3,8 @@ let ve_rows = [];
 let ve_w = 15;
 let col = d3.scaleLinear().domain([-1, 0, 1]).range(['#2266a6', '#effce5', '#bf6b09']).interpolate(d3.interpolateHcl);
 let hst = 800;
+let sels = [-1, -1];
+let old_sels = [-1, -1];
 
 let mono_col = d3.scaleLinear().domain([0.35, 1]).range(['#FFF', '#bf542f']).interpolate(d3.interpolateHcl);
 
@@ -13,7 +15,7 @@ let drag_behavior = d3.drag()
     .on("drag", dragged);
 
 function ve_init_rows(svg, data, height, width, mask, elem) {
-    d3.select('#linear-gradient stop').attr('offset', '0%')
+    d3.select('#linear-gradient stop').attr('offset', '0%');
     svg.selectAll('.hiddensgrp').remove();
 
     let g = svg.append('g').attr('class', 'hiddensgrp').attr('id', 'hiddensgrp');
@@ -48,12 +50,17 @@ function ve_init_rows(svg, data, height, width, mask, elem) {
     }
 
     ve_rows = g.selectAll('rect');
-    init_current(tool[0], (hst - 10) + (ve_w / 2), -10, 0);
-    mask_elems(tool[0], mask, data.length)
-    if (elem > -1)
-        mask_elem(elem);
+    init_current(tool[0], (hst - 10) + (ve_w / 2) + (curStep* ve_w), -10, 0);
+    mask_elems(tool[0], mask, data.length);
 
-    d3.select('#singleRed').moveToFront();
+    if (elem !== undefined)
+        if (elem.length > 0) {
+            sels = elem;
+            mask_elem(sels);
+
+            d3.select('#singleRed').moveToFront();
+        }
+
 
     show_sel(curStep);
 
@@ -145,27 +152,35 @@ function mask_elem(index) {
     $('#singleRed').remove();
 
     let g = tool[0].append('g').attr('id', 'singleRed');
-    let tsvg = rough.svg(tool[0]);
+
     let nb = tdata.hiddens.length;
 
-        d3.select('#linear-gradient stop').interrupt();
-        d3.select('#linear-gradient stop').attr('offset', '0%');
+    d3.select('#linear-gradient stop').interrupt();
+    d3.select('#linear-gradient stop').attr('offset', '0%');
 
-    change('DIY/red' + index);
+    // change('DIY/red' + index);
 
-    let t = tsvg.rectangle(hst - getRandomArbitrary(0, 12), (index * ve_h) + 20, (ve_w * tdata.hiddens.length + (0.02 * tdata.hiddens.length)) + getRandomArbitrary(0, 12), ve_h * 0.8, {
-        fill: "url(#linear-gradient)",
-        fillWeight: getRandomArbitrary(5, 9), // thicker lines for hachure
-        hachureAngle: getRandomArbitrary(10, 70), // angle of hachure,
-        hachureGap: getRandomArbitrary(3, 4),
-        stroke: 'none'
-    });
+    for (let w = 0; w < index.length; w++) {
+        let tsvg = rough.svg(tool[0]);
+        if (index[w] > -1) {
+            let t = tsvg.rectangle(hst - getRandomArbitrary(0, 12), (index[w] * ve_h) + 20, (ve_w * tdata.hiddens.length + (0.02 * tdata.hiddens.length)) + getRandomArbitrary(0, 12), ve_h * 0.8, {
+                fill: (!old_sels.includes(index[w]) ? "url(#linear-gradient)" : "rgb(10,10,10)"),
+                fillWeight: getRandomArbitrary(5, 9), // thicker lines for hachure
+                hachureAngle: getRandomArbitrary(10, 70), // angle of hachure,
+                hachureGap: getRandomArbitrary(3, 4),
+                stroke: 'none'
+            });
+            document.getElementById('singleRed').appendChild(t);
+            d3.select(t).attr('index', index[w]).style('cursor', 'pointer').on('click', deler)
+        }
 
-    document.getElementById('singleRed').appendChild(t);
+    }
+
+    old_sels = sels.slice();
+    d3.select('#singleRed').moveToFront();
 
 
-    d3.select('#singleRed').moveToFront()
-    d3.select('#linear-gradient stop').transition().duration(1500).attr('offset', '100%')
+    d3.select('#linear-gradient stop').transition().duration(1000).attr('offset', '100%')
 }
 
 function link_model(svg, data) {
@@ -202,8 +217,29 @@ function svg_click() {
     if (stage === '4') {
         let index = $(this).attr('nb');
 
+        if (Math.min(...sels) !== -1) {
 
-        change_DIY('DIY/red' + index, index);
+            sels.shift()
+            sels.push(parseInt(index))
+
+        } else {
+            sels[sels.indexOf(-1)] = parseInt(index)
+        }
+
+
+        if (Math.min(...sels) !== -1) {
+            iz = Math.min(...sels) + '_' + Math.max(...sels);
+        } else {
+            iz = Math.max(...sels) + '_' + Math.min(...sels);
+
+        }
+        if (diy[iz] === undefined) {
+
+            meta_change('nDIY/red' + iz + '.json', sels);
+
+        } else {
+            load_data(diy[iz], sels)
+        }
         // mask_elem(index);
     }
 
@@ -253,6 +289,40 @@ function dragged() {
         drawImage(tool[0], 'data:image/png;base64,' + tdata.inputs[start + mi], tool[2]);
         update_bars(tool[0], tdata.probabilities[start + mi]);
         show_current(tool[0], (hst - 10) + (ve_w / 2), -10, mi)
+
+    }
+}
+
+function deler() {
+
+
+    let g = d3.select(this);
+
+    sels[sels.indexOf(parseInt(g.attr('index')))] = -1;
+
+    let iz;
+    if (sels[0] === -1 && sels[1] === -1) {
+        iz = 0;
+        if (mains[iz] === undefined) {
+            g.remove();
+            meta_change('main.json', -1, mains);
+        } else {
+            load_data(mains[iz])
+        }
+    } else {
+        if (Math.min(...sels) !== -1) {
+            iz = Math.min(...sels) + '_' + Math.max(...sels);
+        } else {
+            iz = Math.max(...sels) + '_' + Math.min(...sels);
+
+        }
+        if (diy[iz] === undefined) {
+
+            meta_change('nDIY/red' + iz + '.json', sels);
+
+        } else {
+            load_data(diy[iz], sels)
+        }
 
     }
 }

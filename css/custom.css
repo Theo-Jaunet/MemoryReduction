@@ -1,7 +1,7 @@
 
 .traj path {
 
-    stroke-width: 3px;
+    stroke-width: 1.6px;
 }
 
 .hiddensli {
@@ -48,7 +48,7 @@ a {
 }
 
 .traj-bg {
-    opacity: 0.2 !important;
+    opacity: 0.1 !important;
 }
 
 .hsel rect {

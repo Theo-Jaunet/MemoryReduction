@@ -1,65 +1,68 @@
 let stage = 0;
 
 let stages_titles = ['Full Memory', 'Random Memory Reductions', 'Top Memory Elements', 'Memory Elements Selection', 'Do it Yourself!'];
-let stages_txt = [' We begin with a fully trained agent using 100% of its memory. During this interval, the agent moved towards the armor, and then towards where it started instead of reaching the health pack.\n' +
-'                This suggests that the agent forgot that it saw the health pack at the beginning.\n' +
-'                <br>\n' +
-'                <br>\n' +
-'                Once the agent has gathered the armor in <a onclick="load_step(15)">step 15</a> the first <a>3 elements</a> change their activations from either active to inactive or the other way around.\n' +
-'                <br>\n' +
-'                <br>\n' +
-'                The <a> last element</a> is inactive during this interval. How the agent would behave without it? <a onclick="change_DIY(\'DIY/red31\', 31)">Let\'s find out! </a> We can see that the new trajectory is exactly the same as the previous one, thus we can conclude that is element has no impact in the agent\'s decision process during this sequence.\n' +
-'                <br>\n' +
-'                <br>\n' +
-'                What if we go further and remove more memory elements? This would be useful to have smaller models which may be more interpretable as they may contain less memory dimensions, but also requiring less computing power and reduce the energy consumption footprint.     \n' +
-'                <br>\n',
+let stages_txt = [
+
+    'We begin with a fully trained agent using 100% of its memory. With the generated trajectory, we can see that the agent moved towards the armor as it should, and then stepped back to where it started instead of moving towards the health pack.' +
+    'This suggests that the agent forgot that it saw the health pack at the beginning.' +
+    '<br>' +
+    '<br>' +
+    'Once the agent has gathered the armor in <a onclick="load_step(15)">step 15</a> the first <a onmouseover="highelems([0,1,2])" onmouseout="resetelems()">3 elements</a> changed their activations from either active to inactive or the other way around.' +
+    '<br>' +
+    '<br>' +
+    'The <a onmouseover="highelems([31])" onmouseout="resetelems()"> last element</a> is inactive during this trajectoy. How the agent would behave without it? <a onclick="meta_change(\'nDIY/red31_-1.json\', [31,-1])">Let\'s find out! </a><br> We can see that the new trajectory is exactly the same as the previous one, thus we can conclude that is element has no impact in the agent\'s decision process for this sequence.' +
+    '<br>' +
+    '<br>' +
+    'What if we go further and remove more memory elements? Having smaller models would be useful as they may be more interpretable, but also requiring less computing power and less energy consumption footprint.     ' +
+    '<br>',
 
 
-    '  How many memory elements can we remove without affecting the agent\'s performance?\n' +
-    '                And how can we decide which elements can be removed?\n' +
-    '                A naive approach is to randomly remove memory element regardless of their activation. Now, each element has 50% chance to be erased.\n' +
-    '\n' +
-    '                <br>\n' +
-    '\n' +
-    '                Despite having only 18 elements (i.e. 56% of its memory), the agent is still able to gather the armor in the same amount of steps.\n' +
-    '                However, instead of turning around it continued in the same direction. In the <a onclick="meta_switch(2)">second run</a>, the agent also gathered the armor but then rushed into the wall.\n' +
-    '                <br>\n' +
-    '\n' +
-    '                While having more than 62% of its memory elements removed, the agent moved towards the health pack instead og the armor.\n' +
-    '                Such trajectory is either confident like <a  onclick="meta_switch(4)"> this run</a> or hesitant as in <a  onclick="meta_switch(3)"> run 3</a> during which the agent first aimed for the soul-sphere and then moved towards the health pack.\n' +
-    '                Similarly, in <a  onclick="meta_switch(5)"> run 5</a> with almost 72% of the memory reduced, the agent aimed for the soul-sphere, and got stuck in a loop alternating left and right actions in front of it.\n' +
-    '\n' +
-    '\n' +
-    '                <br>\n' +
-    '                Finally, despite only having 13 elements removed in the<a  onclick="meta_switch(10)"> last run</a>, the agent ended up confused and turned around.\n' +
-    '                This suggest that some elements may be essential for the agent\'s decisions.\n' +
-    '\n' +
-    '                <br>\n' +
-    '                <br>\n',
+    'How can we decide how many, and which memory elements can we remove without affecting the agent\'s performance?' +
+    ' <br>' +
+    'A naive approach is to randomly remove memory elements regardless of their activation. Here, they each have 50% chance to be erased.' +
+    '<br><br>' +
+    'Despite having only 56% of its memory, the agent is still able to gather the armor in the same amount of steps.' +
+    'However, instead of stepping back, it continued in the same direction. In the <a onclick="meta_switch(2)">second run</a>, the agent also gathered the armor but then rushed into the wall.' +
+    '<br>' +
+    'While having around than 38% of its memory, the agent moved towards the health pack instead of the armor.' +
+    'Such trajectory was either <a  onclick="meta_switch(4)">confident</a> or  <a  onclick="meta_switch(3)">hesitant</a>. ' +
+    'Similarly in <a  onclick="meta_switch(5)"> run 5</a>, the agent with around 28% of its memory, aimed for the soul-sphere and got stuck in a loop alternating left and right actions in front of it.' +
+    '<br>' +
+    'Finally, despite only having 13 elements removed in the<a  onclick="meta_switch(10)"> last run</a>, the agent ended up confused and turned around.' +
+    'This suggest that some elements may be essential for the agent\'s decisions.' +
+    '<br>' +
+    '<br>',
+    'If some memory elements are essential, are they among the top activated? The top changing? Or top projected?' +
+    'We now sort the memory according to different metrics and remove either the bottom 50% or 75%.' +
+    '<br><br>' +
+    'Among the top activated elements we can observe that in <a onclick="meta_switch(0)"> run with 50% </a>' +
+    'memory, the agent moved towards the armor but avoided it.' +
+    'n the <a onclick="meta_switch(1)"> run with 25% </a> memory, the agent seems lost and moved in circle. This may indicate that key elements may be in the second top quarter of elements.' +
+    '<br><br>' +
+    'While using only the most changing elements the  <a onclick="meta_switch(2)"> run with 50% </a>, the agent moved towards the armor but turned around. But, in the <a onclick="meta_switch(3)"> one with 25% </a>, despite sub-optimal trajectory, the agent successfullt gathered the armor.' +
+    'One hypothesis to draw is that some elements may be cancelling each others.' +
+    '<br><br>' +
+    'This suggests that despite having core information represented in the top elements, the agent performances can still be a bit erratic, therefore this cannot be a reliable reducing strategy.' +
+    'Perhaps, Humans can be of assistance in this matter.',
 
 
-    '                If some memory elements are essential, are they among the top activated? the top changing? or top projected?\n' +
-    '                We now sort the memory according to different metrics and remove either the bottom 50% or 75%.\n' +
-    '                <br><br>\n' +
-    '                Among the top activated elements we can observe that in <a onclick="meta_switch(0)"> run with 50% </a>\n' +
-    '                memory, the agent moved towards the armor but avoided it.\n' +
-    '               In the <a onclick="meta_switch(1)"> run with 25% </a> memory, the agent seems lost and moved in circle. This may indicate that key elements may be in the second top quarter of elements.\n' +
-    '                <br><br>\n' +
-    '                While using only the most changing elements the  <a onclick="meta_switch(2)"> run with 50% </a>, the agent moved towards the armor but turned around. But, in the <a onclick="meta_switch(3)"> one with 25% </a>, despite sub-optimal trajectory, the agent successfullt gathered the armor.\n' +
-    '                One hypothesis to draw is that some elements may be cancelling each others.\n' +
-    '                <br><br>\n' +
-    '                This suggests that despite having core information represented in the top elements, the agent performances can still be a bit erratic, therefore this cannot be a reliable reducing strategy.\n' +
-    '                Perhaps, Humans can be of assistance in this matter.', '', ''];
+    'We manually selected different groups of elements ....',
+
+
+    'You can select up to 2 elements by clicking on them, and replay the generated trajectory. You can cancel a reduction by clicking on it. <br' +
+    '><br> The reduction of both <a onclick="meta_change(\'nDIY/red10_23.json\', [10,23])"> elements 10 and 23 </a> ' +
+    'is enough to make the agent move towards the healh pack. This indicates that those elements are essential for the agent to decide. ' +
+    'However, removing only one result on the agent having the same trajectory as when it used its full memory.'];
 
 
 function update_stage(nb) {
 
 
     stage = '' + nb;
-
+    resetelems();
     $('#card_title').html(stages_titles[stage]);
     $('#card_txt').html(stages_txt[stage]);
-
+    sels = [-1, -1]
     if (stage !== '4') {
         $('#singleRed').remove();
     }
@@ -164,7 +167,7 @@ $('.card').on('mouseover', function () {
             }
 
             if (diy.length < 10) {
-                chain_load_DIY();
+                // chain_load_DIY();
             }
             break;
         default:

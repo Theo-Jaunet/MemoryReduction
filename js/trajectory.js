@@ -60,8 +60,10 @@ function draw_traj(data, svg, width, height, offx, offy, cs, cla) {
             .style("fill", "none")
     }
 
-/*    d3.select('.traj_bg').moveToFront()
-    d3.select('.traj_top').moveToFront()*/
+
+    d3.select('.traj_bg').moveToFront()
+    d3.select('.traj_top').moveToFront()
+    d3.select('#armor').moveToFront()
 }
 
 
@@ -70,34 +72,14 @@ function place_items(svg, offx, offy, st) {
     let g = svg.select('.traj');
 
 
-    /*
-        g.append("circle")
-            .attr('cx', traj_x(-80) + offx)
-            .attr('cy', traj_y(80) + offy)
-            .attr('r', '6')
-            .style('opacity', '0.8')
-            .attr('stroke', 'red')
-            .style("fill", "red");
-    */
-
-
     g.append("svg:image")
         .attr('x', traj_x(-80) + offx - 16.5)
         .attr('y', traj_y(80) + offy - 13.5)
+        .attr('id', 'armor')
         .attr('width', 33)
         .attr('height', 27)
         .attr("xlink:href", 'assets/armor.png')
 
-
-    /*
-        g.append("circle")
-            .attr('cx', traj_x(-240) + offx)
-            .attr('cy', traj_y(80) + offy)
-            .attr('r', '6')
-            .style('opacity', '0.8')
-            .attr('stroke', 'blue')
-            .style("fill", "blue");
-    */
 
     g.append("svg:image")
         .attr('x', traj_x(-240) + offx - 16.5)
@@ -105,15 +87,6 @@ function place_items(svg, offx, offy, st) {
         .attr('width', 33)
         .attr('height', 27)
         .attr("xlink:href", 'assets/soul.png');
-
-
-    /*    g.append("circle")
-            .attr('cx', traj_x(-415) + offx)
-            .attr('cy', traj_y(206) + offy)
-            .attr('r', '6')
-            .style('opacity', '0.8')
-            .attr('stroke', 'gray')
-            .style("fill", "gray");*/
 
 
     g.append("svg:image")
@@ -135,10 +108,29 @@ function place_items(svg, offx, offy, st) {
 
     g.append("text")
         .attr('x', traj_x(st[0]) + offx - 15)
+        .attr('y', traj_y(st[1]) + offy - 300)
+        .attr('font-size', '12pt')
+        .style('opacity', '0.8')
+        .text('Fail')
+        .attr('font-weight', '600')
+        .style("fill", "black");
+
+    g.append("text")
+        .attr('x', traj_x(st[0]) + offx - 15)
         .attr('y', traj_y(st[1]) + offy + 30)
         .attr('font-size', '12pt')
         .style('opacity', '0.8')
         .text('Start')
+        .attr('font-weight', '600')
+        .style("fill", "black");
+
+
+    g.append("text")
+        .attr('x', traj_x(st[0]) + offx +250)
+        .attr('y', traj_y(st[1]) + offy + 65)
+        .attr('font-size', '12pt')
+        .style('opacity', '0.8')
+        .text('Sub-optimal')
         .attr('font-weight', '600')
         .style("fill", "black");
 
@@ -173,39 +165,14 @@ function draw_agent_path(svg, pos, or, offx, offy) {
     d3.selectAll('.agent').remove();
 
     svg.append('path')
-    // .attr('d', "M 15.8,8.3 0.8,15.8 5,8.3 0.8,0.8 Z")
+
         .attr('d', "M 30.8,16.6 0.8,30.8 10,16.6 0.8,0.8 Z")
         .attr('class', 'agent')
         .attr('fill', '#a92234')
         .attr('transform', 'translate(' + ((traj_x(pos[0]) - 15) + offx) + ',' + ((traj_y(pos[1]) - 15) + offy) + ') rotate(' + (360 - or) + ' ' + (15) + ' ' + (15) + ')')
-
 }
 
 
 
 
 
-/*
-    let repeat = () => {
-      var data = d3.range(11).map(function(){return Math.random()*10})
-      // Uncomment following line to clear the previously drawn line
-      //svg.selectAll("path").remove();
-      // Set a light grey class on old paths
-      svg.selectAll("path").attr("class", "old");
-      var path = svg.append("path")
-        .attr("d", line(data))
-        .attr("stroke", "darkgrey")
-        .attr("stroke-width", "2")
-        .attr("fill", "none");
-      var totalLength = path.node().getTotalLength();
-      path
-        .attr("stroke-dasharray", totalLength + " " + totalLength)
-        .attr("stroke-dashoffset", totalLength)
-        .transition()
-          .duration(4000)
-          .ease(d3.easeLinear)
-          .attr("stroke-dashoffset", 0)
-          .on("end", repeat);
-    };
-    repeat();
-*/
