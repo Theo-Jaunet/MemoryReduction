@@ -3,11 +3,11 @@ let stage = 0;
 let stages_titles = ['Full Memory', 'Random Memory Reductions', 'Top Memory Elements', 'Memory Elements Selection', 'Do it Yourself!'];
 let stages_txt = [
 
-    'We begin with a fully trained agent using 100% of its memory. With the generated trajectory, we can see that the agent moved towards the armor as it should, and then stepped back to where it started instead of moving towards the health pack.' +
+    'We begin with a fully trained agent using 100% of its memory. With the generated trajectory, we can see that the agent moved towards the armor as it should, and then stepped back to where it started instead of moving towards the health pack. ' +
     'This suggests that the agent forgot that it saw the health pack at the beginning.' +
     '<br>' +
     '<br>' +
-    'Once the agent has gathered the armor in <a onclick="load_step(15)">step 15</a> the first <a onmouseover="highelems([0,1,2])" onmouseout="resetelems()">3 elements</a> changed their activations from either active to inactive or the other way around.' +
+    'Once the agent has gathered the armor in <a onclick="load_step(15)">step 15</a> the first <a onmouseover="highelems([0,1,2])" onmouseout="resetelems()">3 elements</a> changed their activations from either active to inactive or the other way around. ' +
     '<br>' +
     '<br>' +
     'The <a onmouseover="highelems([31])" onmouseout="resetelems()"> last element</a> is inactive during this trajectory. How the agent would behave without it? <a onclick="meta_change(\'nDIY/red31_-1.json\', [31,-1])">Let\'s find out! </a><br> We can see that the new trajectory is exactly the same as the previous one, thus we can conclude that is element has no impact in the agent\'s decision process for this sequence.' +
@@ -21,14 +21,14 @@ let stages_txt = [
     ' <br>' +
     'A naive approach is to randomly remove memory elements regardless of their activation. Here, they each have 50% chance to be erased.' +
     '<br><br>' +
-    'Despite having only 56% of its memory, the agent is still able to gather the armor in the same amount of steps.' +
+    'Despite having only 56% of its memory, the agent is still able to gather the armor in the same amount of steps. ' +
     'However, instead of stepping back, it continued in the same direction. In the <a onclick="meta_switch(2)">second run</a>, the agent also gathered the armor but then rushed into the wall.' +
     '<br>' +
-    'While having around than 38% of its memory, the agent moved towards the health pack instead of the armor.' +
+    'While having around than 38% of its memory, the agent moved towards the health pack instead of the armor. ' +
     'Such trajectory was either <a  onclick="meta_switch(4)">confident</a> or  <a  onclick="meta_switch(3)">hesitant</a>. ' +
     'Similarly in <a  onclick="meta_switch(5)"> run 5</a>, the agent with around 28% of its memory, aimed for the soul-sphere and got stuck in a loop alternating left and right actions in front of it.' +
     '<br>' +
-    'Finally, despite only having 13 elements removed in the<a  onclick="meta_switch(10)"> last run</a>, the agent ended up confused and turned around.' +
+    'Finally, despite only having 13 elements removed in the<a  onclick="meta_switch(10)"> last run</a>, the agent ended up confused and turned around. ' +
     'This suggest that some elements may be essential for the agent\'s decisions.' +
     '<br>' +
     '<br>',
@@ -41,10 +41,10 @@ let stages_txt = [
     ', the agent moved towards the armor but avoided it.' +
     ' With <a onclick="meta_switch(1)">  25% memory </a>, the agent seems lost and moved in circle. This may indicate that key elements may be in the second top quarter of elements.' +
     '<br><br>' +
-    'While using only the most changing elements the  <a onclick="meta_switch(2)"> run with 50% </a>, the agent moved towards the armor but turned around. But, in the <a onclick="meta_switch(3)"> one with 25% </a>, despite sub-optimal trajectory, the agent successfullt gathered the armor.' +
+    'While using only the most changing elements the  <a onclick="meta_switch(2)"> run with 50% </a>, the agent moved towards the armor but turned around. But, in the <a onclick="meta_switch(3)"> one with 25% </a>, despite sub-optimal trajectory, the agent successfully gathered the armor. ' +
     'One hypothesis to draw is that some elements may be cancelling each others.' +
     '<br><br>' +
-    'This suggests that despite having core information represented in the top elements, the agent performances can still be a bit erratic, therefore this cannot be a reliable reducing strategy.' +
+    'This suggests that despite having core information represented in the top elements, the agent performances can still be a bit erratic, therefore this cannot be a reliable reducing strategy. ' +
     'Perhaps, Humans can be of assistance in this matter.',
 
 
