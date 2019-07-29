@@ -19,15 +19,15 @@ let stages_txt = [
 
     'How can we decide how many, and which memory elements can we remove without affecting the agent\'s performance?' +
     ' <br>' +
-    'A naive approach is to randomly remove memory elements regardless of their activation. Here, they each have 50% chance to be erased.' +
+    'A naive approach is to randomly remove memory elements regardless of their activation. Here, each of them have 50% chance to be erased.' +
     '<br><br>' +
     'Despite having only 56% of its memory, the agent is still able to gather the armor in the same amount of steps. ' +
     'However, instead of stepping back, it continued in the same direction. In the <a onclick="meta_switch(2)">second run</a>, the agent also gathered the armor but then rushed into the wall.' +
-    '<br>' +
+    '<br><br>' +
     'While having around than 38% of its memory, the agent moved towards the health pack instead of the armor. ' +
     'Such trajectory was either <a  onclick="meta_switch(4)">confident</a> or  <a  onclick="meta_switch(3)">hesitant</a>. ' +
     'Similarly in <a  onclick="meta_switch(5)"> run 5</a>, the agent with around 28% of its memory, aimed for the soul-sphere and got stuck in a loop alternating left and right actions in front of it.' +
-    '<br>' +
+    '<br><br>' +
     'Finally, despite only having 13 elements removed in the<a  onclick="meta_switch(10)"> last run</a>, the agent ended up confused and turned around. ' +
     'This suggest that some elements may be essential for the agent\'s decisions.' +
     '<br>' +
@@ -48,10 +48,22 @@ let stages_txt = [
     'Perhaps, Humans can be of assistance in this matter.',
 
 
-    'We manually selected different groups of elements ....',
+    'We manually selected different groups of elements based on their activations similarities.' +
+    ' <br><br>' +
+    ' We start with <a onmouseover="highelems([1, 4, 22])" onmouseout="resetelems()">elements only active after the agent gathered the armor</a>. ' +
+    'In <a onclick="meta_switch(0)"> this trajectory</a> the agent is still able to reach the armor, however it decided to continue in the same direction rather than turning around as it did with its full memory.' +
+    ' <br><br>' +
+    'While removing the <a onmouseover="highelems([10, 3, 0])" onmouseout="resetelems()">elements only actives before the gathered the armor</a>, we can observe that the <a onclick="meta_switch(1)">agent\'s trajectory</a>  ' +
+    'that the agent is still able to gather the armor.' +
+    ' <br><br>' +
+    'The combination of those <a onmouseover="highelems( [1, 10, 4, 3, 22, 0, 17, 5])" onmouseout="resetelems()">both reductions</a>, outputs a <a onclick="meta_switch(2)">trajectory</a> in which the agent moved towards the health pack instead of the armor. ' +
+    'This provides clues that those elements may indeed encode information related to the armor.' +
+    '  <br><br>' +
+    'When the agent only uses those elements the <a onclick="meta_switch(3)"> resulting trajectory</a> the agent moved towards the armor, however, it was not able to gather it, and moved in circles. ' +
+    'This can be interpreted as the agent needing other memory elements to gather the armor, perhaps some encoding whether the agent is close to an item or not.  ',
 
 
-    'You can select up to 2 elements by clicking on them, and replay the generated trajectory. You can cancel a reduction by clicking on it. <br' +
+    'You can remove up to 2 elements by clicking on them, and replay the generated trajectory. <br' +
     '><br> The reduction of both <a onclick="meta_change(\'nDIY/red10_23.json\', [10,23])"> elements 10 and 23 </a> ' +
     'is enough to make the agent move towards the healh pack. This indicates that those elements are essential for the agent to decide. ' +
     'However, removing only one result on the agent having the same trajectory as when it used its full memory.'];

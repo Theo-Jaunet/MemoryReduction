@@ -105,42 +105,60 @@
     </div>
 
 
-    <div class=" row" id="scrolltxt" style="text-align: center;margin-top: 60vh">
+    <div class=" row" id="scrolltxt" style="text-align: center;margin-top: 55vh">
         <div class="twelve columns" style="margin-top: 25%;display: inline-block">
             <div style="text-align: left;width: 800px;display: inline-block">
                 <h4>Deep Reinforcement Learning and Memory</h4>
 
-                <ul>
-                    <li>
-                        The Rl model we used
-                    </li>
-                    <li>
-                        How it works
-                    </li>
-                    <li>
-                        How we trained it (e.g., + 1 for gathering an item)
-                    </li>
-                </ul>
+                <p> We used the Advantage Actor Critic (A2C), as presented in <i> Cite</i>.
+                    This model learns through trial and error to associate an observation (i.e. matrice of pixels), at the time-step t to an action (at) such as turn left, right ..
+                    It can achieve this by using neuronal networks with shared parameters <i>theta.</i>
+                </p>
+
+                <p>
+                    The model is composed of three stages with different purposes.
+                    First, 3 convolutional layers to analyse and extract features from the inputted observation.
+                    This results in a tensor of 16 features <i>(ft)</i> shaped as 10x4 matrices. Those features are then flatten into a vector of 1x32 using a Fully Connected layer.
+                    The purpose of such operation is to prepare them for the next stage which is the memory.
+ </p>     <p>
+                    The memory of such model is handled by a GRU layer, which takes a vector as input and outputs a hidden state <i>(ht)</i>, a vector of 32 dimension.
+                    GRU layers maintains and updates a latent representation through time-steps using the combination of its current input <i>(ft)</i> and its previous hidden state <i>ht-1</i>.
+                    Each element of the hidden states is a quantity within the range[−1,1]. A value close to 0 represents low activity, whereas a value close to any extremity represents high activity.
+                    Hidden states can change their values between two time-steps. Such value changes can be widely observed across hidden states elements during trajectories.
+                    However, it remains unclear which elements, correspond to which representations, and thus, responsible for decisions.
+
+
+                    Finally, the last stage consist of mapping the current hidden state <i>h_t</i>  to a probability distribution over the 5 available actions <i>(right, left, forward, forward+right, forward+left)</i>.
+                </p>
+
+                <p> During the training phase, the agent is forced to explore its environment with random actions and can recieve rewards depending on their outcome:
+                    +0.5 for gathering an item in the right order (armor -> health pack -> soul-sphere), and -0.25 for gathering the wrong item.
+                    The combination of the observation, action and reward for time-steps <i>t</i> forms rollouts which are used to optimize the neural network with gradient descent.
+                </p>
+
+                <p> For a more detailed introduction to Deep Reinforcement Learning, and in particular this model, we recommend reading ... </p>
             </div>
         </div>
     </div>
 
     <div class=" row" style="text-align: center">
-        <div class="twelve columns" style="margin-top: 25%;display: inline-block">
+        <div class="twelve columns" style="margin-top: 15%;display: inline-block">
             <div style="text-align: left;width: 800px;display: inline-block">
                 <h4> Why Manipulating the Memory?</h4>
-                <ul>
-                    <li>
-                        Interpretability
-                    </li>
-                    <li>
-                        Model Optimization ( can it be smaller -> reduce computation time and energy )
-                    </li>
+                <p>
+                    As detailed in the previous section, the agent's actions are directly linked to its memory, therefore,
+                    each of its decisions may be justified by its current hidden state <i>ht</i>, and its elements values.
+                    However, such memory is hard to understand due to the fact that it is time-varying and using abstract values.
+                    Being able to erase memory elements, and observing how the agent behaves without them,
+                    may help understanding and interpreting their roles in the decision process and information they represent.
 
-                    <li>
-                        Performance optimization: Is there dimensions that reduce the angent performances or cause bad behavior (e.g., non-optimal trajectories)
-                    </li>
-                </ul>
+                    In addition, the hidden states length is manually set by the model's builder, therefore such value maybe unfit to the agent's needs, which may results unused or redundant dimensions.
+                    Removing them, and thus reducing the memory length can reduce the computation power needed by the agent, and both reduce the training time and the energy consumption footprint.
+
+                </p>
+
+
+
             </div>
         </div>
     </div>
@@ -155,21 +173,21 @@
     <!---->
 
     <div class=" row" style="text-align: center">
-        <div class="twelve columns" style="margin-top: 25%;display: inline-block">
+        <div class="twelve columns" style="margin-top: 15%;display: inline-block">
             <div style="text-align: left;width: 800px;display: inline-block">
-                <h4> Memory Reduction</h4>
-                <p> Blalbalbalblablalbal</p>
-                <ul>
-                    <li>How do we reduce the memory</li>
-                    <ul>
-                        <li> Memory Mask</li>
-                        <li> Multiplication with memory vector</li>
-                    </ul>
-                    <li> Figure to illustrate</li>
-                    <svg id="tool" style="border:solid slategray 1px;height: 100%"></svg>
-                    <li> But how can we select which element should be erased and which to preserve?</li>
+                <h4> How do we Erase Memory Elements?</h4>
 
-                </ul>
+                <p> In order to simulate a reduced memory we implemented a method that allows to generate trajectories from agents with limited memory.
+                    Technically, we hijack the memory vectors by applying a mask to it, before each decisions.
+                    This mask is a 1x32 vector, with its values either to 0 (remove the element) or 1 (keep the element). As depicted in the figure .. ,
+                    each memory element is multiplied by its corresponding value, and therefore either have values as they should, or are constantly equals to 0 (i.e., inactive).
+                    The outcome of such operation is then used by the model to decide which action it should do.
+                    This method allows to change the agent's memory without having to retrain a model.
+
+                </p>
+
+                <svg id="fig2" style="border:solid slategray 1px;height: 100%"></svg>
+                <p> But how can we select which element should be erased and which to preserve?</p>
 
             </div>
         </div>
@@ -185,7 +203,7 @@
     <!--</div>-->
 
     <div class="row" style="text-align: center">
-        <div class="twelve columns" style="margin-top: 25%;display: inline-block">
+        <div class="twelve columns" style="margin-top: 15%;display: inline-block">
             <div style="text-align: left;width: 800px;display: inline-block">
                 <h5>Authors</h5>
                 <p>Théo Jaunet, Romain Vuillemot and Christian Wolf</p>

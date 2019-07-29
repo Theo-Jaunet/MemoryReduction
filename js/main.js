@@ -12,6 +12,8 @@ let tops = [];
 let diy = [];
 let random = [];
 let mains = [];
+let selecs_list = ['after', 'before', 'both', 'only'];
+let selecs = [];
 
 let area = d3.line()
     .x(function (d) {
@@ -81,6 +83,9 @@ function load_data(data, index) {
                 }
             break;
         case  "3":
+            if (selecs[iz] === undefined) {
+                selecs[iz] = data;
+            }
             break;
         case  "4":
             diy[iz] = data;
@@ -304,6 +309,13 @@ function meta_switch(run) {
             }
             break;
         case  "3":
+
+            if (selecs[iz] !== undefined) {
+                load_data(selecs[iz])
+            } else {
+
+                meta_change('sel/' + selecs_list[iz] + '.json', -1)
+            }
             break;
     }
 
