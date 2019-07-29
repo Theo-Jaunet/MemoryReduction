@@ -64,7 +64,7 @@ let stages_txt = [
 
 
     'You can remove up to 2 elements by clicking on them, and replay the generated trajectory. <br' +
-    '><br> The reduction of both <a onclick="meta_change(\'nDIY/red10_23.json\', [10,23])"> elements 10 and 23 </a> ' +
+    '><br> The reduction of both <a  onmouseover="highelems( [10, 23])" onmouseout="resetelems()" onclick="meta_change(\'nDIY/red10_23.json\', [10,23])"> elements 10 and 23 </a> ' +
     'is enough to make the agent move towards the healh pack. This indicates that those elements are essential for the agent to decide. ' +
     'However, removing only one result on the agent having the same trajectory as when it used its full memory.'];
 
