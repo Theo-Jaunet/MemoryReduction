@@ -133,7 +133,7 @@
 
                 <p> During the training phase, the agent is forced to explore its environment with random actions and can recieve rewards depending on their outcome:
                     +0.5 for gathering an item in the right order (armor -> health pack -> soul-sphere), and -0.25 for gathering the wrong item.
-                    The combination of the observation, action and reward for time-steps <i>t</i> forms rollouts which are used to optimize the neural network with gradient descent.
+                    The combination of the observation, action and reward ordered by time-steps <i>t</i> forms a rollout which is then used to optimize the neural network with gradient descent.
                 </p>
 
                 <p> For a more detailed introduction to Deep Reinforcement Learning, and in particular this model, we recommend reading ... </p>
@@ -147,12 +147,12 @@
                 <h4> Why Manipulating the Memory?</h4>
                 <p>
                     As detailed in the previous section, the agent's actions are directly linked to its memory, therefore,
-                    each of its decisions may be justified by its current hidden state <i>ht</i>, and its elements values.
+                    each of its decisions may be justified by its current hidden state <i>ht</i>, and its values.
                     However, such memory is hard to understand due to the fact that it is time-varying and using abstract values.
                     Being able to erase memory elements, and observing how the agent behaves without them,
                     may help understanding and interpreting their roles in the decision process and information they represent.
 
-                    In addition, the hidden states length is manually set by the model's builder, therefore such value maybe unfit to the agent's needs, which may results unused or redundant dimensions.
+                    In addition, the hidden states length is manually set by the model's builder, therefore such value maybe unfit to the agent's needs, which may results in unused or redundant elements.
                     Removing them, and thus reducing the memory length can reduce the computation power needed by the agent, and both reduce the training time and the energy consumption footprint.
 
                 </p>
@@ -162,15 +162,6 @@
             </div>
         </div>
     </div>
-    <!--<div class=" row">-->
-    <!--<div class="one-half column" style="margin-top: 25%">-->
-    <!--<h4> Memory Reduction</h4>-->
-    <!--<p>This index.html page is a placeholder with the CSS, font and favicon. It's just waiting for you to add-->
-    <!--some content! If you need some help hit up the <a href="http://www.getskeleton.com">Skeleton-->
-    <!--documentation</a>.</p>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!---->
 
     <div class=" row" style="text-align: center">
         <div class="twelve columns" style="margin-top: 15%;display: inline-block">
@@ -178,9 +169,9 @@
                 <h4> How do we Erase Memory Elements?</h4>
 
                 <p> In order to simulate a reduced memory we implemented a method that allows to generate trajectories from agents with limited memory.
-                    Technically, we hijack the memory vectors by applying a mask to it, before each decisions.
-                    This mask is a 1x32 vector, with its values either to 0 (remove the element) or 1 (keep the element). As depicted in the figure .. ,
-                    each memory element is multiplied by its corresponding value, and therefore either have values as they should, or are constantly equals to 0 (i.e., inactive).
+                    Technically, we hijack the memory vectors by applying a mask to them before each decisions.
+                    This mask is a 1x32 vector, with its values either set to 0 (remove the element) or set to 1 (keep the element). As depicted in the figure .. ,
+                    each memory element is multiplied by its corresponding mask element, and therefore either have values as they should, or values constantly equal to 0 (i.e., inactive).
                     The outcome of such operation is then used by the model to decide which action it should do.
                     This method allows to change the agent's memory without having to retrain a model.
 
@@ -192,15 +183,6 @@
             </div>
         </div>
     </div>
-    <!--<div class=" row">-->
-    <!--<div class="one-half column" style="margin-top: 15%">-->
-    <!--<h5> Reduction Heuristics</h5>-->
-    <!--<ul>-->
-    <!--<li>Unique activation patterns</li>-->
-    <!--<li> Human in the Loop</li>-->
-    <!--</ul>-->
-    <!--</div>-->
-    <!--</div>-->
 
     <div class="row" style="text-align: center">
         <div class="twelve columns" style="margin-top: 15%;display: inline-block">
@@ -211,7 +193,7 @@
         </div>
     </div>
 
-
+</div>
     <!-- End Document
       –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
