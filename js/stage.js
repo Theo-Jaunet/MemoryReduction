@@ -60,7 +60,7 @@ let stages_txt = [
     'This provides clues that those elements may indeed encode information related to the armor.' +
     '  <br><br>' +
     'When the agent only uses those elements the <a onclick="meta_switch(3)"> resulting trajectory</a> the agent moved towards the armor, however, it was not able to gather it, and moved in circles. ' +
-    'This can be interpreted as the agent needing other memory elements to gather the armor, perhaps some encoding whether the agent is close to an item or not.  ',
+    'This can be interpreted as the agent needing other memory elements to gzather the armor, perhaps some encoding whether the agent is close to an item or not.  ',
 
 
     'You can remove up to 2 elements by clicking on them, and replay the generated trajectory. <br' +

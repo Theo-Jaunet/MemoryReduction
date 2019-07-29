@@ -1,11 +1,11 @@
 let mapx, mapy, traj_x, traj_y;
 let offx = -5;
-let offy = -30;
+let offy = 40;
 
 function traj_init(width, height) {
 
-    mapx = [-500, 175];
-    mapy = [600, -170];
+    mapx = [-500, 300];
+    mapy = [600, -300];
 
 
     traj_x = d3.scaleLinear().range([0, width]);
@@ -74,28 +74,36 @@ function place_items(svg, st) {
 
 
     g.append("svg:image")
-        .attr('x', traj_x(-80) + offx - 16.5-12)
-        .attr('y', traj_y(80) + offy - 13.5+1)
+        .attr('x', traj_x(80) + offx + 1)
+        .attr('y', traj_y(80) + offy - 15.5 + 1)
+        .attr('id', 'armor')
+        .attr('width', 45)
+        .attr('height', 57)
+        .attr("xlink:href", 'assets/armorGreen.png')
+
+    g.append("svg:image")
+        .attr('x', traj_x(-400) + offx + 1)
+        .attr('y', traj_y(-80) + offy - 13.5 + 1)
         .attr('id', 'armor')
         .attr('width', 33)
         .attr('height', 27)
-        .attr("xlink:href", 'assets/armor.png')
+        .attr("xlink:href", 'assets/armorRed.png')
 
 
     g.append("svg:image")
-        .attr('x', traj_x(-240) + offx - 16.5-12)
-        .attr('y', traj_y(80) + offy - 13.5+1)
-        .attr('width', 33)
-        .attr('height', 27)
-        .attr("xlink:href", 'assets/soul.png');
-
-
-    g.append("svg:image")
-        .attr('x', traj_x(-415) + offx - 16.5-12)
-        .attr('y', traj_y(206) + offy - 13.5+1)
+        .attr('x', traj_x(-240) + offx + 1)
+        .attr('y', traj_y(240) + offy - 13.5 + 1)
         .attr('width', 33)
         .attr('height', 27)
         .attr("xlink:href", 'assets/hp.png');
+
+
+    g.append("svg:image")
+        .attr('x', traj_x(-240) + offx + 1)
+        .attr('y', traj_y(80) + offy - 13.5 + 1)
+        .attr('width', 33)
+        .attr('height', 27)
+        .attr("xlink:href", 'assets/soul.png');
 
 
     g.append("circle")
@@ -107,25 +115,25 @@ function place_items(svg, st) {
         .style("fill", "black");
 
 
-    g.append("text")
-        .attr('x', traj_x(st[0]) + offx +35)
-        .attr('y', traj_y(st[1]) + offy -190)
+/*    g.append("text")
+        .attr('x', traj_x(st[0]) + offx + 35)
+        .attr('y', traj_y(st[1]) + offy - 190)
         .attr('font-size', '12pt')
         .style('opacity', '0.8')
         .text('Fail')
         .attr('font-weight', '600')
-        .style("fill", "black");
+        .style("fill", "black");*/
 
     g.append("text")
-        .attr('x', traj_x(st[0]) + offx - 15)
-        .attr('y', traj_y(st[1]) + offy + 30)
+        .attr('x', traj_x(st[0]) + offx - 18)
+        .attr('y', traj_y(st[1]) + offy -18)
         .attr('font-size', '12pt')
         .style('opacity', '0.8')
         .text('Start')
         .attr('font-weight', '600')
         .style("fill", "black");
 
-
+/*
     g.append("text")
         .attr('x', traj_x(st[0]) + offx + 277)
         .attr('y', traj_y(st[1]) + offy + 65)
@@ -133,7 +141,7 @@ function place_items(svg, st) {
         .style('opacity', '0.8')
         .text('Not Optimal')
         .attr('font-weight', '600')
-        .style("fill", "black");
+        .style("fill", "black");*/
 
 
     draw_walls(svg, offx, offy);
@@ -142,7 +150,7 @@ function place_items(svg, st) {
 
 function draw_walls(svg, offx, offy) {
 
-    let walls = [[-320.0, -160.0, -160.0, -160.0], [-160.0, -160.0, -160.0, 0.0], [-320.0, 160.0, -160.0, 160.0], [-160.0, -160.0, 0.0, -160.0], [0.0, 0.0, 0.0, 160.0], [-160.0, 160.0, 0.0, 160.0], [0.0, 160.0, 160.0, 160.0]]
+    let walls = [[-480.0, -480.0, -480.0, 320.0], [320.0, 320.0, 320.0, -480.0], [-320.0, -320.0, -320.0, -160.0], [-160.0, -480.0, -160.0, -320.0], [-160.0, -320.0, -160.0, -160.0], [-160.0, 160.0, -160.0, 320.0], [-160.0, 0.0, 0.0, 0.0], [0.0, 0.0, 160.0, 0.0], [0.0, 160.0, 160.0, 160.0], [160.0, -160.0, 320.0, -160.0]]
 
 
     let g = svg.select('.traj');
@@ -152,8 +160,8 @@ function draw_walls(svg, offx, offy) {
         .data(walls)
         .enter()
         .append('line')
-        .attr('x1', (d) => traj_x(d[0]) + offx-8)
-        .attr('x2', (d) => traj_x(d[2]) + offx-8)
+        .attr('x1', (d) => traj_x(d[0]) + offx )
+        .attr('x2', (d) => traj_x(d[2]) + offx)
         .attr('y1', (d) => traj_y(d[1]) + offy)
         .attr('y2', (d) => traj_y(d[3]) + offy)
         .attr('stroke', '#555555')

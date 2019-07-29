@@ -20,8 +20,14 @@ a {
 }
 
 .item-icon {
+    width: 30px;
+    height: auto;
+}
+
+.arrow-icon {
     width: 20px;
     height: auto;
+    margin-bottom: 2px;
 }
 
 .hiddensgrp rect:hover {

@@ -35,6 +35,8 @@
         gtag('config', 'UA-105697527-4');
     </script>
 
+     <link rel="icon" href="assets/favicon.ico"/>
+
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/skeleton.css">
     <link rel="stylesheet" href="css/custom.css">
@@ -49,19 +51,20 @@
 
 <!-- Primary Page Layout
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<div class="container" style="position: relative">
+<div class="container" style="position: relative; min-width: 1200px">
 
     <div style="width: 35px;height: auto;display: inline-block;margin-right: 20px;position: absolute;left: 488.5px;top: 74px;z-index: 50">
         <img class="play" style="width: 35px;position: absolute;left: -43px" src="assets/play-sign.svg">
-        <input id="timebar" type="range" min="0" max="35" step="1" value="0" style="width: 292.5px;position: absolute;top: 14px;">
-        <p id="stepctn" style="position: absolute;display: inline-block;left: 80px;width: 80px;top: -18px;user-focus: none;user-select: none">Step --/--</p>
+        <input id="timebar" type="range" min="0" max="66" step="1" value="0" style="width: 292.5px;position: absolute;top: 14px;">
+        <p id="stepctn" style="position: absolute;display: inline-block;left: 80px;width: 88px;top: -18px;user-focus: none;user-select: none">Step --/--</p>
     </div>
     <div class="row" style="margin-top: 15px">
         <div class="five  columns" style="position: relative">
             <h5> What if an artificial doom Player had reduced memory?</h5>
             <p style="max-height: 100px;">We trained an agent to play DOOM using Deep Reinforcement learning.
-                The agent has to gather items in a specific order : <br>Armor <img src="assets/armor.png" class="item-icon"> -> Health Pack <img src="assets/hp.png" class="item-icon"> -> and Soul-sphere <img src="assets/soul.png"
-                                                                                                                                                                                                                class="item-icon"> , with the
+                The agent has to gather items in a specific order: <br>Green Armor <img src="assets/armorGreen.png" class="item-icon" height="57px"> <img src="assets/arrow.png" class="arrow-icon"> Red Armor
+                <img src="assets/armorRed.png" class="item-icon">  <img src="assets/arrow.png" class="arrow-icon"> Health Pack <img src="assets/hp.png" class="item-icon">  <img src="assets/arrow.png" class="arrow-icon">  Soul-sphere <img src="assets/soul.png"
+                                                                                                                                                                                                                class="item-icon" style="width: 20px"> , with the
                 shortest path possible.
                 Let’s explore how changing the train agent memory influences its trajectory!</p>
 
@@ -178,7 +181,7 @@
                 </p>
 
                 <svg id="fig2" style="border:solid slategray 1px;height: 100%"></svg>
-                <p> But how can we select which element should be erased and which to preserve?</p>
+                <p> But how can we select which elements should be erased and those to preserve?</p>
 
             </div>
         </div>

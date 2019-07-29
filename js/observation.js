@@ -27,7 +27,7 @@ function drawModel(svg, height) {
         .attr('width', 300)
         .attr('height', 160)
         .attr('id', 'model')
-        .attr("xlink:href", 'assets/DRL.svg');
+        .attr("xlink:href", 'assets/DRL2.svg');
 
     link_model(svg, tdata.hiddens)
 }

@@ -7,7 +7,7 @@ let pl = false;
 let curStep = 0;
 let isMono = true;
 let timer = null;
-let top_list = ['halfact', 'quatact', 'halfch', 'quatch', 'halftsn', 'quattsn'];
+let top_list = ['halfact', 'quatact', 'halfch', 'quatch'];
 let tops = [];
 let diy = [];
 let random = [];
@@ -172,7 +172,7 @@ function reportWindowSize() {
     tool[1] = tbbox.width;
     tool[2] = tbbox.height;
 
-    let traj_s = ((750 * tbbox.width) / 1300);
+    let traj_s = ((650 * tbbox.width) / 1300);
     drawImage(tool[0], 'assets/image3.jpeg', tool[2]);
 
     console.log(traj_s);
