@@ -3,22 +3,22 @@ let or = ['270', '90', '0 ', '315', '45'];
 
 let bheight = 5;
 
-let scale = d3.scaleLinear().range([0, 60]).domain([0, 1]);
+let scale = d3.scaleLinear().range([0, 22]).domain([0, 1]);
 
 
 function bars_init(svg, width, height) {
 
     let g = svg.append('g').attr('class', 'distrib');
 
-    let st = height - 78;
+    let st = height - 107;
 
 
     g.selectAll('.bar').data([0, 0, 0, 0, 0]).enter()
         .append('rect')
         .attr('class', 'bar')
-        .attr('x', 746)
+        .attr('x', 820)
         .attr('y', (d, i) => {
-                draw_arrow(726, st + (i * v_space) + (i * bheight), or[i], i);
+                draw_arrow(802, st + (i * v_space) + (i * bheight), or[i], i);
                 return st + (i * v_space) + (i * bheight)
             }
         )

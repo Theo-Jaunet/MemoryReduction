@@ -3,7 +3,7 @@ function drawImage(svg, url, height) {
 
     $('#obs').remove();
     svg.append("svg:image")
-        .attr('x', 160)
+        .attr('x', 290)
         .attr('y', height - 166)
         .attr('width', 250)
         .attr('height', 162)
@@ -22,9 +22,9 @@ function drawModel(svg, height) {
 
     $('#model').remove();
     svg.append("svg:image")
-        .attr('x', 405)
-        .attr('y', height - 150)
-        .attr('width', 300)
+        .attr('x', 517)
+        .attr('y', height - 155)
+        .attr('width', 280)
         .attr('height', 160)
         .attr('id', 'model')
         .attr("xlink:href", 'assets/DRL2.svg');

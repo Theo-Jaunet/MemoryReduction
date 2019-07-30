@@ -3,30 +3,30 @@ let stage = 0;
 let stages_titles = ['Full Memory', 'Random Memory Reductions', 'Top Memory Elements', 'Memory Elements Selection', 'Do it Yourself!'];
 let stages_txt = [
 
-    'We begin with a fully trained agent using 100% of its memory. With the generated trajectory, we can see that the agent moved towards the armor as it should,' +
-    ' and then stepped back to where it started. ' +
+    'In order to play doom, the artificial doom player receive at each time-steps game capture (image) corresponding to its field of view.\n' +
+    '                From this game capture, it decides which action it should do. As the artificial doom player\n' +
+    '                 decides, it builds an inner representation of the previously seen game captures using the combination of given game capture, and its current inner representation. Such representation,\n' +
+    '                is a vector <i>(1x32)</i> with values in a scale from <span class="cell"></span> inactive to <span class="cell" style="background-color: rgb(191, 84, 47)"></span> active. ' +
+    'Those vectors are vertically aligned per time-steps in which they are produced' +
     '<br>' +
     '<br>' +
-    'Once the agent has gathered the armor in <a onclick="load_step(15)">step 15</a> the first <a onmouseover="highelems([0,1,2])" onmouseout="resetelems()">3 elements</a> changed their activations from either active to inactive or the other way around. ' +
+    'In the generated trajectory, we can see that the agent gathered all items in the correct order. ' +
+    'In addition, as the green armor entered its field of view in <a onclick="load_step(4)">step 4</a>, some <a> memory elements (rows)</a> ' +
+    'changed from inactive to active. This suggests that they may be encoding the presence of the armor in the agent\'s field. '+
     '<br>' +
     '<br>' +
-    'The <a onmouseover="highelems([31])" onmouseout="resetelems()"> last element</a> is inactive during this trajectory. How the agent would behave without it? <a onclick="meta_change(\'nDIY/red31_-1.json\', [31,-1])">Let\'s find out! </a><br> We can see that the new trajectory is exactly the same as the previous one, thus we can conclude that is element has no impact in the agent\'s decision process for this sequence.' +
-    '<br>' +
-    '<br>' +
+    'We can also note that the element <a onmouseover="highelems([28])" onmouseout="resetelems()"> # 28</a> remained active until the agent' +
+    'gathered the red armor and inactive after. How the agent would behave without it? <a onclick="meta_change(\'nDIY/red28_-1.json\', [28,-1])">Let\'s find out! </a><br> ' +
+    'The new trajectory stars as the previous one, however once the agent gathered the red armor, it turned left instead of right. ' +
     'What if we go further and remove more memory elements? Having smaller models would be useful as they may be more interpretable, but also requiring less computing power and less energy consumption footprint.     ' +
     '<br>',
 
-
-    'How can we decide how many, and which memory elements we can remove without affecting the agent\'s performance?' +
-    ' <br>' +
-    'A naive approach is to randomly remove memory elements regardless of their activation. Here, each of them have 50% chance to be erased.' +
+    'A naive approach is to randomly remove memory elements regardless of their activation. Here, they each have 1 chance out of 2 to be erased. ' +
+    'We generated 3 different random memory reductions: <a onclick="meta_switch(0)">Random #1</a>, <a onclick="meta_switch(3)">Random #2</a> and <a onclick="meta_switch(10)">Random #3</a>.' +
     '<br><br>' +
-    'Despite having only 56% of its memory, the agent is still able to gather the armor in the same amount of steps. ' +
-    'However, instead of stepping back, it continued in the same direction. In the <a onclick="meta_switch(2)">second run</a>, the agent also gathered the armor but then rushed into the wall.' +
+    'In Random #1, the agent only has  31% of its memory. In resulting trajectory, it gathered the soul-sphere before gathering the health pack which ended the game (fail). ' +
     '<br><br>' +
-    'While having around 38% of its memory, the agent moved towards the health pack instead of the armor. ' +
-    'Such trajectory was either <a  onclick="meta_switch(4)">confident</a> or  <a  onclick="meta_switch(3)">hesitant</a>. ' +
-    'Similarly in <a  onclick="meta_switch(5)"> run 5</a>, the agent with around 28% of its memory, aimed for the soul-sphere and got stuck in a loop alternating left and right actions in front of it.' +
+    ' In Random #2, the ag' +
     '<br><br>' +
     'Finally, despite only having 13 elements removed in the<a  onclick="meta_switch(10)"> last run</a>, the agent ended up confused and turned around. ' +
     'This suggest that some elements may be essential for the agent\'s decisions.' +

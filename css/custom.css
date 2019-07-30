@@ -30,6 +30,12 @@ a {
     margin-bottom: 2px;
 }
 
+.traj-sel {
+    stroke: #a92234 !important;
+    opacity: 1 !important;
+    stroke-width: 4px !important;
+}
+
 .hiddensgrp rect:hover {
     opacity: 0.6;
 }
@@ -47,6 +53,13 @@ a {
     outline: none;
 }
 
+
+.cell{
+    width: 13px;
+    height: 17px;
+    border: 0.5px solid #333333;
+    display: inline-block;
+}
 .selected {
     border: solid #a92234 2px !important;
 }

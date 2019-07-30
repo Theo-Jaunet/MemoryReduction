@@ -31,7 +31,7 @@ d3.json("data/main.json").then(function (data) {
 
     mains[0] = data;
     loadALlTraj();
-    draw_arrowV2(500, tool[2] - 30, 180, -1)
+    draw_arrowV2(600, tool[2] - 30, 180, -1)
 
 
 });
@@ -55,7 +55,8 @@ function load_data(data, index) {
     tdata = data;
 
     ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1], tdata.mask, index);
-    draw_traj(tdata.positions, tool[0], traj_s, traj_s, false, 'sec-traj');
+    $('.traj-sel').toggleClass('traj-sel');
+    draw_traj(tdata.positions, tool[0], traj_s, traj_s, false, 'sec-traj traj-sel');
     update_bars(tool[0], tdata.probabilities[start + curStep]);
     draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start + curStep]);
     show_sel(curStep);
@@ -172,7 +173,7 @@ function reportWindowSize() {
     tool[1] = tbbox.width;
     tool[2] = tbbox.height;
 
-    let traj_s = ((650 * tbbox.width) / 1300);
+    let traj_s = ((600 * tbbox.width) / 1300);
     drawImage(tool[0], 'assets/image3.jpeg', tool[2]);
 
     console.log(traj_s);

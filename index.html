@@ -53,10 +53,10 @@
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <div class="container" style="position: relative; min-width: 1200px">
 
-    <div style="width: 35px;height: auto;display: inline-block;margin-right: 20px;position: absolute;left: 488.5px;top: 74px;z-index: 50">
+    <div style="width: 35px;height: auto;display: inline-block;margin-right: 20px;position: absolute;left: 515.7px;top: 74px;z-index: 50">
         <img class="play" style="width: 35px;position: absolute;left: -43px" src="assets/play-sign.svg">
-        <input id="timebar" type="range" min="0" max="66" step="1" value="0" style="width: 292.5px;position: absolute;top: 14px;">
-        <p id="stepctn" style="position: absolute;display: inline-block;left: 80px;width: 88px;top: -18px;user-focus: none;user-select: none">Step --/--</p>
+        <input id="timebar" type="range" min="0" max="66" step="1" value="0" style="width: 295px;position: absolute;top: 14px;">
+        <p id="stepctn" style="position: absolute;display: inline-block;left: 118px;width: 88px;top: -18px;user-focus: none;user-select: none">Step --/--</p>
     </div>
     <div class="row" style="margin-top: 15px">
         <div class="five  columns" style="position: relative">
@@ -81,7 +81,7 @@
     </div>
 
     <div class=" row" style="max-height: 665px;position: absolute;top:91px">
-        <div class="eight columns">
+        <div class="nine columns">
             <svg class="" id="tool" style="height: auto;width: 100%;min-height: 685px;min-width: 785px">
                 <defs>
                     <filter id="brightness">
@@ -98,10 +98,14 @@
                 </defs>
             </svg>
         </div>
-        <div class="four columns" style="min-width: 350px">
+        <div class="three columns" style="min-width: 340px;margin-left: -30px">
             <h5 style="width: 100%" id="card_title"> Full Memory</h5>
             <p id="card_txt" style="margin-top: 20px;width: 100%">
 
+              <!--  In order to play doom, the artificial doom player receive at each time-steps game capture (image) corresponding to its field of view.
+                From this game capture, it decides which action it should do. As the artificial doom player
+                 decides, it builds an inner representation of the previously seen game captures. Such representation,
+                is a vector <i>(1x32)</i> with values in a scale from <span class="cell"></span> inactive to <span class="cell" style="background-color: rgb(191, 84, 47)"></span> active.-->
             </p>
 
         </div>

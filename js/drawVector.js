@@ -2,16 +2,18 @@ let ve_h;
 let ve_rows = [];
 let ve_w = 15;
 let col = d3.scaleLinear().domain([-1, 0, 1]).range(['#2266a6', '#effce5', '#bf6b09']).interpolate(d3.interpolateHcl);
-let hst = 800;
+let hst = 850;
 let sels = [-1, -1];
 let old_sels = [-1, -1];
 let cur_tri = 'act';
 let mono_col = d3.scaleLinear().domain([0.35, 1]).range(['#FFF', '#bf542f']).interpolate(d3.interpolateHcl);
 let goplz = false;
 let tri = {
-    'act': [17, 12, 19, 31, 16, 6, 10, 3, 11, 0, 8, 1, 15, 7, 30, 25, 29, 22, 4, 2, 14, 18, 28, 24, 5, 21, 27, 20, 13, 23, 9, 26],
-    'ch': [29, 12, 8, 7, 25, 15, 11, 24, 3, 30, 14, 22, 20, 21, 19, 27, 18, 2, 23, 9, 0, 5, 28, 10, 13, 4, 6, 26, 16, 1, 31, 17]
+    'act': [17, 16, 4, 12, 0, 18, 11, 7, 15, 19, 30, 3, 5, 8, 31, 25, 14, 29, 22, 6, 1, 24, 2, 20, 10, 28, 21, 9, 23, 27, 26, 13],
+    'ch': [8, 29, 12, 25, 11, 7, 15, 24, 19, 3, 14, 22, 20, 30, 2, 13, 21, 23, 27, 4, 0, 18, 10, 9, 5, 6, 16, 28, 31, 26, 1, 17]
 };
+let is_new = false;
+
 
 tri['nm'] = d3.range(32);
 
@@ -24,7 +26,7 @@ function ve_init_rows(svg, data, height, width, mask, elem) {
 
     if (width < 1000) {
         hst = (710 * width) / 1200;
-        hst += 30
+        hst += 42
     }
 
     ve_h = Math.min(((height - 140) / data[0].length), 60);
@@ -72,7 +74,7 @@ function ve_init_rows(svg, data, height, width, mask, elem) {
     if (stage !== '2' || goplz) {
 
         if (goplz) {
-            // ve_update_reorder(cur_tri)
+            ve_update_reorder((iz < 2 ? 'act' : 'ch'))
         }
         mask_elems(tool[0], mask, data.length);
 
@@ -152,7 +154,14 @@ function mask_elems(svg, mask, nb) {
 
                 // $(t).css('    stroke-dasharray: 5000 50000;
                 document.getElementById('hiddensgrp').appendChild(t)
-                d3.select('#linear-gradient stop').transition().duration(2500).attr('offset', '100%')
+
+                if (goplz && is_new) {
+                    d3.select('#linear-gradient stop').transition().delay(2600).duration(2500).attr('offset', '100%')
+
+                } else {
+                    d3.select('#linear-gradient stop').transition().duration(2500).attr('offset', '100%')
+
+                }
                 let tg = d3.select(t).attr('index', ind).attr('class', 'mask').data([ind])
                 tg.selectAll('path').data([ind])
                 /*
@@ -213,9 +222,9 @@ function link_model(svg, data) {
 
     svg.append('line')
         .attr('x1', st[0])
-        .attr('x2', 655)
+        .attr('x2', 755)
         .attr('y1', st[1])
-        .attr('y2', tool[2] - 79)
+        .attr('y2', tool[2] - 99)
         .attr('stroke', '#555555')
         .attr('stroke-dasharray', "4,2")
         .attr('stroke-width', '3');
@@ -223,9 +232,9 @@ function link_model(svg, data) {
 
     svg.append('line')
         .attr('x1', ed[0])
-        .attr('x2', 665)
+        .attr('x2', 764)
         .attr('y1', ed[1])
-        .attr('y2', tool[2] - 79)
+        .attr('y2', tool[2] - 99)
         .attr('stroke', '#555555')
         .attr('stroke-dasharray', "4,2")
         .attr('stroke-width', '3');
@@ -268,22 +277,12 @@ function svg_click() {
 
 
 function ve_update_reorder(type) {
-    /*    if (type !== cur_tri) {
-            d3.selectAll('.mask path').transition()
-                .duration(2575)
-                .style('transform', (d) => {
 
-
-                    // let v1 = ve_h * d;
-                    let v1 = ve_h * tri[cur_tri].indexOf(d);
-
-                    return 'translateY(' + (Math.abs(v1 - (ve_h * tri[type].indexOf(d))) + 20 + 'px)');
-                })
-        }*/
+    is_new = type !== cur_tri;
 
     if (type === 'act') {
         cur_tri = type;
-        or = tri[cur_tri]
+        or = tri[cur_tri];
     } else {
         cur_tri = type;
         or = tri[cur_tri]
@@ -332,3 +331,4 @@ function deler() {
 
     }
 }
+
