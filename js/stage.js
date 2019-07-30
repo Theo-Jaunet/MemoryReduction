@@ -55,16 +55,16 @@ let stages_txt = [
     'active at the end</a>. ' +
     'In <a onclick="meta_switch(0)"> the resulting trajectory</a>, the agent was able to gather the health pack, which indicates the added elements may be related to it. ' +
     ' <br><br>' +
-    'To go futher ...0 <a onmouseover="highelems([10, 3, 0])" onmouseout="resetelems()">elements only actives before the gathered the armor</a>, we can observe that the <a onclick="meta_switch(1)">agent\'s trajectory</a>  ' +
-    'that the agent is still able to gather the armor.' +
-    ' <br><br>' +
-    'The combination of those <a onmouseover="highelems( [1, 10, 4, 3, 22, 0, 17, 5])" onmouseout="resetelems()">both reductions</a>, outputs a <a onclick="meta_switch(2)">trajectory</a> in which the agent moved towards the health pack instead of the armor. ' +
-    'This provides clues that those elements may indeed encode information related to the armor.' +
-    '  <br><br>' +
-    'When the agent only uses those elements the <a onclick="meta_switch(3)"> resulting trajectory</a> the agent moved towards the armor, however, it was not able to gather it, and moved in circles. ' +
-    'This can be interpreted as the agent needing other memory elements to gather the armor, perhaps some encoding whether the agent is close to an item or not.  ',
+    'To go further, we added  <a onmouseover="highelems([10, 3, 0])" onmouseout="resetelems()">3 elements .....</a>. We can observe that the <a onclick="meta_switch(1)">agent\'s trajectory</a>  ' +
+    'it gathered all items in the correct order.' +
+    ' <br><br>'
+    /* 'The combination of those <a onmouseover="highelems( [1, 10, 4, 3, 22, 0, 17, 5])" onmouseout="resetelems()">both reductions</a>, outputs a <a onclick="meta_switch(2)">trajectory</a> in which the agent moved towards the health pack instead of the armor. ' +
+     'This provides clues that those elements may indeed encode information related to the armor.' +
+     '  <br><br>' +
+     'When the agent only uses those elements the <a onclick="meta_switch(3)"> resulting trajectory</a> the agent moved towards the armor, however, it was not able to gather it, and moved in circles. ' +
+     'This can be interpreted as the agent needing other memory elements to gather the armor, perhaps some encoding whether the agent is close to an item or not.  ',
 
-
+ */,
     'You can remove up to 2 elements by clicking on them, and replay the generated trajectory. Such proccess is limited to 2 elements at the' +
     'same time because each combination is pre-generated and therefore, the complete set of memory reduction is not computable. <br><br> ' +
     'The reduction of both <a  onmouseover="highelems( [10, 23])" onmouseout="resetelems()" onclick="meta_change(\'nDIY/red10_23.json\', [10,23])"> elements 10 and 23 </a> ' +
