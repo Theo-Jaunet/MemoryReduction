@@ -128,8 +128,8 @@
             <div style="text-align: left;width: 800px;display: inline-block">
                 <h4>Deep Reinforcement Learning and Memory</h4>
 
-                <p> We used the Advantage Actor Critic (A2C), as presented by <i><a
-                        href="https://arxiv.org/abs/1904.01806"> E.Beetching et. al. </a> </i>.
+                <p> We used the Advantage Actor Critic (A2C) methode, as presented by <i><a
+                        href="https://arxiv.org/abs/1904.01806"> E.Beeching et. al. </a> </i>.
                     This model learns through trial and error to associate an observation (i.e. matrice of pixels), at
                     the time-step t to an action (at) such as turn left.
                     It can achieve this by using neuronal networks with shared parameters <i>theta.</i>
@@ -137,26 +137,26 @@
 
                 <p>
                     The model is composed of three stages with different purposes.
-                    First, 3 convolutional layers to analyze and extract features from the inputted game capture
+                    First, 3 convolutional layers to analyze and extract features from the input game screen
                     (image).
                     This results in a tensor of 16 features <i>(ft)</i> shaped as 10x4 matrices. Those features are then
-                    flatten into a vector of 1x32 using a Fully Connected layer.
-                    The purpose of such operation is to prepare them for the next stage which is the memory.
+                    flattened into a vector of 1x32 using a Fully Connected layer.
+                    The purpose of such operation is to prepare them for the next stage, which is the memory.
                 </p>
                 <p>
                     The memory of such model is handled by a GRU layer, which takes a vector as input and outputs a
                     hidden state <i>(ht)</i>, a vector of 32 elements.
-                    GRU layers maintains and updates a latent representation through time-steps using the combination of
+                    GRU layers maintain and update a latent representation through time-steps using the combination of
                     its current input <i>(ft)</i> and its previous hidden state <i>ht-1</i>.
                     Each element of the hidden states is a quantity within the range[−1,1]. A value close to 0
                     represents low activity, whereas a value close to any extremity represents high activity.
                     Hidden states can change their values between two time-steps. Such value changes can be widely
                     observed across hidden states elements during trajectories.
-                    However, it remains unclear which elements, correspond to which representations, and thus,
+                    However, it remains unclear which elements correspond to which representations, and thus are
                     responsible for decisions.
 
 
-                    Finally, the last stage consist of mapping the current hidden state <i>h_t</i> to a probability
+                    Finally, the last stage consists of mapping the current hidden state <i>h_t</i> to a probability
                     distribution over the 5 available actions <i>(right, left, forward, forward+right, forward+left)</i>.
                 </p>
 
@@ -168,7 +168,7 @@
                     which is then used to optimize the neural network with gradient descent.
                 </p>
 
-                <p> For a more detailed introduction to memory, we recommand reading <a
+                <p> For a more detailed introduction to sequential memory, we recommend reading <a
                         href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/"> Christopher Olah's blog</a>
                     on LSTMs. </p>
             </div>
@@ -180,16 +180,16 @@
             <div style="text-align: left;width: 800px;display: inline-block">
                 <h4> Why Manipulating the Memory?</h4>
                 <p>
-                    As detailed in the previous section, the agent's actions are directly linked to its memory,
+                    As detailed in the previous section, the agents actions are directly linked to its memory,
                     therefore,
-                    each of its decisions may be justified by its current hidden state <i>ht</i>, and its values.
+                    each of its decisions depend on its current hidden state <i>ht</i>, and its values.
                     However, such memory is hard to understand due to the fact that it is time-varying and using
-                    abstract values.
-                    Being able to erase memory elements, and observing how the agent behaves without them,
+                    numerical values.
+                    Being able to erase memory elements, and to observe how the agent behaves without them,
                     may help understanding and interpreting their roles in the decision process and information they may
                     represent.
 
-                    In addition, the hidden states length is manually set by the model's builder, therefore such value
+                    In addition, the hidden states\' length is manually set by the model's designer, therefore such values
                     maybe unfit to the agent's needs, which may results in unused or redundant elements.
                     Removing them, and thus reducing the memory length can reduce the computation power needed by the
                     agent, and both reduce the training time and the energy consumption footprint.
@@ -208,7 +208,7 @@
 
                 <p> In order to simulate a reduced memory we implemented a method that allows to generate trajectories
                     from agents with limited memory.
-                    Technically, we hijack the memory vectors by applying a mask to them before each decisions.
+                    Technically, we hijack the memory vectors by applying a mask to them before each decision.
                     This mask is a 1x32 vector, with its values either set to 0 (remove the element) or set to 1 (keep
                     the element).
                     Each memory element is multiplied by its corresponding mask element, and therefore either have

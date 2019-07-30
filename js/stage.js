@@ -3,9 +3,9 @@ let stage = 0;
 let stages_titles = ['Full Memory', 'Random Memory Reductions', 'Top Memory Elements', 'Memory Elements Selection', 'Do it Yourself!'];
 let stages_txt = [
 
-    'In order to play doom, the artificial player receive at each time-step, a game capture (image) corresponding to its field of view.\n' +
-    '                From this game capture, it decides which action it should do. As the player\n' +
-    '                 decides, it builds an inner representation of the previously seen game captures. To do so, it combines the current game capture and its previous inner representation. Such representation,\n' +
+    'In order to solve the task of playing Doom, the artificial player at each instant receives, an observed image (a screen capture) corresponding to its field of view.\n' +
+    '                From this image, it decides which action it should do. As the game episode goes on, the agent ' +
+    '                  builds an inner representation of the previously seen game captures. To do so, it combines the current game capture and its previous inner representation. The representation,\n' +
     '                is a vector <i>(1x32)</i> with values in a scale from inactive <span class="cell"></span> to active <span class="cell" style="background-color: rgb(191, 84, 47)"></span>. ' +
     'Each vector is vertically aligned in the order in which it is produced.' +
     '<br>' +
@@ -16,9 +16,9 @@ let stages_txt = [
     // '<br>' +
     // '<br>' +
     'Also, the <a onmouseover="highelems([28])" onmouseout="resetelems()"> element # 28</a> (row) remained active until the agent ' +
-    'gathered the red armor and inactive after. How the agent would behave without it? <a onclick="meta_change(\'nDIY/red28_-1.json\', [28,-1])">Let\'s find out! </a><br> ' +
-    'The new trajectory stars as the previous one, however once the agent gathered the red armor, it turned left instead of right. ' +
-    'What if we go further and remove more memory elements? Having smaller models would be useful as they may be more interpretable, but also requiring less computing power and less energy consumption footprint.     ' +
+    'gathered the red armor and inactive after. How would the agent behave without row#28 of its memory? <a onclick="meta_change(\'nDIY/red28_-1.json\', [28,-1])">Let\'s find out! </a><br> ' +
+    'The new trajectory starts as the previous one; however once the agent gathered the red armor, it turned left instead of right. ' +
+    'What if we go further and remove more memory elements? Having smaller models would be useful as they may be more interpretable, but also requiring less computing power and have a lower energy consumption footprint.     ' +
     '<br>',
 
     'A naive approach is to randomly remove memory elements regardless of their activation. Here, they each have 1 chance out of 2 to be erased. ' +

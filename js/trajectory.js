@@ -64,8 +64,9 @@ function draw_traj(data, svg, width, height, cs, cla) {
 
     d3.select('.traj_bg').moveToFront()
     d3.select('.traj_top').moveToFront()
-    d3.select('.item').moveToFront()
     d3.select('.traj-sel').moveToFront()
+    d3.selectAll('.item').moveToFront()
+
 }
 
 
@@ -77,17 +78,18 @@ function place_items(svg, st) {
     g.append("svg:image")
         .attr('x', traj_x(80) + offx + 1)
         .attr('y', traj_y(80) + offy - 15.5 + 1)
-        .attr('class', 'item')
         .attr('width', 45)
         .attr('height', 57)
+        .attr('class', 'item')
+
         .attr("xlink:href", 'assets/armorGreen.png')
 
     g.append("svg:image")
         .attr('x', traj_x(-400) + offx + 1)
         .attr('y', traj_y(-80) + offy - 13.5 + 1)
-        .attr('class', 'item')
         .attr('width', 33)
         .attr('height', 27)
+        .attr('class', 'item')
         .attr("xlink:href", 'assets/armorRed.png')
 
 
@@ -95,8 +97,8 @@ function place_items(svg, st) {
         .attr('x', traj_x(-240) + offx + 1)
         .attr('y', traj_y(240) + offy - 13.5 + 1)
         .attr('width', 33)
-        .attr('class', 'item')
         .attr('height', 27)
+        .attr('class', 'item')
         .attr("xlink:href", 'assets/hp.png');
 
 

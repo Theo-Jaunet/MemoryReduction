@@ -52,7 +52,7 @@ function meta_change(filename, index) {
 function load_data(data, index) {
     data = tofloat(data);
     let tbbox = tool[0].node().getBoundingClientRect();
-    let traj_s = ((450 * tbbox.width) / 1300);
+    let traj_s = ((600 * tbbox.width) / 1300);
     tdata = data;
 
     console.log('lqlalqlq');
@@ -62,7 +62,7 @@ function load_data(data, index) {
         curStep = tdata.hiddens.length - 1
     }
 
-    ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1], tdata.mask, index);
+    ve_init_rows(tool[0], tdata.hiddens, 685, 811, tdata.mask, index);
     $('.traj-sel').toggleClass('traj-sel');
     draw_traj(tdata.positions, tool[0], traj_s, traj_s, false, 'sec-traj traj-sel');
     update_bars(tool[0], tdata.probabilities[start + curStep]);
@@ -74,6 +74,7 @@ function load_data(data, index) {
 
     $('#timebar').val(curStep);
     update_time();
+    d3.selectAll('.item').moveToFront()
 
     switch (stage) {
         case  "0":
@@ -121,6 +122,7 @@ function step() {
         draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start + curStep]);
         drawImage(tool[0], 'data:image/png;base64,' + tdata.inputs[start + curStep], tool[2]);
         update_bars(tool[0], tdata.probabilities[start + curStep]);
+        d3.selectAll('.item').moveToFront()
     } else {
         pl = false;
         $('.play ').attr('src', 'assets/play-sign.svg');

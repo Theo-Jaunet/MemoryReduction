@@ -2,7 +2,7 @@ let ve_h;
 let ve_rows = [];
 let ve_w = 15;
 let col = d3.scaleLinear().domain([-1, 0, 1]).range(['#2266a6', '#effce5', '#bf6b09']).interpolate(d3.interpolateHcl);
-let hst = 850;
+let hst = 521;
 let sels = [-1, -1];
 let old_sels = [-1, -1];
 let cur_tri = 'nm';
@@ -25,11 +25,12 @@ function ve_init_rows(svg, data, height, width, mask, elem) {
 
     let g = svg.append('g').attr('class', 'hiddensgrp').attr('id', 'hiddensgrp');
 
-    if (width < 1000) {
+/*    if (width < 1000) {
         hst = (710 * width) / 1200;
         hst += 42
     }
 
+    console.log(hst);*/
     ve_h = Math.min(((height - 140) / data[0].length), 60);
     ve_w = Math.min((width - hst - 10) / data.length, 13);
 
