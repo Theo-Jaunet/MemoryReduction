@@ -3,9 +3,9 @@ let stage = 0;
 let stages_titles = ['Full Memory', 'Random Memory Reductions', 'Top Memory Elements', 'Memory Elements Selection', 'Do it Yourself!'];
 let stages_txt = [
 
-    'In order to play doom, the artificial doom player receive at each time-steps game capture (image) corresponding to its field of view.\n' +
-    '                From this game capture, it decides which action it should do. As the artificial doom player\n' +
-    '                 decides, it builds an inner representation of the previously seen game captures using the combination of given game capture, and its current inner representation. Such representation,\n' +
+    'In order to play doom, the artificial player receive at each time-step, a game capture (image) corresponding to its field of view.\n' +
+    '                From this game capture, it decides which action it should do. As the player\n' +
+    '                 decides, it builds an inner representation of the previously seen game captures from the current game capture, and its current inner representation. Such representation,\n' +
     '                is a vector <i>(1x32)</i> with values in a scale from <span class="cell"></span> inactive to <span class="cell" style="background-color: rgb(191, 84, 47)"></span> active. ' +
     'Those vectors are vertically aligned per time-steps in which they are produced' +
     '<br>' +
@@ -45,17 +45,17 @@ let stages_txt = [
     'Among the top changing elements, <a onclick="meta_switch(2)"> with 50% memory elements</a>  the agent successfully gathered the red armor, but got stuck in a loop of ations right after. ' +
     ' But, with <a onclick="meta_switch(3)"> 25% of its memory </a>, the agent successfully gathered the red armor and moved towards the health pack after. ' +
     '<br><br>' +
-    'This suggests that indeed core information is represented in the top elements. However, the resulting trajectories are still need to be improve' +
-    'in order to complete the task as the agent with full memory did. ' +
+    'This suggests that indeed core information is represented in the top elements. However, the resulting trajectories are still need to be improve order to complete the task as the agent with full memory did. ' +
     'Perhaps, Humans can be of assistance in this matter.',
 
 
     'We manually selected different groups of elements based on their activations.' +
     ' <br><br>' +
-    ' We start with <a onmouseover="highelems([1, 4, 22])" onmouseout="resetelems()">elements only active after the agent gathered the armor</a>. ' +
-    'In <a onclick="meta_switch(0)"> this trajectory</a> the agent is still able to reach the armor, however it decided to continue in the same direction rather than turning around as it did with its full memory.' +
+    ' We start with the previous  <a onmouseover="highelems([8, 29, 12, 25, 11, 7, 15, 24])" onmouseout="resetelems()">top 25% changing elements</a>, combined with  <a onmouseover="highelems([21, 5])" onmouseout="resetelems()">elements ' +
+    'active at the end</a>. ' +
+    'In <a onclick="meta_switch(0)"> the resulting trajectory</a>, the agent was able to gather the health pack, which indicates the added elements may be related to it. ' +
     ' <br><br>' +
-    'While removing the <a onmouseover="highelems([10, 3, 0])" onmouseout="resetelems()">elements only actives before the gathered the armor</a>, we can observe that the <a onclick="meta_switch(1)">agent\'s trajectory</a>  ' +
+    'To go futher ...0 <a onmouseover="highelems([10, 3, 0])" onmouseout="resetelems()">elements only actives before the gathered the armor</a>, we can observe that the <a onclick="meta_switch(1)">agent\'s trajectory</a>  ' +
     'that the agent is still able to gather the armor.' +
     ' <br><br>' +
     'The combination of those <a onmouseover="highelems( [1, 10, 4, 3, 22, 0, 17, 5])" onmouseout="resetelems()">both reductions</a>, outputs a <a onclick="meta_switch(2)">trajectory</a> in which the agent moved towards the health pack instead of the armor. ' +
@@ -65,8 +65,9 @@ let stages_txt = [
     'This can be interpreted as the agent needing other memory elements to gather the armor, perhaps some encoding whether the agent is close to an item or not.  ',
 
 
-    'You can remove up to 2 elements by clicking on them, and replay the generated trajectory. <br' +
-    '><br> The reduction of both <a  onmouseover="highelems( [10, 23])" onmouseout="resetelems()" onclick="meta_change(\'nDIY/red10_23.json\', [10,23])"> elements 10 and 23 </a> ' +
+    'You can remove up to 2 elements by clicking on them, and replay the generated trajectory. Such proccess is limited to 2 elements at the' +
+    'same time because each combination is pre-generated and therefore, the complete set of memory reduction is not computable. <br><br> ' +
+    'The reduction of both <a  onmouseover="highelems( [10, 23])" onmouseout="resetelems()" onclick="meta_change(\'nDIY/red10_23.json\', [10,23])"> elements 10 and 23 </a> ' +
     'is enough to make the agent move towards the healh pack. This indicates that those elements are essential for the agent to decide. ' +
     'However, removing only one result on the agent having the same trajectory as when it used its full memory.'];
 

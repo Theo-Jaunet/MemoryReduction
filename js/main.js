@@ -12,7 +12,7 @@ let tops = [];
 let diy = [];
 let random = [];
 let mains = [];
-let selecs_list = ['after', 'before', 'both', 'only'];
+let selecs_list = ['after', 'rest0', 'both', 'only'];
 let selecs = [];
 
 let area = d3.line()
@@ -54,6 +54,11 @@ function load_data(data, index) {
     let traj_s = ((450 * tbbox.width) / 1300);
     tdata = data;
 
+
+    if (curStep > tdata.hiddens.length - 1) {
+        curStep = tdata.hiddens.length - 1
+    }
+
     ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1], tdata.mask, index);
     $('.traj-sel').toggleClass('traj-sel');
     draw_traj(tdata.positions, tool[0], traj_s, traj_s, false, 'sec-traj traj-sel');
@@ -65,7 +70,8 @@ function load_data(data, index) {
     $('#timebar').attr('max', tdata.hiddens.length - 1);
 
     $('#timebar').val(curStep);
-    update_time()
+    update_time();
+
     switch (stage) {
         case  "0":
             if (mains[iz] === undefined) {
@@ -193,7 +199,10 @@ function reportWindowSize() {
 
     drawModel(tool[0], tool[2]);
     show_sel(start);
+
     up_curtxt(curStep, tdata.hiddens.length - 1);
+
+    show_current(tool[0], (hst - 10) + (ve_w / 2), -10, curStep);
 
 
     $('#card_title').html(stages_titles[stage]);
