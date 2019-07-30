@@ -11,8 +11,8 @@ let stages_txt = [
     '<br>' +
     '<br>' +
     'In the generated trajectory, we can see that the agent gathered all items in the correct order. ' +
-/*    'In addition, as the green armor entered its field of view in <a onclick="load_step(4)">step 4</a>, some <a> memory elements (rows)</a> ' +
-    'changed from inactive to active. This suggests that they may be encoding the presence of the armor in the agent\'s field. ' +*/
+    /*    'In addition, as the green armor entered its field of view in <a onclick="load_step(4)">step 4</a>, some <a> memory elements (rows)</a> ' +
+        'changed from inactive to active. This suggests that they may be encoding the presence of the armor in the agent\'s field. ' +*/
     // '<br>' +
     // '<br>' +
     'Also, the <a onmouseover="highelems([28])" onmouseout="resetelems()"> element # 28</a> (row) remained active until the agent ' +
@@ -56,7 +56,7 @@ let stages_txt = [
     'In <a onclick="meta_switch(0)"> the resulting trajectory</a>, the agent was able to gather the health pack, which indicates the added elements may be related to it. ' +
     ' <br><br>' +
     'To go further, the next goal is to make the agent also gather the soul-spehre. To do so, we continued to add <a onmouseover="highelems([10, 3, 0])" onmouseout="resetelems()">3 elements also active at the end</a>. We can observe that the <a onclick="meta_switch(1)">agent\'s trajectory</a>  ' +
-    'it gathered all items in the correct order. And therefore we can conclude that the agent is able to solve its task, in the current configuration (walls, items, and agent initiate position), while only using 13 elements'  +
+    'it gathered all items in the correct order. And therefore we can conclude that the agent is able to solve its task, in the current configuration (walls, items, and agent initiate position), while only using 13 elements' +
     ' <br><br>'
     /* 'The combination of those <a onmouseover="highelems( [1, 10, 4, 3, 22, 0, 17, 5])" onmouseout="resetelems()">both reductions</a>, outputs a <a onclick="meta_switch(2)">trajectory</a> in which the agent moved towards the health pack instead of the armor. ' +
      'This provides clues that those elements may indeed encode information related to the armor.' +
@@ -67,8 +67,10 @@ let stages_txt = [
  */,
     'You can remove up to 2 elements by clicking on them, and replay the generated trajectory. Such proccess is limited to 2 elements at the' +
     'same time because each combination is pre-generated and therefore, the complete set of memory reduction is not computable. <br><br> ' +
-    'The reduction of both <a  onmouseover="highelems( [10, 23])" onmouseout="resetelems()" onclick="meta_change(\'nDIY/red10_23.json\', [10,23])"> elements 10 and 23 </a> ' +
-    'is enough to make the agent move towards the healh pack. This indicates that those elements are essential for the agent to decide. ' +
+    'The reduction of both <a onmouseover="highelems( [10, 23])" onmouseout="resetelems()" onclick="meta_change(\'nDIY/red10_23.json\', [10,23])"> elements 10 and 23 </a> ' +
+    'is enough to make the agent move turn left after gathering the red armor healh pack. ' +
+    'In addition; changing <a onmouseover="highelems( [10])" onmouseout="resetelems()"> element 10</a> for <a onmouseover="highelems([5])" onmouseout="resetelems()"> element 5</a>, makes the agent <a onclick="meta_change(\'nDIY/red5_23.json\', [10,23])"> avoid the green armor</a>' +
+    'This indicates that those elements are essential for the agent to decide. ' +
     'However, removing only one result on the agent having the same trajectory as when it used its full memory.'];
 
 

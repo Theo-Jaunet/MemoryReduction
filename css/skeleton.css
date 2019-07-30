@@ -29,7 +29,7 @@
 .container {
     position: relative;
     width: 100%;
-    max-width: 1270px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
     box-sizing: border-box;
@@ -614,8 +614,8 @@ there.
 @media (min-width: 1300px) {
 
     .button {
-        height: 50px;
-        line-height: 50px;
+        /*height: 50px;*/
+        /*line-height: 50px;*/
         padding: 0 10px;
         vertical-align: bottom;
     }
