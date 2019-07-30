@@ -5,7 +5,7 @@ let col = d3.scaleLinear().domain([-1, 0, 1]).range(['#2266a6', '#effce5', '#bf6
 let hst = 850;
 let sels = [-1, -1];
 let old_sels = [-1, -1];
-let cur_tri = 'act';
+let cur_tri = 'nm';
 let mono_col = d3.scaleLinear().domain([0.35, 1]).range(['#FFF', '#bf542f']).interpolate(d3.interpolateHcl);
 let goplz = false;
 let tri = {
@@ -155,7 +155,8 @@ function mask_elems(svg, mask, nb) {
                 // $(t).css('    stroke-dasharray: 5000 50000;
                 document.getElementById('hiddensgrp').appendChild(t)
 
-                if (goplz && is_new) {
+
+                if ((goplz && is_new) || (goplz && cur_tri === 'nm')) {
                     d3.select('#linear-gradient stop').transition().delay(2600).duration(2500).attr('offset', '100%')
 
                 } else {
@@ -278,7 +279,11 @@ function svg_click() {
 
 function ve_update_reorder(type) {
 
-    is_new = type !== cur_tri;
+    if (cur_tri !== 'nm') {
+        is_new = type !== cur_tri;
+    } else {
+        is_new = true
+    }
 
     if (type === 'act') {
         cur_tri = type;

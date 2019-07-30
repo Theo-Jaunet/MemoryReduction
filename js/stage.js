@@ -12,7 +12,7 @@ let stages_txt = [
     '<br>' +
     'In the generated trajectory, we can see that the agent gathered all items in the correct order. ' +
     'In addition, as the green armor entered its field of view in <a onclick="load_step(4)">step 4</a>, some <a> memory elements (rows)</a> ' +
-    'changed from inactive to active. This suggests that they may be encoding the presence of the armor in the agent\'s field. '+
+    'changed from inactive to active. This suggests that they may be encoding the presence of the armor in the agent\'s field. ' +
     '<br>' +
     '<br>' +
     'We can also note that the element <a onmouseover="highelems([28])" onmouseout="resetelems()"> # 28</a> remained active until the agent' +
@@ -24,27 +24,29 @@ let stages_txt = [
     'A naive approach is to randomly remove memory elements regardless of their activation. Here, they each have 1 chance out of 2 to be erased. ' +
     'We generated 3 different random memory reductions: <a onclick="meta_switch(0)">Random #1</a>, <a onclick="meta_switch(3)">Random #2</a> and <a onclick="meta_switch(10)">Random #3</a>.' +
     '<br><br>' +
-    'In Random #1, the agent only has  31% of its memory. In resulting trajectory, it gathered the soul-sphere before gathering the health pack which ended the game (fail). ' +
+    'In <a onclick="meta_switch(0)">Random #1</a>, the agent only has  31% of its memory. In resulting trajectory, it gathered the soul-sphere before gathering the health pack which ended the game (fail). ' +
     '<br><br>' +
-    ' In Random #2, the ag' +
+    ' In <a onclick="meta_switch(1)">Random #2</a> the agent\'s memory is reduced to 59% which made it turn left instead of right after it gathered the red armor, and therefore failed to gather all items.   ' +
     '<br><br>' +
-    'Finally, despite only having 13 elements removed in the<a  onclick="meta_switch(10)"> last run</a>, the agent ended up confused and turned around. ' +
-    'This suggest that some elements may be essential for the agent\'s decisions.' +
-    '<br>' +
-    '<br>',
+    'Finally, in <a onclick="meta_switch(2)">Random #3</a>, with 50% memory, the agent successfully gathered all items in less steps than when it used its full memory. ' +
+    'This suggests that some memory elements may be more important than others for the agent to decide, ' +
+    'and that reducing the memory while preserving its performances is possible. ',
 
 
-    'If some memory elements are essential, are they among the <a onclick="ve_update_reorder(\'act\')">top activated?</a> The <a  onclick="ve_update_reorder(\'ch\')">top changing?</a> ' +
-    'We now sort the memory according to different metrics and remove either the bottom 50% or 75%.' +
+    'If some memory elements are essential, are they among the <a onclick="meta_switch(0)">top 50% activated?</a><a onclick="meta_switch(1)"> The top 25% activated? </a> ' +
+    'Or the ' +
+    '<a  onclick="meta_switch(2)">top 50% changing?</a>, <a  onclick="meta_switch(3)">top 25%?</a> ' +
     '<br><br>' +
     'Among the top activated elements we can observe that <a onclick="meta_switch(0)"> with 50% memory </a>' +
-    ', the agent moved towards the armor but avoided it.' +
-    ' With <a onclick="meta_switch(1)">  25% of its memory </a>, the agent was able to gather the armor. This may indicate that key elements may be in the top activated quarter of elements, ' +
-    'and that some elements in the second quarter may change the information they encode.' +
+    ', the agent gathered the green armor, but failed to gather the red armor and turned left instead.' +
+    ' With <a onclick="meta_switch(1)"> 25% of its memory </a>, the agent got stuck in a loop altering right and left actions.' +
+    'This may indicate that key elements related to armors may not be in the top activated elements.' +
     '<br><br>' +
-    'While using only <a onclick="meta_switch(2)"> the 50% most changing elements</a>, the agent gathered the armor and bumped into a wall. But, with <a onclick="meta_switch(3)"> 25% of its memory </a>, the agent successfully gathered the armor without hitting any wall, and had a smoother trajectory. ' +
+    'Among the top changing elements, <a onclick="meta_switch(2)"> with 50% memory elements</a>  the agent successfully gathered the red armor, but got stuck in a loop of ations right after. ' +
+    ' But, with <a onclick="meta_switch(3)"> 25% of its memory </a>, the agent successfully gathered the red armor and moved towards the health pack after. ' +
     '<br><br>' +
-    'This suggests that indeed core information is represented in the top elements. However, the resulting trajectories takes on average 10 more steps to reach the armor than the agent with full memory. Therefore only using top elements may not be a reliable reducing strategy. ' +
+    'This suggests that indeed core information is represented in the top elements. However, the resulting trajectories are still need to be improve' +
+    'in order to complete the task as the agent with full memory did. ' +
     'Perhaps, Humans can be of assistance in this matter.',
 
 
@@ -60,7 +62,7 @@ let stages_txt = [
     'This provides clues that those elements may indeed encode information related to the armor.' +
     '  <br><br>' +
     'When the agent only uses those elements the <a onclick="meta_switch(3)"> resulting trajectory</a> the agent moved towards the armor, however, it was not able to gather it, and moved in circles. ' +
-    'This can be interpreted as the agent needing other memory elements to gzather the armor, perhaps some encoding whether the agent is close to an item or not.  ',
+    'This can be interpreted as the agent needing other memory elements to gather the armor, perhaps some encoding whether the agent is close to an item or not.  ',
 
 
     'You can remove up to 2 elements by clicking on them, and replay the generated trajectory. <br' +
@@ -126,6 +128,7 @@ function update_stage(nb) {
                         }
 */
             /*chain_load_top();*/
+
 
             iz = 0;
             if (mains[iz] === undefined) {
