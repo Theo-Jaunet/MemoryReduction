@@ -12,7 +12,8 @@ let tops = [];
 let diy = [];
 let random = [];
 let mains = [];
-let selecs_list = ['after','rest0', 'rest1', 'only'];
+// let selecs_list = ['after','rest0', 'rest1', 'only'];
+let selecs_list = ['rest0', 'rest1', 'only'];
 let selecs = [];
 
 let area = d3.line()
@@ -93,6 +94,7 @@ function load_data(data, index) {
             break;
         case  "3":
             if (selecs[iz] === undefined && data !== mains[0]) {
+                console.log('lalal');
                 selecs[iz] = data;
             }
             break;
