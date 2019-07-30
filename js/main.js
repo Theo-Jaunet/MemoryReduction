@@ -12,7 +12,7 @@ let tops = [];
 let diy = [];
 let random = [];
 let mains = [];
-let selecs_list = ['after', 'rest0', 'both', 'only'];
+let selecs_list = ['after','rest0', 'rest1', 'only'];
 let selecs = [];
 
 let area = d3.line()
@@ -54,6 +54,8 @@ function load_data(data, index) {
     let traj_s = ((450 * tbbox.width) / 1300);
     tdata = data;
 
+    console.log('lqlalqlq');
+
 
     if (curStep > tdata.hiddens.length - 1) {
         curStep = tdata.hiddens.length - 1
@@ -90,7 +92,7 @@ function load_data(data, index) {
                 }
             break;
         case  "3":
-            if (selecs[iz] === undefined) {
+            if (selecs[iz] === undefined && data !== mains[0]) {
                 selecs[iz] = data;
             }
             break;
@@ -320,8 +322,8 @@ function meta_switch(run) {
             break;
         case  "3":
 
-            if (selecs[iz] !== undefined) {
-                load_data(selecs[iz])
+            if (selecs[selecs_list[iz]] !== undefined) {
+                load_data(selecs[selecs_list[iz]])
             } else {
 
                 meta_change('sel/' + selecs_list[iz] + '.json', -1)

@@ -5,17 +5,17 @@ let stages_txt = [
 
     'In order to play doom, the artificial player receive at each time-step, a game capture (image) corresponding to its field of view.\n' +
     '                From this game capture, it decides which action it should do. As the player\n' +
-    '                 decides, it builds an inner representation of the previously seen game captures from the current game capture, and its current inner representation. Such representation,\n' +
-    '                is a vector <i>(1x32)</i> with values in a scale from <span class="cell"></span> inactive to <span class="cell" style="background-color: rgb(191, 84, 47)"></span> active. ' +
-    'Those vectors are vertically aligned per time-steps in which they are produced' +
+    '                 decides, it builds an inner representation of the previously seen game captures. To do so, it combines the current game capture and its previous inner representation. Such representation,\n' +
+    '                is a vector <i>(1x32)</i> with values in a scale from inactive <span class="cell"></span> to active <span class="cell" style="background-color: rgb(191, 84, 47)"></span>. ' +
+    'Each vector is vertically aligned in the order in which it is produced.' +
     '<br>' +
     '<br>' +
     'In the generated trajectory, we can see that the agent gathered all items in the correct order. ' +
-    'In addition, as the green armor entered its field of view in <a onclick="load_step(4)">step 4</a>, some <a> memory elements (rows)</a> ' +
-    'changed from inactive to active. This suggests that they may be encoding the presence of the armor in the agent\'s field. ' +
-    '<br>' +
-    '<br>' +
-    'We can also note that the element <a onmouseover="highelems([28])" onmouseout="resetelems()"> # 28</a> remained active until the agent' +
+/*    'In addition, as the green armor entered its field of view in <a onclick="load_step(4)">step 4</a>, some <a> memory elements (rows)</a> ' +
+    'changed from inactive to active. This suggests that they may be encoding the presence of the armor in the agent\'s field. ' +*/
+    // '<br>' +
+    // '<br>' +
+    'Also, the <a onmouseover="highelems([28])" onmouseout="resetelems()"> element # 28</a> (row) remained active until the agent ' +
     'gathered the red armor and inactive after. How the agent would behave without it? <a onclick="meta_change(\'nDIY/red28_-1.json\', [28,-1])">Let\'s find out! </a><br> ' +
     'The new trajectory stars as the previous one, however once the agent gathered the red armor, it turned left instead of right. ' +
     'What if we go further and remove more memory elements? Having smaller models would be useful as they may be more interpretable, but also requiring less computing power and less energy consumption footprint.     ' +
@@ -26,9 +26,9 @@ let stages_txt = [
     '<br><br>' +
     'In <a onclick="meta_switch(0)">Random #1</a>, the agent only has  31% of its memory. In resulting trajectory, it gathered the soul-sphere before gathering the health pack which ended the game (fail). ' +
     '<br><br>' +
-    ' In <a onclick="meta_switch(1)">Random #2</a> the agent\'s memory is reduced to 59% which made it turn left instead of right after it gathered the red armor, and therefore failed to gather all items.   ' +
+    ' In <a onclick="meta_switch(3)">Random #2</a> the agent\'s memory is reduced to 59% which made it turn left instead of right after it gathered the red armor, and therefore failed to gather all items in the given time.   ' +
     '<br><br>' +
-    'Finally, in <a onclick="meta_switch(2)">Random #3</a>, with 50% memory, the agent successfully gathered all items in less steps than when it used its full memory. ' +
+    'Finally, in <a onclick="meta_switch(10)">Random #3</a>, with 50% memory, the agent successfully gathered all items in less steps than when it used its full memory. ' +
     'This suggests that some memory elements may be more important than others for the agent to decide, ' +
     'and that reducing the memory while preserving its performances is possible. ',
 
@@ -39,24 +39,24 @@ let stages_txt = [
     '<br><br>' +
     'Among the top activated elements we can observe that <a onclick="meta_switch(0)"> with 50% memory </a>' +
     ', the agent gathered the green armor, but failed to gather the red armor and turned left instead.' +
-    ' With <a onclick="meta_switch(1)"> 25% of its memory </a>, the agent got stuck in a loop altering right and left actions.' +
+    ' With <a onclick="meta_switch(1)"> 25% of its memory </a>, the agent got stuck in a loop altering right and left actions. ' +
     'This may indicate that key elements related to armors may not be in the top activated elements.' +
     '<br><br>' +
     'Among the top changing elements, <a onclick="meta_switch(2)"> with 50% memory elements</a>  the agent successfully gathered the red armor, but got stuck in a loop of ations right after. ' +
     ' But, with <a onclick="meta_switch(3)"> 25% of its memory </a>, the agent successfully gathered the red armor and moved towards the health pack after. ' +
     '<br><br>' +
-    'This suggests that indeed core information is represented in the top elements. However, the resulting trajectories are still need to be improve order to complete the task as the agent with full memory did. ' +
+    'This suggests that indeed core information is represented in the top elements. However, the resulting trajectories still need to be improved in order for the agent to complete its task as it did with full memory. ' +
     'Perhaps, Humans can be of assistance in this matter.',
 
 
-    'We manually selected different groups of elements based on their activations.' +
+    'Here, our goal is to enhance previous reductions with human knowledge. To do so, we manually selected different groups of elements based on their activations.' +
     ' <br><br>' +
-    ' We start with the previous  <a onmouseover="highelems([8, 29, 12, 25, 11, 7, 15, 24])" onmouseout="resetelems()">top 25% changing elements</a>, combined with  <a onmouseover="highelems([21, 5])" onmouseout="resetelems()">elements ' +
-    'active at the end</a>. ' +
+    ' We start from the previous memory reduction with the<a onmouseover="highelems([8, 29, 12, 25, 11, 7, 15, 24])" onmouseout="resetelems()"> top 25% changing elements</a>, which we combined with <a onmouseover="highelems([21, 5])" onmouseout="resetelems()">elements ' +
+    'active at the end</a>. We selected those elements because they are active when only the health pack is in the agent\'s field of view, and thus may encode its presence. ' +
     'In <a onclick="meta_switch(0)"> the resulting trajectory</a>, the agent was able to gather the health pack, which indicates the added elements may be related to it. ' +
     ' <br><br>' +
-    'To go further, we added  <a onmouseover="highelems([10, 3, 0])" onmouseout="resetelems()">3 elements .....</a>. We can observe that the <a onclick="meta_switch(1)">agent\'s trajectory</a>  ' +
-    'it gathered all items in the correct order.' +
+    'To go further, the next goal is to make the agent also gather the soul-spehre. To do so, we continued to add <a onmouseover="highelems([10, 3, 0])" onmouseout="resetelems()">3 elements also active at the end</a>. We can observe that the <a onclick="meta_switch(1)">agent\'s trajectory</a>  ' +
+    'it gathered all items in the correct order. And therefore we can conclude that the agent is able to solve its task, in the current configuration (walls, items, and agent initiate position), while only using 13 elements'  +
     ' <br><br>'
     /* 'The combination of those <a onmouseover="highelems( [1, 10, 4, 3, 22, 0, 17, 5])" onmouseout="resetelems()">both reductions</a>, outputs a <a onclick="meta_switch(2)">trajectory</a> in which the agent moved towards the health pack instead of the armor. ' +
      'This provides clues that those elements may indeed encode information related to the armor.' +
