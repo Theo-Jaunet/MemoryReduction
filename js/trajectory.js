@@ -187,7 +187,7 @@ function draw_agent_path(svg, pos, or) {
         .attr('fill', '#a92234')
         .attr('stroke', '#555555')
         .attr('stroke-width', '1')
-        .attr('transform', 'translate(' + ((traj_x(pos[0]) - 15) + offx) + ',' + ((traj_y(pos[1]) - 15) + offy) + ') rotate(' + (0) + ' ' + (15) + ' ' + (15) + ')')
+        .attr('transform', 'translate(' + ((traj_x(pos[0]) - 15) + offx) + ',' + ((traj_y(pos[1]) - 15) + offy) + ') rotate(' + (360 - or) + ' ' + (15) + ' ' + (15) + ')')
 }
 
 
