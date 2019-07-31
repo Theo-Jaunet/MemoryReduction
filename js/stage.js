@@ -22,7 +22,7 @@ let stages_txt = [
     '<br>',
 
     'A naive approach is to randomly remove memory elements regardless of their activation. In this scenario here, they each have 1 chance out of 2 to be erased. ' +
-    'We generated 3 different random memory reductions: <a onclick="meta_switch(0)">Random #1</a>, <a onclick="meta_switch(3)">Random #2</a> and <a onclick="meta_switch(10)">Random #3</a>.' +
+    'We generated 3 different random memory reductions.' +
     '<br><br>' +
     'In <a onclick="meta_switch(0)">Random #1</a>, the agent only has  31% of its memory. In the resulting trajectory, it gathered the soul-sphere before gathering the health pack which ended the game (fail). ' +
     '<br><br>' +
@@ -33,9 +33,8 @@ let stages_txt = [
     'and that reducing the memory while preserving its performances is possible. ',
 
 
-    'If some memory elements are essential, are they among the <a onclick="meta_switch(0)">top 50% activated?</a><a onclick="meta_switch(1)"> The top 25% activated? </a> ' +
-    'Or the ' +
-    '<a  onclick="meta_switch(2)">top 50% changing?</a>, <a  onclick="meta_switch(3)">top 25%?</a> ' +
+    'If some memory elements are essential, are they among the top activated elements? ' +
+    'Or perhaps, the top changing ones?' +
     '<br><br>' +
     'Among the top activated elements we can observe that <a onclick="meta_switch(0)"> with 50% memory </a>' +
     ', the agent gathered the green armor, but failed to gather the red armor and turned left instead.' +
@@ -72,9 +71,9 @@ let stages_txt = [
     'same time because each combination is pre-generated and therefore, the complete set of memory reduction is not computable. <br><br> ' +
     'The reduction of both <a onmouseover="highelems( [10, 23])" onmouseout="resetelems()" onclick="meta_change(\'nDIY/red10_23.json\', [10,23])"> elements 10 and 23 </a> ' +
     'is enough to make the agent move turn left after gathering the red armor healh pack. ' +
-    'In addition; changing <a onmouseover="highelems( [10])" onmouseout="resetelems()"> element 10</a> for <a onmouseover="highelems([5])" onmouseout="resetelems()"> element 5</a>, makes the agent <a onclick="meta_change(\'nDIY/red5_23.json\', [10,23])"> avoid the green armor</a>' +
+    'In addition; changing <a onmouseover="highelems( [10])" onmouseout="resetelems()"> element 10</a> for <a onmouseover="highelems([5])" onmouseout="resetelems()"> element 5</a>, makes the agent <a onclick="meta_change(\'nDIY/red5_23.json\', [10,23])"> avoid the green armor</a>. ' +
     'This indicates that those elements are essential for the agent to decide. ' +
-    'However, removing only one result on the agent having the same trajectory as when it used its full memory.'];
+    '<br><br> The possibility to remove up to 2 memory elements provides more than <i>580</i> reductions possible. If you found any interesting reductions, or have any suggestions to improve this tool, please feel free to visit our <a href="https://github.com/Theo-Jaunet/MemoryReduction">github</a>. '];
 
 
 function update_stage(nb) {

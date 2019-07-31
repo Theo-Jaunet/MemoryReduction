@@ -244,7 +244,7 @@ function link_model(svg, data) {
         .attr('y2', tool[2] - 99)
         .attr('stroke', '#555555')
         .attr('stroke-dasharray', "4,2")
-        .attr('stroke-width', '3');
+        .attr('stroke-width', '1');
 
 
     svg.append('line')
@@ -253,8 +253,8 @@ function link_model(svg, data) {
         .attr('y1', 608)
         .attr('y2', tool[2] - 60)
         .attr('stroke', '#555555')
-        .attr('stroke-dasharray', "4,2")
-        .attr('stroke-width', '3');
+        .attr('stroke-dasharray', "3,1")
+        .attr('stroke-width', '1');
 }
 
 
