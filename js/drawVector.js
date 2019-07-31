@@ -25,12 +25,6 @@ function ve_init_rows(svg, data, height, width, mask, elem) {
 
     let g = svg.append('g').attr('class', 'hiddensgrp').attr('id', 'hiddensgrp');
 
-/*    if (width < 1000) {
-        hst = (710 * width) / 1200;
-        hst += 42
-    }
-
-    console.log(hst);*/
     ve_h = Math.min(((height - 140) / data[0].length), 60);
     ve_w = Math.min((width - hst - 10) / data.length, 13);
 
@@ -252,7 +246,7 @@ function svg_click() {
 
         if (Math.min(...sels) !== -1) {
 
-            sels.shift()
+            sels.shift();
             sels.push(parseInt(index))
 
         } else {

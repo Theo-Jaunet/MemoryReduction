@@ -31,7 +31,8 @@ a {
 }
 
 .traj-sel {
-    stroke: #e72444 !important;
+    stroke: #ff5000 !important;
+    /*stroke: #e72444 !important;*/
     opacity: 1 !important;
     stroke-width: 4px !important;
 }

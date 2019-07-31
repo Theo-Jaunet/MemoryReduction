@@ -21,10 +21,10 @@ let stages_txt = [
     'What if we go further and remove more memory elements? Having smaller models would be useful as they may be more interpretable, but also requiring less computing power and have a lower energy consumption footprint.     ' +
     '<br>',
 
-    'A naive approach is to randomly remove memory elements regardless of their activation. Here, they each have 1 chance out of 2 to be erased. ' +
+    'A naive approach is to randomly remove memory elements regardless of their activation. In this scenario here, they each have 1 chance out of 2 to be erased. ' +
     'We generated 3 different random memory reductions: <a onclick="meta_switch(0)">Random #1</a>, <a onclick="meta_switch(3)">Random #2</a> and <a onclick="meta_switch(10)">Random #3</a>.' +
     '<br><br>' +
-    'In <a onclick="meta_switch(0)">Random #1</a>, the agent only has  31% of its memory. In resulting trajectory, it gathered the soul-sphere before gathering the health pack which ended the game (fail). ' +
+    'In <a onclick="meta_switch(0)">Random #1</a>, the agent only has  31% of its memory. In the resulting trajectory, it gathered the soul-sphere before gathering the health pack which ended the game (fail). ' +
     '<br><br>' +
     ' In <a onclick="meta_switch(3)">Random #2</a> the agent\'s memory is reduced to 59% which made it turn left instead of right after it gathered the red armor, and therefore failed to gather all items in the given time.   ' +
     '<br><br>' +
@@ -55,8 +55,11 @@ let stages_txt = [
     'active at the end</a>. We selected those elements because they are active when only the health pack is in the agent\'s field of view, and thus may encode its presence. ' +
     'In <a onclick="meta_switch(0)"> the resulting trajectory</a>, the agent was able to gather the health pack, which indicates the added elements may be related to it. ' +
     ' <br><br>' +
-    'To go further, the next goal is to make the agent also gather the soul-spehre. To do so, we continued to add <a onmouseover="highelems([10, 3, 0])" onmouseout="resetelems()">3 elements also active at the end</a>. We can observe that the <a onclick="meta_switch(1)">agent\'s trajectory</a>  ' +
-    'it gathered all items in the correct order. And therefore we can conclude that the agent is able to solve its task, in the current configuration (walls, items, and agent initiate position), while only using 13 elements' +
+    'To go further, the next goal is to make the agent also gather the soul-sphere. To do so, we continued to add <a onmouseover="highelems([10, 3, 0])" onmouseout="resetelems()">3 elements also active at the end</a>. We can observe that the <a onclick="meta_switch(1)">agent\'s trajectory</a>  ' +
+    ' made it gather all items in the correct order. And therefore we can conclude that the agent is able to solve its task, in the current configuration (walls, items, and agent initiate position), while only using 13 elements.' +
+    ' We would like to point out the obvious, namely that the task has been\n' +
+    'solved for a single episode, and that this selection will normally need to\n' +
+    'be confirmed on a larger hold out set of episodes.' +
     ' <br><br>'
     /* 'The combination of those <a onmouseover="highelems( [1, 10, 4, 3, 22, 0, 17, 5])" onmouseout="resetelems()">both reductions</a>, outputs a <a onclick="meta_switch(2)">trajectory</a> in which the agent moved towards the health pack instead of the armor. ' +
      'This provides clues that those elements may indeed encode information related to the armor.' +
@@ -65,7 +68,7 @@ let stages_txt = [
      'This can be interpreted as the agent needing other memory elements to gather the armor, perhaps some encoding whether the agent is close to an item or not.  ',
 
  */,
-    'You can remove up to 2 elements by clicking on them, and replay the generated trajectory. Such proccess is limited to 2 elements at the' +
+    'You can remove up to 2 elements by clicking on them, and replay the generated trajectory. Such a process is limited to 2 elements at the' +
     'same time because each combination is pre-generated and therefore, the complete set of memory reduction is not computable. <br><br> ' +
     'The reduction of both <a onmouseover="highelems( [10, 23])" onmouseout="resetelems()" onclick="meta_change(\'nDIY/red10_23.json\', [10,23])"> elements 10 and 23 </a> ' +
     'is enough to make the agent move turn left after gathering the red armor healh pack. ' +

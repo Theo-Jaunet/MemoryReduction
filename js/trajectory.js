@@ -52,21 +52,29 @@ function draw_traj(data, svg, width, height, cs, cla) {
 
     } else {
         let g = svg.select('.traj');
-        g.append("path")
+        let tpath = g.append("path")
             .data([data])
             .attr("d", line)
             .attr('class', cla)
             .style('opacity', '0.3')
             .attr('stroke', 'steelblue')
-            .style("fill", "none")
-    }
+            .style("fill", "none");
+
+        var totalLength = tpath.node().getTotalLength();
+
+        tpath.attr("stroke-dasharray", totalLength + " " + totalLength)
+            .attr("stroke-dashoffset", totalLength)
+            .transition()
+            .duration(3000)
+            .attr("stroke-dashoffset", 0)
+            }
 
 
-    d3.select('.traj_bg').moveToFront()
-    d3.select('.traj_top').moveToFront()
-    d3.select('.traj-sel').moveToFront()
-    d3.selectAll('.item').moveToFront()
 
+d3.select('.traj_bg').moveToFront();
+d3.select('.traj_top').moveToFront();
+d3.select('.traj-sel').moveToFront();
+d3.selectAll('.item').moveToFront();
 }
 
 
