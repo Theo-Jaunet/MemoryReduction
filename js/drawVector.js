@@ -235,6 +235,26 @@ function link_model(svg, data) {
         .attr('stroke', '#555555')
         .attr('stroke-dasharray', "4,2")
         .attr('stroke-width', '3');
+
+
+    svg.append('line')
+        .attr('x1', 468)
+        .attr('x2', 527)
+        .attr('y1', 478)
+        .attr('y2', tool[2] - 99)
+        .attr('stroke', '#555555')
+        .attr('stroke-dasharray', "4,2")
+        .attr('stroke-width', '3');
+
+
+    svg.append('line')
+        .attr('x1', 468)
+        .attr('x2', 515)
+        .attr('y1', 608)
+        .attr('y2', tool[2] - 60)
+        .attr('stroke', '#555555')
+        .attr('stroke-dasharray', "4,2")
+        .attr('stroke-width', '3');
 }
 
 
@@ -329,7 +349,6 @@ function deler() {
         } else {
             load_data(diy[iz], sels)
         }
-
     }
 }
 
