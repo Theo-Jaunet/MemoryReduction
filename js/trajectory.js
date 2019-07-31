@@ -1,6 +1,6 @@
 let mapx, mapy, traj_x, traj_y;
 let offx = -5;
-let offy = 40;
+let offy = 80;
 
 function traj_init(width, height) {
 

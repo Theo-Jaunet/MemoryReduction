@@ -27,7 +27,7 @@ a {
 .arrow-icon {
     width: 20px;
     height: auto;
-    margin-bottom: 2px;
+    margin-bottom: -2px;
 }
 
 .traj-sel {
