@@ -1,6 +1,6 @@
 let tool = [d3.select('#tool'), $('#tool').width(), $('#tool').height()];
 let tdata;
-let margin = 40;
+let margin = 20;
 let iz = 0;
 let start = 0;
 let pl = false;
