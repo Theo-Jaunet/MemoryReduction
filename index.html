@@ -53,12 +53,12 @@
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <div class="container" style="position: relative; min-width: 1200px">
 
-    <div style="width: 35px;height: auto;display: inline-block;margin-right: 20px;position: absolute;left: 515.7px;top: 74px;z-index: 50">
-        <img class="play" style="width: 35px;position: absolute;left: -49px;top:-29px" src="assets/play-sign.svg">
+    <div style="width: 35px;height: auto;display: inline-block;margin-right: 20px;position: absolute;left: 515.7px;top: 122px;z-index: 50">
+        <img class="play" style="width: 35px;position: absolute;left: 0px;top:-38px" src="assets/play-sign.svg">
         <input id="timebar" type="range" min="0" max="66" step="1" value="0"
                style="width: 295px;position: absolute;top: 14px;">
         <p id="stepctn"
-           style="position: absolute;display: inline-block;left: 118px;width: 88px;top: -18px;user-focus: none;user-select: none">
+           style="position: absolute;display: inline-block;left: 118px;width: 88px;top: -34px;user-focus: none;user-select: none">
             Step --/--</p>
     </div>
     <div class="row" style="margin-top: 15px">
@@ -74,22 +74,21 @@
                                  class="item-icon" style="width: 20px"> , with the
                 shortest path possible.
                 Let’s explore how reducing the memory of a trained agent influences its trajectory!
-
             </p>
 
         </div>
         <div class="seven columns">
-            <div class=" nav left-card-arr button"><</div>
-            <div index="0" class=" nav selected card button">Full Memory</div>
-            <div index="1" class=" nav card button">Random</div>
-            <div index="2" class=" nav card button">Top Elements</div>
-            <div index="3" class=" nav card button">Selection</div>
-            <div index="4" class=" nav card button">Do it Yourself</div>
-            <div class=" nav right-card-arr button">></div>
+            <div class=" nav left-card-arr button" style=""><p> <br>< </p></div>
+            <div index="0" class=" nav selected card button"> <p> Full Memory  <br> (no reduction) </p></div>
+            <div index="1" class=" nav card button"><p>Random  <br> Reductions</p></div>
+            <div index="2" class=" nav card button"><p>Top Elements  <br> only</p></div>
+            <div index="3" class=" nav card button"><p>Selection of  <br> Reductions</p></div>
+            <div index="4" class=" nav card button"><p>Do it  <br>Yourself</p></div>
+            <div class=" nav right-card-arr button"><p style=""> <br>> </p></div>
         </div>
     </div>
 
-    <div class=" row" style="max-height: 665px;position: absolute;top:91px">
+    <div class=" row" style="max-height: 665px;position: absolute;top:140px">
         <div class="nine columns">
             <svg class="" id="tool" style="height: auto;width: 100%;min-height: 685px;min-width: 785px">
                 <defs>
@@ -172,7 +171,7 @@
 
                 <p> For a more detailed introduction to sequential memory, we recommend reading <a
                         href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/"> Christopher Olah's blog</a>
-                    on LSTMs. </p>
+                    on LSTMs, and the <a href="https://arxiv.org/abs/1412.3555">GRU paper </a>.</p>
             </div>
         </div>
     </div>
