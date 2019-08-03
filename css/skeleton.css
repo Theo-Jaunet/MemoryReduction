@@ -51,9 +51,9 @@
 }
 
 /* For devices larger than 550px */
-@media (min-width: 550px) {
+@media (min-width: 50px) {
     .container {
-        width: 95%;
+        width: 90%;
     }
 
     .column,
