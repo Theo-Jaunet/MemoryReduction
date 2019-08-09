@@ -67,7 +67,7 @@ let stages_txt = [
      'This can be interpreted as the agent needing other memory elements to gather the armor, perhaps some encoding whether the agent is close to an item or not.  ',
 
  */,
-    'You can remove up to 2 elements by clicking on them, and replay the generated trajectory. Such a process is limited to 2 elements at the' +
+    'You can remove up to 2 elements by clicking on them, and replay the generated trajectory. Such a process is limited to 2 elements at the ' +
     'same time because each combination is pre-generated and therefore, the complete set of memory reduction is not computable. <br><br> ' +
     'The reduction of both <a onmouseover="highelems( [10, 23])" onmouseout="resetelems()" onclick="meta_change(\'nDIY/red10_23.json\', [10,23])"> elements 10 and 23 </a> ' +
     'is enough to make the agent move turn left after gathering the red armor healh pack. ' +
