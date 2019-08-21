@@ -469,7 +469,7 @@ var rough = function () {
         p < 0 && (p = n.strokeWidth / 2);
         const u = l % 180 * (Math.PI / 180), d = Math.tan(u), g = r / o, y = Math.sqrt(g * d * g * d + 1), M = g * d / y, x = 1 / y, _ = c / (o * r / Math.sqrt(r * x * (r * x) + o * M * (o * M)) / o);
         let b = Math.sqrt(o * o - (e - o + _) * (e - o + _));
-        for (let t = e - o + _; t < e + o; t += _) {
+        for (var t = e - o + _; t < e + o; t += _) {
             const i = f(t, s - (b = Math.sqrt(o * o - (e - t) * (e - t))), e, s, M, x, g), h = f(t, s + b, e, s, M, x, g);
             a.push([i, h])
         }
