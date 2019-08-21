@@ -1,4 +1,4 @@
-let tool = [d3.select('#tool'), $('#tool').width(), $('#tool').height()];
+let tool = [d3.select('#svg-tool'), $('#svg-tool').width(), $('#svg-tool').height()];
 let tdata;
 let margin = 20;
 let iz = 0;
