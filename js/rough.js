@@ -426,7 +426,7 @@ var rough = function () {
 
     function u(t, e) {
         const s = [], i = new r([t[0], t[1]], [t[2], t[3]]);
-        for (let t = 0; t < e.length; t++) {
+        for (var t = 0; t < e.length; t++) {
             const h = new r(e[t], e[(t + 1) % e.length]);
             i.intersects(h) && s.push([i.xi, i.yi])
         }
