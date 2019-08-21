@@ -337,7 +337,7 @@ var rough = function () {
                 e.push(this.reduce(s, h))
             }
             let s = "";
-            for (const t of e) {
+            for (var t of e) {
                 for (let e = 0; e < t.length; e++) {
                     const i = t[e];
                     s += 0 === e ? "M" + i[0] + "," + i[1] : "L" + i[0] + "," + i[1]
@@ -1142,7 +1142,7 @@ var rough = function () {
 
         draw(t) {
             const e = t.sets || [], s = t.options || this.getDefaultOptions(), i = this.ctx;
-            for (const t of e) switch (t.type) {
+            for (var t of e) switch (t.type) {
                 case"path":
                     i.save(), i.strokeStyle = s.stroke, i.lineWidth = s.strokeWidth, this._drawToContext(i, t), i.restore();
                     break;
@@ -1288,7 +1288,7 @@ var rough = function () {
 
         draw(t) {
             const e = t.sets || [], s = t.options || this.getDefaultOptions(), i = this.svg.ownerDocument || window.document, h = i.createElementNS("http://www.w3.org/2000/svg", "g");
-            for (const t of e) {
+            for (var t of e) {
                 let e = null;
                 switch (t.type) {
                     case"path":
