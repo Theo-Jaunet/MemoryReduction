@@ -70,7 +70,7 @@ var rough = function () {
 
         toPaths(t) {
             const e = t.sets || [], s = t.options || this.defaultOptions, i = [];
-            for (const t of e) {
+            for (var t of e) {
                 let e = null;
                 switch (t.type) {
                     case"path":
