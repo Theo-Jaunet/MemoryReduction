@@ -1,7 +1,7 @@
 # MemoryReduction
 Online exploration of memory reduction strategies of a DRL agent trained to solve a navigation task on ViZDoom.
 
-This tool is accessible using the following link: [https://theo-jaunet.github.io/MemoryReduction/](https://theo-jaunet.github.io/MemoryReduction/).
+This tool is accessible using the following link: [https://theo-jaunet.github.io/MemoryReduction/](https://theo-jaunet.github.io/MemoryReduction/). (designed to work on desktop with google chrome)
 
 
 The task consist of gathering 4 different items in the predefined order. 
