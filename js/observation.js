@@ -1,6 +1,6 @@
 function drawImage(svg, url, height) {
 
-    let temp = svg.select('#obs')
+    let temp = d3.select('#obs')
     
   
     
