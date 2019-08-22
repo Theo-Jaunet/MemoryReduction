@@ -201,7 +201,7 @@ function reportWindowSize() {
     bars_init(tool[0], tool[1], tool[2]);
     update_bars(tool[0], tdata.probabilities[start]);
 
-    ve_init_rows(tool[0], tdata.hiddens, tool[2], tool[1], tdata.mask, -1);
+    ve_init_rows(tool[0], tdata.hiddens, 811, tool[1], tdata.mask, -1);
 
     drawModel(tool[0], tool[2]);
     show_sel(start);
