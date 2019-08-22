@@ -1,7 +1,11 @@
 function drawImage(svg, url, height) {
 
-
-    $('#obs').remove();
+    let temp = svg.select('#obs')
+    
+  
+    
+    if (temp._groups[0][0] === null) {
+   
     svg.append("svg:image")
         .attr('x', 290)
         .attr('y', height - 166)
@@ -13,7 +17,9 @@ function drawImage(svg, url, height) {
         .attr("transform", "translate(160,65) skewY(-41) skewX(10)  scale(0.55,1) rotate(19) ")
         .attr("xlink:href", url)
         .attr('filter','url(#brightness)')
-
+    }else {
+     temp.attr("xlink:href", url)
+    }
 }
 
 
