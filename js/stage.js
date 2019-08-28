@@ -15,8 +15,8 @@ let stages_txt = [
         'changed from inactive to active. This suggests that they may be encoding the presence of the armor in the agent\'s field. ' +*/
     // '<br>' +
     // '<br>' +
-    'Also, the <a onmouseover="highelems([29])" onmouseout="resetelems()"> element # 29</a> (row) remained active until the agent ' +
-    'gathered the red armor and inactive after. How would the agent behave without row#28 of its memory? <a onclick="meta_change(\'nDIY/red28_-1.json\', [28,-1])">Let\'s find out! </a><br> ' +
+    'Also, the <a onmouseover="highelems([29])" onmouseout="resetelems()"> element #29</a> (row) remained active until the agent ' +
+    'gathered the red armor and inactive after. How would the agent behave without row#29 of its memory? <a onclick="meta_change(\'nDIY/red28_-1.json\', [28,-1])">Let\'s find out! </a><br> ' +
     'The new trajectory starts as the previous one; however once the agent gathered the red armor, it turned left instead of right. ' +
     'What if we go further and remove more memory elements? Having smaller models would be useful as they may be more interpretable, but also requiring less computing power and have a lower energy consumption footprint.     ' +
     '<br>',

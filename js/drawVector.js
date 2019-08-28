@@ -96,7 +96,6 @@ function init_current(svg, offx, offy, step) {
         .attr('d', "M 30.8,16.6 0.8,30.8 10,16.6 0.8,0.8 Z")
         .attr('class', 'curt')
         .attr('fill', '#183d4e')
-        .style('cursor', 'grab')
         .attr('transform', 'translate(' + (ve_w * (step - 1) + (ve_w / 2) + offx) + ',' + (0 + offy) + ') rotate(' + (90) + ' ' + (15) + ' ' + (15) + ')')
 
 }
