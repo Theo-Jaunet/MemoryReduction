@@ -1,6 +1,8 @@
 # MemoryReduction
 Online exploration of memory reduction strategies of a DRL agent trained to solve a navigation task on ViZDoom.
 
+<img src="https://github.com/Theo-Jaunet/MemoryReduction/blob/master/assets/screenshot.png" />
+
 This tool is accessible using the following link: [https://theo-jaunet.github.io/MemoryReduction/](https://theo-jaunet.github.io/MemoryReduction/). (designed to work on desktop with google chrome)
 
 
