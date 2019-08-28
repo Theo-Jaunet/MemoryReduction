@@ -1,16 +1,15 @@
 let mapx, mapy, traj_x, traj_y;
-let offx = -5;
+let offx = -6;
 let offy = 80;
+let agent;
 
 function traj_init(width, height) {
 
     mapx = [-500, 300];
     mapy = [600, -300];
 
-
     traj_x = d3.scaleLinear().range([0, width]);
     traj_y = d3.scaleLinear().range([0, height]);
-
 
     traj_x.domain(mapx);
     traj_y.domain(mapy);
@@ -67,14 +66,13 @@ function draw_traj(data, svg, width, height, cs, cla) {
             .transition()
             .duration(3000)
             .attr("stroke-dashoffset", 0)
-            }
+    }
 
 
-
-d3.select('.traj_bg').moveToFront();
-d3.select('.traj_top').moveToFront();
-d3.select('.traj-sel').moveToFront();
-d3.selectAll('.item').moveToFront();
+    d3.select('.traj_bg').moveToFront();
+    d3.select('.traj_top').moveToFront();
+    d3.select('.traj-sel').moveToFront();
+    d3.selectAll('.item').moveToFront();
 }
 
 
@@ -186,16 +184,24 @@ function draw_walls(svg, offx, offy) {
 
 function draw_agent_path(svg, pos, or) {
 
-    d3.selectAll('.agent').remove();
 
-    svg.append('path')
+    if (agent === undefined) {
 
-        .attr('d', "M 30.8,16.6 0.8,30.8 10,16.6 0.8,0.8 Z")
-        .attr('class', 'agent')
-        .attr('fill', '#a92234')
-        .attr('stroke', '#555555')
-        .attr('stroke-width', '1')
-        .attr('transform', 'translate(' + ((traj_x(pos[0]) - 15) + offx) + ',' + ((traj_y(pos[1]) - 15) + offy) + ') rotate(' + (360 - or) + ' ' + (15) + ' ' + (15) + ')')
+
+        svg.append('path')
+
+            .attr('d', "M 30.8,16.6 0.8,30.8 10,16.6 0.8,0.8 Z")
+            .attr('id', 'agent')
+            .attr('fill', '#a92234')
+            .attr('stroke', '#555555')
+            .attr('stroke-width', '1')
+            .attr('transform', 'translate(' + ((traj_x(pos[0]) - 15) + offx) + ',' + ((traj_y(pos[1]) - 15) + offy) + ') rotate(' + (360 - or) + ' ' + (15) + ' ' + (15) + ')')
+
+
+        agent = d3.select('#agent')
+    } else {
+        agent.transition().duration(10).attr('transform', 'translate(' + ((traj_x(pos[0]) - 15) + offx) + ',' + ((traj_y(pos[1]) - 15) + offy) + ') rotate(' + (360 - or) + ' ' + (15) + ' ' + (15) + ')')
+    }
 }
 
 

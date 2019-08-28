@@ -20,14 +20,14 @@ a {
 }
 
 .item-icon {
-    width: 30px;
-    height: auto;
+    width: 21px;
+    height: 16px;
 }
 
 .arrow-icon {
     width: 20px;
     height: auto;
-    margin-bottom: -2px;
+    margin-bottom: 0px;
 }
 
 .traj-sel {

@@ -12,6 +12,7 @@ let tops = [];
 let diy = [];
 let random = [];
 let mains = [];
+let stfold = ['main', 'random', "top", "sel", 'nDIY'];
 // let selecs_list = ['after','rest0', 'rest1', 'only'];
 let selecs_list = ['rest0', 'rest1', 'only'];
 let selecs = [];
@@ -25,44 +26,64 @@ let area = d3.line()
     });
 
 
-d3.json("data/main.json").then(function (data) {
+d3.json("data/main/res.json").then(function (data) {
     tdata = data;
-
+    loadALlTraj();
     reportWindowSize();
 
-    mains[0] = data;
-    loadALlTraj();
-    draw_arrowV2(600, tool[2] - 30, 180, -1)
+    // mains[0] = data;
+    tdata['inputs'] = [];
+
+    for (let i = 0; i < data.hiddens.length; i++) {
+        getBase64ImageFromUrl('data/main/images/input' + i + '.jpg')
+            .then(result => tdata['inputs'][i] = '' + result)
+            .catch(err => console.error(err));
+    }
+
+
+    mains[0] = tdata;
+    draw_arrowV2(400, tool[2] - 30, 180, -1)
 
 
 });
 
-bars_init(tool[0], tool[1], tool[2]);
-drawImage(tool[0], 'assets/image3.jpeg', tool[2]);
+// bars_init(tool[0], tool[1], tool[2]);
+// drawImage(tool[0], 'assets/image3.jpeg', tool[2]);
 
 
 function meta_change(filename, index) {
 
+/*    if (index !== -1 && index !== undefined) {
+        iz = '' + index[0] + '_' + index[1]
+    }*/
+
     d3.json("data/" + filename).then(function (data) {
+
+        if (stage !== '4') {
+
+            data['inputs'] = [];
+            for (let i = 0; i < tdata.hiddens.length; i++) {
+                getBase64ImageFromUrl('data/' + stfold[stage] + '/images/' + 'rest' + iz + '_input' + i + '.jpg')
+                    .then(result => data['inputs'][i] = '' + result)
+                    .catch(err => console.error(err));
+            }
+
+        }
 
         load_data(data, index)
     });
 }
 
 function load_data(data, index) {
-    data = tofloat(data);
+    // data = tofloat(data);
     let tbbox = tool[0].node().getBoundingClientRect();
     let traj_s = ((600 * tbbox.width) / 1300);
     tdata = data;
 
-    console.log('lqlalqlq');
-
-
     if (curStep > tdata.hiddens.length - 1) {
         curStep = tdata.hiddens.length - 1
     }
-
-    ve_init_rows(tool[0], tdata.hiddens, 685, 811, tdata.mask, index);
+    ve_init_rows(tool[0], tdata.hiddens, 633, 811, tdata.mask, index);
     $('.traj-sel').toggleClass('traj-sel');
     draw_traj(tdata.positions, tool[0], traj_s, traj_s, false, 'sec-traj traj-sel');
     update_bars(tool[0], tdata.probabilities[start + curStep]);
@@ -74,7 +95,7 @@ function load_data(data, index) {
 
     $('#timebar').val(curStep);
     update_time();
-    d3.selectAll('.item').moveToFront()
+    d3.selectAll('.item').moveToFront();
 
     switch (stage) {
         case  "0":
@@ -95,7 +116,6 @@ function load_data(data, index) {
             break;
         case  "3":
             if (selecs[iz] === undefined && data !== mains[0]) {
-                console.log('lalal');
                 selecs[iz] = data;
             }
             break;
@@ -120,6 +140,7 @@ function step() {
         show_current(tool[0], (hst - 10) + (ve_w / 2), -10, curStep);
         show_sel(curStep);
         draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start + curStep]);
+        drawImage(tool[0], 'data:image/png;base64,', tool[2]);
         drawImage(tool[0], 'data:image/png;base64,' + tdata.inputs[start + curStep], tool[2]);
         update_bars(tool[0], tdata.probabilities[start + curStep]);
         d3.selectAll('.item').moveToFront()
@@ -138,7 +159,7 @@ $('.play').on('click', function () {
     if (pl) {
         $(this).attr('src', 'assets/round-pause-button.svg');
 
-        timer = setInterval(step, 200);
+        timer = setInterval(step, 100);
         step()
     } else {
         $(this).attr('src', 'assets/play-sign.svg');
@@ -155,10 +176,11 @@ $('#timebar').on('input', function () {
     curStep = parseInt($(this).val());
     show_sel(curStep);
     draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start + curStep]);
-    drawImage(tool[0], 'data:image/png;base64,' + tdata.inputs[start + curStep], tool[2]);
+    // drawImage(tool[0], 'data:image/png;base64,' + tdata.inputs[start + curStep], tool[2]);
+    drawImage(tool[0], 'data:image/png;base64,', tool[2]);
     // ve_update(tool[0], tdata.hiddens[start + curStep]);
     update_bars(tool[0], tdata.probabilities[start + curStep]);
-    up_curtxt(curStep, tdata.hiddens.length - 1)
+    up_curtxt(curStep, tdata.hiddens.length - 1);
     show_current(tool[0], (hst - 10) + (ve_w / 2), -10, curStep)
 
 });
@@ -185,7 +207,7 @@ function reportWindowSize() {
     tool[1] = tbbox.width;
     tool[2] = tbbox.height;
 
-    let traj_s = ((600 * tbbox.width) / 1300);
+    let traj_s = ((520 * tbbox.width) / 1300);
     drawImage(tool[0], 'assets/image3.jpeg', tool[2]);
 
     console.log(traj_s);
@@ -201,7 +223,7 @@ function reportWindowSize() {
     bars_init(tool[0], tool[1], tool[2]);
     update_bars(tool[0], tdata.probabilities[start]);
 
-    ve_init_rows(tool[0], tdata.hiddens, tool[2], 811, tdata.mask, -1);
+    ve_init_rows(tool[0], tdata.hiddens, 633, 811, tdata.mask, -1);
 
     drawModel(tool[0], tool[2]);
     show_sel(start);
@@ -284,7 +306,7 @@ function loadALlTraj() {
         tool[1] = tbbox.width;
         tool[2] = tbbox.height;
 
-        let traj_s = ((650 * tbbox.width) / 1300);
+        let traj_s = ((50 * tbbox.width) / 1300);
         let keys = Object.keys(data);
 
         for (let i = 0; i < keys.length; i++) {

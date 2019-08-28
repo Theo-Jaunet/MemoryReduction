@@ -15,7 +15,7 @@ let stages_txt = [
         'changed from inactive to active. This suggests that they may be encoding the presence of the armor in the agent\'s field. ' +*/
     // '<br>' +
     // '<br>' +
-    'Also, the <a onmouseover="highelems([28])" onmouseout="resetelems()"> element # 28</a> (row) remained active until the agent ' +
+    'Also, the <a onmouseover="highelems([29])" onmouseout="resetelems()"> element # 29</a> (row) remained active until the agent ' +
     'gathered the red armor and inactive after. How would the agent behave without row#28 of its memory? <a onclick="meta_change(\'nDIY/red28_-1.json\', [28,-1])">Let\'s find out! </a><br> ' +
     'The new trajectory starts as the previous one; however once the agent gathered the red armor, it turned left instead of right. ' +
     'What if we go further and remove more memory elements? Having smaller models would be useful as they may be more interpretable, but also requiring less computing power and have a lower energy consumption footprint.     ' +
@@ -49,7 +49,6 @@ let stages_txt = [
 
 
     'Here, our goal is to enhance previous reductions with human knowledge. To do so, we manually selected different groups of elements based on their activations.' +
-    ' <br><br>' +
     ' We start from the previous memory reduction with the<a onmouseover="highelems([8, 29, 12, 25, 11, 7, 15, 24])" onmouseout="resetelems()"> top 25% changing elements</a>, which we combined with <a onmouseover="highelems([21, 5])" onmouseout="resetelems()">elements ' +
     'active at the end</a>. We selected those elements because they are active when only the health pack is in the agent\'s field of view, and thus may encode its presence. ' +
     'In <a onclick="meta_switch(0)"> the resulting trajectory</a>, the agent was able to gather the health pack, which indicates the added elements may be related to it. ' +
@@ -69,9 +68,9 @@ let stages_txt = [
  */,
     'You can remove up to 2 elements by clicking on them, and replay the generated trajectory. Such a process is limited to 2 elements at the ' +
     'same time because each combination is pre-generated and therefore, the complete set of memory reduction is not computable. <br><br> ' +
-    'The reduction of both <a onmouseover="highelems( [10, 23])" onmouseout="resetelems()" onclick="meta_change(\'nDIY/red10_23.json\', [10,23])"> elements 10 and 23 </a> ' +
+    'The reduction of both <a onmouseover="highelems( [10, 23])" onmouseout="resetelems()" onclick="meta_change(\'nDIY/red10_23.json\', [10,23])"> elements 11 and 24 </a> ' +
     'is enough to make the agent move turn left after gathering the red armor healh pack. ' +
-    'In addition; changing <a onmouseover="highelems( [10])" onmouseout="resetelems()"> element 10</a> for <a onmouseover="highelems([5])" onmouseout="resetelems()"> element 5</a>, makes the agent <a onclick="meta_change(\'nDIY/red5_23.json\', [10,23])"> avoid the green armor</a>. ' +
+    'In addition; changing <a onmouseover="highelems( [10])" onmouseout="resetelems()"> element 11</a> for <a onmouseover="highelems([5])" onmouseout="resetelems()"> element 6</a>, makes the agent <a onclick="meta_change(\'nDIY/red5_23.json\', [5,23])"> avoid the green armor</a>. ' +
     'This indicates that those elements are essential for the agent to decide. ' +
     '<br><br> The possibility to remove up to 2 memory elements provides more than <i>580</i> reductions possible. If you found any interesting reductions, or have any suggestions to improve this tool, please feel free to visit our <a href="https://github.com/Theo-Jaunet/MemoryReduction">github</a>. '];
 
@@ -79,11 +78,19 @@ let stages_txt = [
 function update_stage(nb) {
     goplz = false;
 
+
     stage = '' + nb;
+
+    if (stage === "4") {
+        $('#nextarr').css('visibility', 'hidden');
+        console.log('lalala');
+    } else {
+        $('#nextarr').css('visibility', 'visible')
+    }
     resetelems();
     $('#card_title').html(stages_titles[stage]);
     $('#card_txt').html(stages_txt[stage]);
-    sels = [-1, -1]
+    sels = [-1, -1];
     if (stage !== '4') {
         $('#singleRed').remove();
     }
@@ -108,6 +115,8 @@ function update_stage(nb) {
                 load_data(random[iz])
             } else {
                 meta_change('random/rest' + iz + '.json', -1, random)
+
+
             }
 
             $('.random').remove();
@@ -169,7 +178,7 @@ function update_stage(nb) {
     }
 }
 
-$('.card').on('mouseover', function () {
+/*$('.card').on('mouseover', function () {
 
     let nb = $(this).attr('index');
 
@@ -214,14 +223,14 @@ $('.card').on('mouseover', function () {
     }
 
 
-});
+});*/
 
-
+/*
 $('.card').on('mouseout', function () {
 
     $('.temptr').remove();
 
-});
+});*/
 
 
 $('.card').on('click', function () {

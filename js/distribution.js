@@ -15,6 +15,7 @@ function rotate_arrow(svg, act) {
 }
 
 
+/*
 function update_bars(data, svg, act) {
 
 
@@ -26,6 +27,7 @@ function update_bars(data, svg, act) {
     rotate_arrow(svg, parseInt(act))
 
 }
+*/
 
 function draw_bar(svg, hratio, pos, value, color, i) {
 

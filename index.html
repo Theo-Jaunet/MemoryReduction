@@ -7,7 +7,11 @@
     <meta charset="utf-8">
     <title>Memory Reduction</title>
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Theo Jaunet, Romain Vuillemot and Christian Wolf">
+    <meta property="og:title" content="Memory Reduction — What if we Reduce the Memory of an Artificial Doom Player?">
+    <meta property="og:description" content="We built Doom player AI using Deep Reinforcement learning. While playing, it builds and updates an inner representation (memory) of the game, its environment.
+    Reducing this memory could help the player learning to complete its task and thus lower both its training time and energy consumption footprint.">
+    <meta property="og:image" content="https://theo-jaunet.github.io/MemoryReduction/assets/screenshot.png">
 
 
     <!-- Mobile Specific Metas
@@ -40,9 +44,9 @@
 <div class="container" style="position: relative; min-width: 1200px">
 
     <div style="width: 35px;height: auto;display: inline-block;margin-right: 20px;position: absolute;left: 515.7px;top: 122px;z-index: 50">
-        <img class="play" style="width: 35px;position: absolute;left: 0;top:-38px" src="assets/play-sign.svg">
+        <img class="play" style="width: 35px;position: absolute;left: 0;top:-58px" src="assets/play-sign.svg">
         <input id="timebar" type="range" min="0" max="66" step="1" value="0"
-               style="width: 295px;position: absolute;top: 14px;">
+               style="width: 295px;position: absolute;top: -6px;">
         <p id="stepctn"
            style="position: absolute;display: inline-block;left: 118px;width: 88px;top: -34px;user-focus: none;user-select: none">
             Step --/--</p>
@@ -52,39 +56,49 @@
             <h5> What if we Reduce the Memory of an Artificial Doom Player?</h5>
             <p style="max-height: 100px;">We built Doom player AI <img src="assets/agent.png" class="arrow-icon" height="57px" style="transform: rotate(270deg)"> using Deep Reinforcement learning.
                 While playing, it builds and updates an inner representation (memory) of the game, its environment.
-                 Reducing this memory could help the player learning to complete its task and thus lower both its training time and energy consumption footprint.<br>
+                Reducing this memory could help the player learning to complete its task and thus lower both its training time and energy consumption footprint.<br>
 
                 In this scenario, the player has to gather items in a specific order: <br>Green Armor <img src="assets/armorGreen.png"
-                                                                                 class="item-icon" height="57px"> <img
+                                                                                                           class="item-icon" height="57px"> <img
                         src="assets/arrow.png" class="arrow-icon"> Red Armor
                 <img src="assets/armorRed.png" class="item-icon"> <img src="assets/arrow.png" class="arrow-icon"> Health
                 Pack <img src="assets/hp.png" class="item-icon"> <img src="assets/arrow.png" class="arrow-icon">
-                Soul-sphere <img src="assets/soul.png" class="item-icon" style="width: 20px"> , with the
+                Soul-sphere <img src="assets/soul.png" class="item-icon" style="width: 16px"> , with the
                 shortest path possible.
                 Let’s explore how reducing <img src="assets/red.png" class="arrow-icon"> the memory of a trained agent influences its trajectory!
             </p>
 
         </div>
         <div class="seven columns">
-            <div class=" nav left-card-arr button" style=""><p style="padding: 13px 0px"> < </p></div>
-            <div index="0" class=" nav selected card button"> <p> Full Memory  <br> (no reduction) </p></div>
-            <div index="1" class=" nav card button"><p>Random  <br> Reductions</p></div>
-            <div index="2" class=" nav card button"><p>Top Elements  <br> only</p></div>
-            <div index="3" class=" nav card button"><p>Selection of  <br> Reductions</p></div>
-            <div index="4" class=" nav card button"><p>Do it  <br>Yourself</p></div>
+            <div class=" nav left-card-arr button" style="    vertical-align: bottom;"><p style="padding: 13px 0px"> < </p></div>
+            <div index="0" class=" nav selected card button"><p> Full Memory <br> (no reduction) </p></div>
+            <div index="1" class=" nav card button"><p>Random <br> Reductions</p></div>
+            <div index="2" class=" nav card button"><p>Top Elements <br> only</p></div>
+            <div index="3" class=" nav card button"><p>Selection of <br> Reductions</p></div>
+            <div index="4" class=" nav card button"><p>Do it <br>Yourself</p></div>
             <div class=" nav right-card-arr button"><p style="padding: 13px 0px;font-weight: 700"> > </p></div>
         </div>
     </div>
+    <div style="width: 353px;position: absolute;right: -11px;top: 78px">
+        <h5 style="width: 100%" id="card_title"> Full Memory</h5>
+        <p id="card_txt" style="margin-top: -11px;width: 100%">
+        </p>
+        <div id="nextarr" onclick="$('.right-card-arr').trigger('click')"
+             style="cursor:pointer;position: absolute;right: 28px;bottom: 12px;z-index: 777"><a>next <img src="assets/arrow.png"
+                                                                                                          class="arrow-icon"> </a>
+        </div>
+    </div>
 
-    <div class=" row" style="max-height: 665px;position: absolute;top:140px">
-        <div class="nine columns">
-            <svg class="" id="svg-tool" style="height: auto;width: 100%;min-height: 685px;min-width: 785px">
+    <div class=" row" style="max-height: 665px;position: absolute;top:120px">
+
+        <div>
+            <svg class="" id="svg-tool" style="height: 663px;width: 850px !important;">
                 <defs>
                     <filter id="brightness">
                         <feComponentTransfer>
-                            <feFuncR type="linear" slope="6"/>
-                            <feFuncG type="linear" slope="6"/>
-                            <feFuncB type="linear" slope="6"/>
+                            <feFuncR type="linear" slope="2"/>
+                            <feFuncG type="linear" slope="2"/>
+                            <feFuncB type="linear" slope="2"/>
                         </feComponentTransfer>
                     </filter>
                     <linearGradient id="linear-gradient" gradientTransform="rotate(0)">
@@ -94,138 +108,126 @@
                 </defs>
             </svg>
         </div>
-        <div class="three columns" style="min-width: 332px;margin-left: -30px;margin-top: -40px">
-            <h5 style="width: 100%" id="card_title"> Full Memory</h5>
-            <p id="card_txt" style="margin-top: 20px;width: 100%">
 
-                <!--  In order to play doom, the artificial doom player receive at each time-steps game capture (image) corresponding to its field of view.
-                  From this game capture, it decides which action it should do. As the artificial doom player
-                   decides, it builds an inner representation of the previously seen game captures. Such representation,
-                  is a vector <i>(1x32)</i> with values in a scale from <span class="cell"></span> inactive to <span class="cell" style="background-color: rgb(191, 84, 47)"></span> active.-->
+    </div>
+
+</div>
+
+
+<div class=" row" id="scrolltxt" style="text-align: center;margin-top: 550px">
+    <div class="twelve columns" style="margin-top: 15%;display: inline-block">
+        <div style="text-align: left;width: 800px;display: inline-block">
+            <h4>Deep Reinforcement Learning and Memory</h4>
+
+            <p> We used the Advantage Actor Critic (A2C) method, as presented by <i><a
+                    href="https://arxiv.org/abs/1904.01806"> E.Beeching et. al. </a> </i>.
+                This model learns through trial and error to associate an observation (i.e. matrice of pixels), at
+                the time-step t to an action (at) such as turn left.
+                It can achieve this by using neuronal networks with shared parameters <i>theta.</i>
             </p>
 
-        </div>
-        <div onclick="$('.right-card-arr').trigger('click')"
-             style="cursor:pointer;position: absolute;right: 28px;bottom: -65px"><a>next <img src="assets/arrow.png"
-                                                                                              class="arrow-icon"> </a>
-        </div>
-    </div>
+            <p>
+                The model is composed of three stages with different purposes.
+                First, 3 convolutional layers to analyze and extract features from the input game screen
+                (image).
+                This results in a tensor of 16 features <i>(ft)</i> shaped as 10x4 matrices. Those features are then
+                flattened into a vector of 1x32 using a Fully Connected layer.
+                The purpose of such operation is to prepare them for the next stage, which is the memory.
+            </p>
+            <p>
+                The memory of such model is handled by a GRU layer, which takes a vector as input and outputs a
+                hidden state <i>(ht)</i>, a vector of 32 elements.
+                GRU layers maintain and update a latent representation through time-steps using the combination of
+                its current input <i>(ft)</i> and its previous hidden state <i>ht-1</i>.
+                Each element of the hidden states is a quantity within the range[−1,1]. A value close to 0
+                represents low activity, whereas a value close to any extremity represents high activity.
+                Hidden states can change their values between two time-steps. Such value changes can be widely
+                observed across hidden states elements during trajectories.
+                However, it remains unclear which elements correspond to which representations, and thus are
+                responsible for decisions.
 
 
-    <div class=" row" id="scrolltxt" style="text-align: center;margin-top: 550px">
-        <div class="twelve columns" style="margin-top: 25%;display: inline-block">
-            <div style="text-align: left;width: 800px;display: inline-block">
-                <h4>Deep Reinforcement Learning and Memory</h4>
+                Finally, the last stage consists of mapping the current hidden state <i>h_t</i> to a probability
+                distribution over the 5 available actions <i>(right, left, forward, forward+right, forward+left)</i>.
+            </p>
 
-                <p> We used the Advantage Actor Critic (A2C) methode, as presented by <i><a
-                        href="https://arxiv.org/abs/1904.01806"> E.Beeching et. al. </a> </i>.
-                    This model learns through trial and error to associate an observation (i.e. matrice of pixels), at
-                    the time-step t to an action (at) such as turn left.
-                    It can achieve this by using neuronal networks with shared parameters <i>theta.</i>
-                </p>
+            <p> During the training phase, the agent is forced to explore its environment with random actions and
+                can recieve rewards depending on their outcome:
+                +0.5 for gathering an item in the right order (armor -> health pack -> soul-sphere), and -0.25 for
+                gathering the wrong item.
+                The combination of the observation, action and reward ordered by time-steps <i>t</i> forms a rollout
+                which is then used to optimize the neural network with gradient descent.
+            </p>
 
-                <p>
-                    The model is composed of three stages with different purposes.
-                    First, 3 convolutional layers to analyze and extract features from the input game screen
-                    (image).
-                    This results in a tensor of 16 features <i>(ft)</i> shaped as 10x4 matrices. Those features are then
-                    flattened into a vector of 1x32 using a Fully Connected layer.
-                    The purpose of such operation is to prepare them for the next stage, which is the memory.
-                </p>
-                <p>
-                    The memory of such model is handled by a GRU layer, which takes a vector as input and outputs a
-                    hidden state <i>(ht)</i>, a vector of 32 elements.
-                    GRU layers maintain and update a latent representation through time-steps using the combination of
-                    its current input <i>(ft)</i> and its previous hidden state <i>ht-1</i>.
-                    Each element of the hidden states is a quantity within the range[−1,1]. A value close to 0
-                    represents low activity, whereas a value close to any extremity represents high activity.
-                    Hidden states can change their values between two time-steps. Such value changes can be widely
-                    observed across hidden states elements during trajectories.
-                    However, it remains unclear which elements correspond to which representations, and thus are
-                    responsible for decisions.
-
-
-                    Finally, the last stage consists of mapping the current hidden state <i>h_t</i> to a probability
-                    distribution over the 5 available actions <i>(right, left, forward, forward+right, forward+left)</i>.
-                </p>
-
-                <p> During the training phase, the agent is forced to explore its environment with random actions and
-                    can recieve rewards depending on their outcome:
-                    +0.5 for gathering an item in the right order (armor -> health pack -> soul-sphere), and -0.25 for
-                    gathering the wrong item.
-                    The combination of the observation, action and reward ordered by time-steps <i>t</i> forms a rollout
-                    which is then used to optimize the neural network with gradient descent.
-                </p>
-
-                <p> For a more detailed introduction to sequential memory, we recommend reading <a
-                        href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/"> Christopher Olah's blog</a>
-                    on LSTMs, and the <a href="https://arxiv.org/abs/1412.3555">GRU paper </a>.
-                    We also recommend <a href="http://karpathy.github.io/2016/05/31/rl/">Karpathy's blog </a> for an introduction to Deep Reinforcement Learning </p>
-            </div>
+            <p> For a more detailed introduction to sequential memory, we recommend reading <a
+                    href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/"> Christopher Olah's blog</a>
+                on LSTMs, and the <a href="https://arxiv.org/abs/1412.3555">GRU paper </a>.
+                We also recommend <a href="http://karpathy.github.io/2016/05/31/rl/">Karpathy's blog </a> for an introduction to Deep Reinforcement Learning </p>
         </div>
     </div>
+</div>
 
-    <div class=" row" style="text-align: center">
-        <div class="twelve columns" style="margin-top: 15%;display: inline-block">
-            <div style="text-align: left;width: 800px;display: inline-block">
-                <h4> Why Manipulating the Memory?</h4>
-                <p>
-                    As detailed in the previous section, the agents actions are directly linked to its memory,
-                    therefore,
-                    each of its decisions depend on its current hidden state <i>ht</i>, and its values.
-                    However, such memory is hard to understand due to the fact that it is time-varying and using
-                    numerical values.
-                    Being able to erase memory elements, and to observe how the agent behaves without them,
-                    may help understanding and interpreting their roles in the decision process and information they may
-                    represent.
+<div class=" row" style="text-align: center">
+    <div class="twelve columns" style="margin-top: 2%;display: inline-block">
+        <div style="text-align: left;width: 800px;display: inline-block">
+            <h4> Why Manipulating the Memory?</h4>
+            <p>
+                As detailed in the previous section, the agents actions are directly linked to its memory,
+                therefore,
+                each of its decisions depend on its current hidden state <i>ht</i>, and its values.
+                However, such memory is hard to understand due to the fact that it is time-varying and using
+                numerical values.
+                Being able to erase memory elements, and to observe how the agent behaves without them,
+                may help understanding and interpreting their roles in the decision process and information they may
+                represent.
 
-                    In addition, the hidden states\' length is manually set by the model's designer, therefore such values
-                    maybe unfit to the agent's needs, which may results in unused or redundant elements.
-                    Removing them, and thus reducing the memory length can reduce the computation power needed by the
-                    agent, and both reduce the training time and the energy consumption footprint.
+                In addition, the hidden states length is manually set by the model's designer, therefore such values
+                maybe unfit to the agent's needs, which may results in unused or redundant elements.
+                Removing them, and thus reducing the memory length can reduce the computation power needed by the
+                agent, and both reduce the training time and the energy consumption footprint.
 
-                </p>
+            </p>
 
-
-            </div>
-        </div>
-    </div>
-
-    <div class=" row" style="text-align: center">
-        <div class="twelve columns" style="margin-top: 15%;display: inline-block">
-            <div style="text-align: left;width: 800px;display: inline-block">
-                <h4> How do we Erase Memory Elements?</h4>
-
-                <p> In order to simulate a reduced memory we implemented a method that allows to generate trajectories
-                    from agents with limited memory.
-                    Technically, we hijack the memory vectors by applying a mask to them before each decision.
-                    This mask is a 1x32 vector, with its values either set to 0 (remove the element) or set to 1 (keep
-                    the element).
-                    Each memory element is multiplied by its corresponding mask element, and therefore either have
-                    values as they should, or values constantly equal to 0 (i.e., inactive).
-                    The outcome of such operation is then used by the model to decide which action it should do.
-                    This method allows to change the agent's memory without having to retrain a model.
-
-                </p>
-
-                <!--<svg id="fig2" style="border:solid slategray 1px;height: 100%"></svg>-->
-                <p> But how can we select which elements should be erased and those to preserve?</p>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="row" style="text-align: center">
-        <div class="twelve columns" style="margin-top: 15%;display: inline-block">
-            <div style=" text-align: left;width: 800px;margin-bottom: 50px;display: inline-block">
-                <h5>Authors</h5>
-                <p>Théo Jaunet, Romain Vuillemot and Christian Wolf</p>
-                This work takes place in Théo jaunet's Ph.D., and continues previous works such as DRLViz (<a
-                    href="https://github.com/sical/drlviz">github</a>)
-            </div>
 
         </div>
     </div>
+</div>
+
+<div class=" row" style="text-align: center">
+    <div class="twelve columns" style="margin-top: 2%;display: inline-block">
+        <div style="text-align: left;width: 800px;display: inline-block">
+            <h4> How do we Erase Memory Elements?</h4>
+
+            <p> In order to simulate a reduced memory we implemented a method that allows to generate trajectories
+                from agents with limited memory.
+                Technically, we hijack the memory vectors by applying a mask to them before each decision.
+                This mask is a 1x32 vector, with its values either set to 0 (remove the element) or set to 1 (keep
+                the element).
+                Each memory element is multiplied by its corresponding mask element, and therefore either have
+                values as they should, or values constantly equal to 0 (i.e., inactive).
+                The outcome of such operation is then used by the model to decide which action it should do.
+                This method allows to change the agent's memory without having to retrain a model.
+
+            </p>
+
+            <!--<svg id="fig2" style="border:solid slategray 1px;height: 100%"></svg>-->
+            <p> But how can we select which elements should be erased and those to preserve?</p>
+
+        </div>
+    </div>
+</div>
+
+<div class="row" style="text-align: center">
+    <div class="twelve columns" style="margin-top: 2%;display: inline-block">
+        <div style=" text-align: left;width: 800px;margin-bottom: 50px;display: inline-block">
+            <h5>Authors</h5>
+            <p><a href="https://theo-jaunet.github.io/">Théo Jaunet</a> , <a href="http://romain.vuillemot.net/">Romain Vuillemot</a> and <a href="https://perso.liris.cnrs.fr/christian.wolf/">Christian Wolf </a></p>
+            This work takes place in Théo jaunet's Ph.D., and continues previous works such as DRLViz (<a
+                href="https://github.com/sical/drlviz">github</a>)
+        </div>
+
+    </div>
+</div>
 
 </div>
 <!-- End Document
@@ -239,5 +241,5 @@
 <script src="js/trajectory.js"></script>
 <script src="js/reduce.js"></script>
 <script src="js/stage.js"></script>
-    <script src="js/main.js"></script>
+<script src="js/main.js"></script>
 </html>

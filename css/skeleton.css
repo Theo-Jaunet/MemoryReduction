@@ -311,7 +311,7 @@ input[type="submit"],
 input[type="reset"],
 input[type="button"] {
     display: inline-block;
-    height: 54px;
+    height: 48px;
     /*width: 100px;*/
     padding: 0 10px;
     color: #555;
@@ -601,23 +601,9 @@ there.
 /* Larger than desktop */
 @media (min-width: 1000px) {
 }
-
-/* Larger than Desktop HD */
-@media (min-width: 1200px) {
-
-    .button {
-        padding: 0 10px;
-    }
-}
-
-
-/* Larger than Desktop HD */
-@media (min-width: 1300px) {
-
     .button {
         /*height: 50px;*/
         /*line-height: 50px;*/
         padding: 0 10px;
         vertical-align: bottom;
     }
-}
