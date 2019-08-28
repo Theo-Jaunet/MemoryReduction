@@ -6,7 +6,7 @@ let hst = 521;
 let sels = [-1, -1];
 let old_sels = [-1, -1];
 let cur_tri = 'nm';
-let mono_col = d3.scaleLinear().domain([0.35, 1]).range(['#FFF', '#bf542f']).interpolate(d3.interpolateHcl);
+let mono_col = d3.scaleLinear().domain([0, 0.35, 1]).range(['#ffffe1', '#FEEAA9', '#cf582f']).interpolate(d3.interpolateHcl);
 let goplz = false;
 let tri = {
     'act': [17, 16, 4, 12, 0, 18, 11, 7, 15, 19, 30, 3, 5, 8, 31, 25, 14, 29, 22, 6, 1, 24, 2, 20, 10, 28, 21, 9, 23, 27, 26, 13],
@@ -103,7 +103,7 @@ function init_current(svg, offx, offy, step) {
 function show_current(svg, offx, offy, step) {
 
     svg.selectAll('.curt')
-        .attr('transform', 'translate(' + (ve_w * (step - 1) + (ve_w / 2) + offx) + ',' + (0 + offy) + ') rotate(' + (90) + ' ' + (15) + ' ' + (15) + ')')
+        .attr('transform', 'translate(' + (ve_w * (step - 1) + ((ve_w / 2) / 2) + offx) + ',' + (0 + offy) + ') rotate(' + (90) + ' ' + (15) + ' ' + (15) + ')')
 
 }
 
@@ -116,9 +116,25 @@ function show_sel(step) {
 
     d3.selectAll('.hsel rect').style('stroke-width', '2.2px')
     let st = [hst + (ve_w * curStep + (0.02 * curStep)), (tdata.hiddens[0].length * ve_h) + 22];
-    d3.select('#nlink').attr('points', "658," + (tool[2] - 105) + ",676," + (tool[2] - 105) + ", " + (st[0] + ve_w + 1.5) + "," + (st[1] + 10) + ", " + (st[0] + ve_w) + "," + (st[1]) + "," + (st[0]) + "," + st[1] + ", " + (st[0] - 1.5) + "," + (st[1] + 10))
+    d3.select('#nlink').attr('points', "658," + (tool[2] - 105) + ",675," + (tool[2] - 105) + ", " + (st[0] + ve_w + 1.5) + "," + (st[1] + 10) + ", " + (st[0] + ve_w) + "," + (st[1]) + "," + (st[0]) + "," + st[1] + ", " + (st[0] - 1.5) + "," + (st[1] + 10))
 }
 
+
+function draw_border(svg, data) {
+
+    let st = [hst, 20];
+    let ed = [(ve_w * data.length + (0.02 * data.length)) - 1, (data[0].length * ve_h)];
+
+
+    svg.append('rect')
+        .attr('x', st[0])
+        .attr('y', st[1])
+        .attr('width', ed[0])
+        .attr('height', ed[1])
+        .attr('stroke-width', '1')
+        .attr('stroke', 'rgb(85, 85, 85)')
+        .attr('fill', 'none')
+}
 
 function mask_elems(svg, mask, nb) {
 
@@ -242,7 +258,7 @@ function link_model(svg, data) {
         .attr('id', 'nlink')
         .style("fill", "#233E34")
         .style('stroke-width', '0px')
-        .attr("points", "685," + (tool[2] - 107) + ",702," + (tool[2] - 107) + ", " + (st[0] + ve_w + 4.5) + "," + (st[1] + 10) + ", " + (st[0] + ve_w) + "," + (st[1]) + "," + (st[0]) + "," + st[1] + ", " + (st[0]) + "," + (st[1] + 10));
+        .attr("points", "685," + (tool[2] - 107) + ",698," + (tool[2] - 107) + ", " + (st[0] + ve_w + 4.5) + "," + (st[1] + 10) + ", " + (st[0] + ve_w) + "," + (st[1]) + "," + (st[0]) + "," + st[1] + ", " + (st[0]) + "," + (st[1] + 10));
 
 
     svg.append('line')

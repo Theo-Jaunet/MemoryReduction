@@ -1,6 +1,6 @@
 let mapx, mapy, traj_x, traj_y;
 let offx = -6;
-let offy = 80;
+let offy = 90;
 let agent;
 
 function traj_init(width, height) {
@@ -29,7 +29,7 @@ function draw_traj(data, svg, width, height, cs, cla) {
 
     if (cs) {
 
-        let g = svg.append("g").attr('class', 'traj');
+        let g = svg.select('.traj');
 
 
         g.append("path")
@@ -37,15 +37,15 @@ function draw_traj(data, svg, width, height, cs, cla) {
             .attr("d", line)
             .attr('stroke', '#fff')
             .attr('class', 'traj_bg')
-            .style('stroke-width', '10px')
-            .style("fill", "none")
+            .style('stroke-width', '7px')
+            .style("fill", "none");
 
         g.append("path")
             .data([data])
             .attr("d", line)
             .attr('stroke', 'steelblue')
-            .style('stroke-width', '6px')
-            .attr('class', 'traj_top')
+            .style('stroke-width', '5px')
+            .attr('class', 'traj_top '+cla)
             .style("fill", "none")
 
 
@@ -64,15 +64,18 @@ function draw_traj(data, svg, width, height, cs, cla) {
         tpath.attr("stroke-dasharray", totalLength + " " + totalLength)
             .attr("stroke-dashoffset", totalLength)
             .transition()
-            .duration(3000)
+            .duration(4500)
             .attr("stroke-dashoffset", 0)
     }
+    // d3.selectAll('.traj_bg').moveToBack();
+    // d3.selectAll('.traj_top').moveToBack();
 
-
-    d3.select('.traj_bg').moveToFront();
-    d3.select('.traj_top').moveToFront();
-    d3.select('.traj-sel').moveToFront();
+    d3.selectAll('.traj_bg').moveToFront();
+    d3.selectAll('.traj_top').moveToFront();
+    d3.selectAll('.traj-sel').moveToFront();
+    d3.selectAll('#agent').moveToFront();
     d3.selectAll('.item').moveToFront();
+
 }
 
 
@@ -84,8 +87,8 @@ function place_items(svg, st) {
     g.append("svg:image")
         .attr('x', traj_x(80) + offx + 1)
         .attr('y', traj_y(80) + offy - 15.5 + 1)
-        .attr('width', 45)
-        .attr('height', 57)
+        .attr('width', 38)
+        .attr('height', 38)
         .attr('class', 'item')
 
         .attr("xlink:href", 'assets/armorGreen.png')
@@ -110,9 +113,9 @@ function place_items(svg, st) {
 
     g.append("svg:image")
         .attr('x', traj_x(-240) + offx + 1)
-        .attr('y', traj_y(80) + offy - 13.5 + 1)
-        .attr('width', 33)
-        .attr('height', 27)
+        .attr('y', traj_y(80) + offy - 26.5 + 1)
+        .attr('width', 29)
+        .attr('height', 29)
         .attr('class', 'item')
         .attr("xlink:href", 'assets/soul.png');
 
@@ -163,7 +166,7 @@ function place_items(svg, st) {
 
 function draw_walls(svg, offx, offy) {
 
-    let walls = [[-480.0, -480.0, -480.0, 320.0], [320.0, 320.0, 320.0, -480.0], [-320.0, -320.0, -320.0, -160.0], [-160.0, -480.0, -160.0, -320.0], [-160.0, -320.0, -160.0, -160.0], [-160.0, 160.0, -160.0, 320.0], [-160.0, 0.0, 0.0, 0.0], [0.0, 0.0, 160.0, 0.0], [0.0, 160.0, 160.0, 160.0], [160.0, -160.0, 320.0, -160.0]]
+    let walls = [[-480.0, -480.0, -480.0, 320.0], [320.0, 320.0, 320.0, -480.0], [-320.0, -335.0, -320.0, -147.0], [-160.0, -480.0, -160.0, -320.0], [-160.0, -325.0, -160.0, -160.0], [-160.0, 160.0, -160.0, 320.0], [-160.0, 0.0, 0.0, 0.0], [0.0, 0.0, 160.0, 0.0], [0.0, 160.0, 160.0, 160.0], [160.0, -160.0, 320.0, -160.0]]
 
 
     let g = svg.select('.traj');
@@ -178,8 +181,28 @@ function draw_walls(svg, offx, offy) {
         .attr('y1', (d) => traj_y(d[1]) + offy)
         .attr('y2', (d) => traj_y(d[3]) + offy)
         .attr('stroke', '#555555')
-        .attr('stroke-width', '6')
+        .attr('stroke-width', (d) => ((d[3] === 320.0 && d[1] === -480.0) || (d[1] === 320.0 && d[3] === -480.0)) ? '8' : '13')
+        .attr("stroke-linejoin", "round");
+
+    g.append('line')
+        .attr('x1', 0 + offx)
+        .attr('x2', 352.5 + offx)
+        .attr('y1', 107.5 + offy)
+        .attr('y2', 107.5 + offy)
+        .attr('stroke', '#555555')
+        .attr('stroke-width', '8')
+        .attr("stroke-linejoin", "round");
+
+    g.append('line')
+        .attr('x1', 6 + offx)
+        .attr('x2', 352.5 + offx)
+        .attr('y1', 407 + offy)
+        .attr('y2', 407 + offy)
+        .attr('stroke', '#555555')
+        .attr('stroke-width', '8')
         .attr("stroke-linejoin", "round")
+
+    d3.selectAll('.item').moveToFront();
 }
 
 function draw_agent_path(svg, pos, or) {

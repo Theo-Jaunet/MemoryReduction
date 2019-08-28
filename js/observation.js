@@ -24,12 +24,14 @@ function drawImage(svg, url, height) {
 
     url = ('data/' + stfold[stage] + '/images/' + tfinam + 'input' + curStep + '.jpg');
 
+
     if (tdata['inputs'] !== undefined) {
         if (tdata['inputs'][curStep] !== undefined) {
 
             url = (stage === "4" ? 'data:image/png;base64,' : '') + tdata['inputs'][curStep];
         }
     }
+
     if (temp._groups[0][0] === null) {
 
         svg.append("svg:image")

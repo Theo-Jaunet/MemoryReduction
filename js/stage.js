@@ -121,12 +121,12 @@ function update_stage(nb) {
 
             $('.random').remove();
 
-            for (let i = 0; i < random.length; i++) {
+/*            for (let i = 0; i < random.length; i++) {
                 draw_traj(random[i].positions, tool[0], traj_s, traj_s, false, 'sec-traj');
-            }
-            if (random.length < 11) {
-                chain_load('random/rest')
-            }
+            }*/
+            // if (random.length < 11) {
+                // chain_load('random/rest')
+            // }
             break;
         case  "2":
             /*            iz = 0;

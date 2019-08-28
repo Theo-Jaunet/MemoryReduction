@@ -28,21 +28,30 @@ let area = d3.line()
 
 d3.json("data/main/res.json").then(function (data) {
     tdata = data;
+
     loadALlTraj();
     reportWindowSize();
+    d3.json("data/presk1.json").then(function (data) {
+        let tbbox = tool[0].node().getBoundingClientRect();
+        let traj_s = ((520 * tbbox.width) / 1300);
+
+        // draw_traj(data.positions.slice(12, -1), tool[0], traj_s, traj_s, true, 'hum');
+        d3.selectAll('.item').moveToFront();
+    })
+
 
     // mains[0] = data;
     tdata['inputs'] = [];
+
+
+    mains[0] = tdata;
+    draw_arrowV2(400, tool[2] - 30, 180, -1)
 
     for (let i = 0; i < data.hiddens.length; i++) {
         getBase64ImageFromUrl('data/main/images/input' + i + '.jpg')
             .then(result => tdata['inputs'][i] = '' + result)
             .catch(err => console.error(err));
     }
-
-
-    mains[0] = tdata;
-    draw_arrowV2(400, tool[2] - 30, 180, -1)
 
 
 });
@@ -53,17 +62,39 @@ d3.json("data/main/res.json").then(function (data) {
 
 function meta_change(filename, index) {
 
-/*    if (index !== -1 && index !== undefined) {
+    if (index !== -1 && index !== undefined) {
         iz = '' + index[0] + '_' + index[1]
-    }*/
+    }
 
     d3.json("data/" + filename).then(function (data) {
 
         if (stage !== '4') {
 
+            let tfinam = '';
+            switch (stage) {
+                case  "0":
+                    tfinam = '';
+                    break;
+                case  "1":
+                    tfinam = 'rest' + iz + '_';
+                    break;
+                case  "2":
+                    tfinam = top_list[iz] + '_';
+                    break;
+                case  "3":
+                    tfinam = selecs_list[iz] + '_';
+                    break;
+                case  "4":
+                    tfinam = 'red' + iz + '_';
+                    break;
+                default:
+                    tfinam = '';
+                    break
+            }
+
             data['inputs'] = [];
-            for (let i = 0; i < tdata.hiddens.length; i++) {
-                getBase64ImageFromUrl('data/' + stfold[stage] + '/images/' + 'rest' + iz + '_input' + i + '.jpg')
+            for (let i = 0; i < data.hiddens.length; i++) {
+                getBase64ImageFromUrl('data/' + stfold[stage] + '/images/' + tfinam + 'input' + i + '.jpg')
                     .then(result => data['inputs'][i] = '' + result)
                     .catch(err => console.error(err));
             }
@@ -159,7 +190,7 @@ $('.play').on('click', function () {
     if (pl) {
         $(this).attr('src', 'assets/round-pause-button.svg');
 
-        timer = setInterval(step, 100);
+        timer = setInterval(step, 115);
         step()
     } else {
         $(this).attr('src', 'assets/play-sign.svg');
@@ -215,7 +246,8 @@ function reportWindowSize() {
     $('.distrib').remove();
     $('.arrow').remove();
     traj_init(traj_s, traj_s);
-    draw_traj(tdata.positions, tool[0], traj_s, traj_s, true, 'main');
+    tool[0].append("g").attr('class', 'traj');
+    draw_traj(tdata.positions, tool[0], traj_s, traj_s, true, 'hum');
 
     place_items(tool[0], tdata.positions[start]);
     draw_agent_path(tool[0], tdata.positions[start], tdata.orientations[start]);
@@ -224,6 +256,8 @@ function reportWindowSize() {
     update_bars(tool[0], tdata.probabilities[start]);
 
     ve_init_rows(tool[0], tdata.hiddens, 633, 811, tdata.mask, -1);
+
+    draw_border(tool[0], tdata.hiddens);
 
     drawModel(tool[0], tool[2]);
     show_sel(start);
@@ -254,36 +288,6 @@ function chain_load(type) {
 }
 
 
-function chain_load_top() {
-
-    for (let i = 0; i < top_list.length; i++) {
-        let filename = 'top/' + top_list[i] + ".json";
-        d3.json("data/" + filename).then(function (data) {
-            data = tofloat(data);
-            let tbbox = tool[0].node().getBoundingClientRect();
-            let traj_s = ((450 * tbbox.width) / 1300);
-            draw_traj(data.positions, tool[0], traj_s, traj_s, false, 'temptr');
-            top[i] = data
-        })
-
-    }
-}
-
-function chain_load_DIY() {
-
-    for (let i = 0; i < 32; i++) {
-        let filename = 'DIY/red' + i + ".json";
-        d3.json("data/" + filename).then(function (data) {
-            data = tofloat(data);
-            let tbbox = tool[0].node().getBoundingClientRect();
-            let traj_s = ((450 * tbbox.width) / 1300);
-            draw_traj(data.positions, tool[0], traj_s, traj_s, false, 'temptr');
-            diy[i] = data
-        })
-    }
-}
-
-
 function load_step(st) {
 
     curStep = st - 1;
@@ -300,11 +304,13 @@ function up_curtxt(step, total) {
 
 
 function loadALlTraj() {
+
     d3.json("data/pos.json").then(function (data) {
         let tbbox = tool[0].node().getBoundingClientRect();
 
         tool[1] = tbbox.width;
         tool[2] = tbbox.height;
+        tool[0].append("g").attr('class', 'traj');
 
         let traj_s = ((50 * tbbox.width) / 1300);
         let keys = Object.keys(data);
@@ -312,6 +318,7 @@ function loadALlTraj() {
         for (let i = 0; i < keys.length; i++) {
             draw_traj(data[keys[i]], tool[0], traj_s, traj_s, false, 'traj-bg');
         }
+
 
     })
 }
