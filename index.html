@@ -54,7 +54,7 @@
     <div class="row" style="margin-top: 15px">
         <div class="five  columns" style="position: relative">
             <h5> What if we Reduce the Memory of an Artificial Doom Player?</h5>
-            <p style="max-height: 100px;">We built Doom player AI <img src="assets/agent.png" class="arrow-icon"  style="transform: rotate(270deg);width: 24px;margin-bottom: -4px"> using Deep Reinforcement learning.
+            <p style="max-height: 100px;">We built Doom player AI <img src="assets/agent.png" class="arrow-icon" style="transform: rotate(270deg);width: 24px;margin-bottom: -4px"> using Deep Reinforcement learning.
                 While playing, it builds and updates an inner representation (memory) of the game, its environment.
                 Reducing this memory could help the player learning to complete its task and thus lower both its training time and energy consumption footprint.<br>
 
@@ -147,7 +147,6 @@
                     However, it remains unclear which elements correspond to which representations, and thus are
                     responsible for decisions.
 
-
                     Finally, the last stage consists of mapping the current hidden state <i>h_t</i> to a probability
                     distribution over the 5 available actions <i>(right, left, forward, forward+right, forward+left)</i>.
                 </p>
@@ -189,8 +188,6 @@
                     agent, and both reduce the training time and the energy consumption footprint.
 
                 </p>
-
-
             </div>
         </div>
     </div>
@@ -209,9 +206,7 @@
                     values as they should, or values constantly equal to 0 (i.e., inactive).
                     The outcome of such operation is then used by the model to decide which action it should do.
                     This method allows to change the agent's memory without having to retrain a model.
-
                 </p>
-
                 <!--<svg id="fig2" style="border:solid slategray 1px;height: 100%"></svg>-->
                 <p> But how can we select which elements should be erased and those to preserve?</p>
 
@@ -222,10 +217,22 @@
     <div class="row" style="text-align: center">
         <div class="twelve columns" style="margin-top: 2%;display: inline-block">
             <div style=" text-align: left;width: 800px;margin-bottom: 50px;display: inline-block">
+                <h5>Implementaion</h5>
+                <p> This project uses D3 to display data extrated from the Deep Reinforcement Learning developped in Pytorch. The video game DOOM is simulated with Vizdoom. In addition, this project uses our previous work DRLViz to analyse and generate episodes.
+
+                    -- Vizdoom, Pytorch, D3, DRLVIz. </p>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row" style="text-align: center">
+        <div class="twelve columns" style="margin-top: 2%;display: inline-block">
+            <div style=" text-align: left;width: 800px;margin-bottom: 50px;display: inline-block">
                 <h5>Authors</h5>
-                <p><a href="https://theo-jaunet.github.io/">Théo Jaunet</a> , <a href="http://romain.vuillemot.net/">Romain Vuillemot</a> and <a href="https://perso.liris.cnrs.fr/christian.wolf/">Christian Wolf </a></p>
-                This work takes place in Théo jaunet's Ph.D., and continues previous works such as DRLViz (<a
-                    href="https://github.com/sical/drlviz">github</a>)
+                <p><a href="https://theo-jaunet.github.io/">Théo Jaunet</a>, <a href="http://romain.vuillemot.net/">Romain Vuillemot</a> and <a href="https://perso.liris.cnrs.fr/christian.wolf/">Christian Wolf </a>, at LIRIS lab Lyon.</p>
+                This work takes place in Théo jaunet's Ph.D. which is supported by a French Ministry Fellowship and the <a href="https://projet.liris.cnrs.fr/mi2/"> M2I project</a>,
             </div>
 
         </div>

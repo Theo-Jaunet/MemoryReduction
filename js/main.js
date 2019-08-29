@@ -35,9 +35,9 @@ d3.json("data/main/res.json").then(function (data) {
         let tbbox = tool[0].node().getBoundingClientRect();
         let traj_s = ((520 * tbbox.width) / 1300);
 
-        // draw_traj(data.positions.slice(12, -1), tool[0], traj_s, traj_s, true, 'hum');
+        draw_traj(data.positions.slice(12, -1), tool[0], traj_s, traj_s, true, 'fufu');
         d3.selectAll('.item').moveToFront();
-    })
+    });
 
 
     // mains[0] = data;
@@ -45,7 +45,7 @@ d3.json("data/main/res.json").then(function (data) {
 
 
     mains[0] = tdata;
-    draw_arrowV2(400, tool[2] - 30, 180, -1)
+    draw_arrowV2(400, tool[2] - 30, 180, -1);
 
     for (let i = 0; i < data.hiddens.length; i++) {
         getBase64ImageFromUrl('data/main/images/input' + i + '.jpg')
@@ -153,7 +153,6 @@ function load_data(data, index) {
         case  "4":
             diy[iz] = data;
             break;
-
     }
 }
 
@@ -228,7 +227,6 @@ function update_time() {
         + 'color-stop(' + val + ', #C5C5C5)'
         + ')'
     );
-
 }
 
 

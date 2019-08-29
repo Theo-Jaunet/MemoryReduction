@@ -156,7 +156,7 @@ function mask_elems(svg, mask, nb) {
                 if (goplz) {
                     ind = tri[cur_tri].indexOf(i)
                 }
-                let t = tsvg.rectangle(hst - getRandomArbitrary(0, 12), (ind * ve_h) + 20 + (0.2 * ve_h), (ve_w * nb + (0.02 * nb)) + getRandomArbitrary(0, 12), ve_h * 0.6, {
+                let t = tsvg.rectangle(hst - getRandomArbitrary(0, 12), (ind * ve_h) + 20 + (0.2 * ve_h), (ve_w * nb + (0.02 * nb)) + getRandomArbitrary(6, 12), ve_h * 0.6, {
                     fill: "url(#linear-gradient)",
                     fillWeight: getRandomArbitrary(5, 9), // thicker lines for hachure
                     hachureAngle: getRandomArbitrary(10, 70), // angle of hachure,

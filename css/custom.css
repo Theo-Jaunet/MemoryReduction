@@ -1,7 +1,15 @@
 
 .hum {
 
-    stroke: #dbc81c !important;
+    stroke: #e2d509 !important;
+}
+
+.hoverable {
+
+    background-image: linear-gradient(to right, rgba(30, 174, 219, 1) 33%, rgba(30, 74, 219, 0) 0%);
+    background-position: bottom;
+    background-size: 6px 2px;
+    background-repeat: repeat-x;
 }
 
 .fufu {
