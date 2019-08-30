@@ -28,7 +28,7 @@ function drawImage(svg, url, height) {
     if (tdata['inputs'] !== undefined) {
         if (tdata['inputs'][curStep] !== undefined) {
 
-            url = (stage === "4" ? 'data:image/png;base64,' : '') + tdata['inputs'][curStep];
+            url = (stage === "4" ? '' : '') + tdata['inputs'][curStep];
         }
     }
 

@@ -39,20 +39,17 @@ d3.json("data/main/res.json").then(function (data) {
         d3.selectAll('.item').moveToFront();
     });
 
-
     // mains[0] = data;
     tdata['inputs'] = [];
 
-
     mains[0] = tdata;
-    draw_arrowV2(400, tool[2] - 30, 180, -1);
+    draw_arrowV2(380, 500, 180, -1);
 
     for (let i = 0; i < data.hiddens.length; i++) {
         getBase64ImageFromUrl('data/main/images/input' + i + '.jpg')
             .then(result => tdata['inputs'][i] = '' + result)
             .catch(err => console.error(err));
     }
-
 
 });
 
@@ -270,7 +267,7 @@ function reportWindowSize() {
 
 }
 
-function chain_load(type) {
+/*function chain_load(type) {
 
     for (let i = random.length; i < 11; i++) {
         let filename = (type === 'random/rest' ? type + "" + i + ".json" : type + ".json");
@@ -283,8 +280,33 @@ function chain_load(type) {
         })
 
     }
-}
+}*/
 
+
+function ziptest() {
+
+    fetch('/jszip/test/ref/text.zip')       // 1) fetch the url
+        .then(function (response) {                       // 2) filter on 200 OK
+            if (response.status === 200 || response.status === 0) {
+                return Promise.resolve(response.blob());
+            } else {
+                return Promise.reject(new Error(response.statusText));
+            }
+        })
+        .then(JSZip.loadAsync)                            // 3) chain with the zip promise
+        .then(function (zip) {
+            return zip.file("Hello.txt").async("string"); // 4) chain with the text content promise
+        })
+        .then(function success(text) {                    // 5) display the result
+            console.log('lalalal');
+        }, function error(e) {
+            $("#fetch").append($("<p>", {
+                "class": "alert alert-danger",
+                text: e
+            }));
+        });
+
+}
 
 function load_step(st) {
 
@@ -368,11 +390,61 @@ function draw_arrowV2(x, y, z, ind) {
 
     let g = tool[0].append('g').attr('class', 'scro').style('cursor', 'pointer');
 
+    tool[0].append('rect')
+        .attr('x', x - 12)
+        .attr('y', 225)
+        .attr('width', '13')
+        .attr('height', '13')
+        .attr('stroke-width', '0.5')
+        .attr('stroke', 'rgb(85, 85, 85)')
+        .attr('fill', '#19c157');
+
+
+    tool[0].append('text')
+        .attr('x', x + 22)
+        .attr('y', 236)
+        .text('Human');
+
+
+    tool[0].append('rect')
+        .attr('x', x - 12)
+        .attr('y', 275)
+        .attr('width', '13')
+        .attr('height', '13')
+        .attr('stroke-width', '0.5')
+        .attr('stroke', 'rgb(85, 85, 85)')
+        .attr('fill', '#e2d509');
+
+    tool[0].append('text')
+        .attr('x', x + 22)
+        .attr('y', 286)
+        .text('Full Memory');
+
+
+    tool[0].append('rect')
+        .attr('x', x - 12)
+        .attr('y', 325)
+        .attr('width', '13')
+        .attr('height', '13')
+        .attr('stroke-width', '0.5')
+        .attr('stroke', 'rgb(85, 85, 85)')
+        .attr('fill', '#ff5000');
+
+
+    tool[0].append('text')
+        .attr('x', x + 22)
+        .attr('y', 336)
+        .text('Current');
 
     g.append('text')
         .attr('x', x - 10)
         .attr('y', y - 5)
         .text('More information');
+
+    g.append('text')
+        .attr('x', x + 30)
+        .attr('y', y + 10)
+        .text('below');
 
     g.append('line')
         .attr('class', 'hiddensli')
@@ -416,13 +488,13 @@ function draw_arrowV2(x, y, z, ind) {
         .attr('stroke', 'none')
         .attr('fill', 'rgba(255,255,255,0)');
 
-    g.selectAll('line').attr('transform', 'translate(' + (x + 55) + ',' + y + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')')
+    g.selectAll('line').attr('transform', 'translate(' + (x + 55) + ',' + (y + 12) + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')')
 
     animateScro();
 
     function animateScro() {
 
-        g.selectAll('line').transition().duration(3000).attr('transform', 'translate(' + (x + 55) + ',' + (y + 10) + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')').transition().duration(3000).attr('transform', 'translate(' + (x + 55) + ',' + y + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')').on("end", animateScro);
+        g.selectAll('line').transition().duration(3000).attr('transform', 'translate(' + (x + 55) + ',' + (y + 20) + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')').transition().duration(3000).attr('transform', 'translate(' + (x + 55) + ',' + (y + 12) + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')').on("end", animateScro);
 
     }
 

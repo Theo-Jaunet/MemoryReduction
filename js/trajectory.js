@@ -40,13 +40,22 @@ function draw_traj(data, svg, width, height, cs, cla) {
             .style('stroke-width', '7px')
             .style("fill", "none");
 
-        g.append("path")
+        let tpath = g.append("path")
             .data([data])
             .attr("d", line)
             .attr('stroke', 'steelblue')
             .style('stroke-width', '5px')
-            .attr('class', 'traj_top '+cla)
-            .style("fill", "none")
+            .attr('class', 'traj_top ' + cla)
+            .style("fill", "none");
+
+
+        var totalLength = tpath.node().getTotalLength();
+
+        tpath.attr("stroke-dasharray", totalLength + " " + totalLength)
+            .attr("stroke-dashoffset", totalLength)
+            .transition()
+            .duration(4500)
+            .attr("stroke-dashoffset", 0)
 
 
     } else {
@@ -200,7 +209,7 @@ function draw_walls(svg, offx, offy) {
         .attr('y2', 407 + offy)
         .attr('stroke', '#555555')
         .attr('stroke-width', '8')
-        .attr("stroke-linejoin", "round")
+        .attr("stroke-linejoin", "round");
 
     d3.selectAll('.item').moveToFront();
 }
