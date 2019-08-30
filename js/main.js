@@ -16,6 +16,8 @@ let stfold = ['main', 'random', "top", "sel", 'nDIY'];
 // let selecs_list = ['after','rest0', 'rest1', 'only'];
 let selecs_list = ['rest0', 'rest1', 'only'];
 let selecs = [];
+let can = d3.select('#input');
+
 
 let area = d3.line()
     .x(function (d) {
@@ -38,18 +40,16 @@ d3.json("data/main/res.json").then(function (data) {
         draw_traj(data.positions.slice(12, -1), tool[0], traj_s, traj_s, true, 'fufu');
         d3.selectAll('.item').moveToFront();
     });
-
-    // mains[0] = data;
-    tdata['inputs'] = [];
-
     mains[0] = tdata;
     draw_arrowV2(380, 500, 180, -1);
+    loadim(mains[0], 'main.jpg');
 
-    for (let i = 0; i < data.hiddens.length; i++) {
-        getBase64ImageFromUrl('data/main/images/input' + i + '.jpg')
-            .then(result => tdata['inputs'][i] = '' + result)
-            .catch(err => console.error(err));
-    }
+
+    /*    for (let i = 0; i < data.hiddens.length; i++) {
+            getBase64ImageFromUrl('data/main/images/input' + i + '.jpg')
+                .then(result => tdata['inputs'][i] = '' + result)
+                .catch(err => console.error(err));
+        }*/
 
 });
 
@@ -89,12 +89,6 @@ function meta_change(filename, index) {
                     break
             }
 
-            data['inputs'] = [];
-            for (let i = 0; i < data.hiddens.length; i++) {
-                getBase64ImageFromUrl('data/' + stfold[stage] + '/images/' + tfinam + 'input' + i + '.jpg')
-                    .then(result => data['inputs'][i] = '' + result)
-                    .catch(err => console.error(err));
-            }
 
         }
 
@@ -129,22 +123,26 @@ function load_data(data, index) {
         case  "0":
             if (mains[iz] === undefined) {
                 mains[iz] = data;
+                loadim(mains[iz], 'main.jpg')
             }
             break;
         case  "1":
             if (random[iz] === undefined) {
                 random[iz] = data;
+                loadim(random[iz], 'random' + iz + '.jpg')
             }
             break;
         case  "2":
             if (goplz)
                 if (tops[iz] === undefined) {
                     tops[iz] = data;
+                    loadim(tops[iz], 'top' + iz + '.jpg')
                 }
             break;
         case  "3":
             if (selecs[iz] === undefined && data !== mains[0]) {
                 selecs[iz] = data;
+                loadim(selecs[iz], 'sel' + iz + '.jpg')
             }
             break;
         case  "4":
@@ -163,12 +161,13 @@ function step() {
         up_curtxt(curStep, tdata.hiddens.length - 1);
         let tbar = $('#timebar');
         tbar.val(curStep);
+        stepIm();
         update_time();
         show_current(tool[0], (hst - 10) + (ve_w / 2), -10, curStep);
         show_sel(curStep);
         draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start + curStep]);
-        drawImage(tool[0], 'data:image/png;base64,', tool[2]);
-        drawImage(tool[0], 'data:image/png;base64,' + tdata.inputs[start + curStep], tool[2]);
+        // drawImage(tool[0], 'data:image/png;base64,', tool[2]);
+        // drawImage(tool[0], 'data:image/png;base64,' + tdata.inputs[start + curStep], tool[2]);
         update_bars(tool[0], tdata.probabilities[start + curStep]);
         d3.selectAll('.item').moveToFront()
     } else {
@@ -193,7 +192,7 @@ $('.play').on('click', function () {
         clearInterval(timer);
         timer = null
     }
-})
+});
 
 
 $('#timebar').on('input', function () {
@@ -204,8 +203,9 @@ $('#timebar').on('input', function () {
     show_sel(curStep);
     draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start + curStep]);
     // drawImage(tool[0], 'data:image/png;base64,' + tdata.inputs[start + curStep], tool[2]);
-    drawImage(tool[0], 'data:image/png;base64,', tool[2]);
+    // drawImage(tool[0], 'data:image/png;base64,', tool[2]);
     // ve_update(tool[0], tdata.hiddens[start + curStep]);
+    stepIm();
     update_bars(tool[0], tdata.probabilities[start + curStep]);
     up_curtxt(curStep, tdata.hiddens.length - 1);
     show_current(tool[0], (hst - 10) + (ve_w / 2), -10, curStep)
@@ -234,7 +234,7 @@ function reportWindowSize() {
     tool[2] = tbbox.height;
 
     let traj_s = ((520 * tbbox.width) / 1300);
-    drawImage(tool[0], 'assets/image3.jpeg', tool[2]);
+    // drawImage(tool[0], 'assets/image3.jpeg', tool[2]);
 
     console.log(traj_s);
     $('.traj').remove();
@@ -267,46 +267,6 @@ function reportWindowSize() {
 
 }
 
-/*function chain_load(type) {
-
-    for (let i = random.length; i < 11; i++) {
-        let filename = (type === 'random/rest' ? type + "" + i + ".json" : type + ".json");
-        d3.json("data/" + filename).then(function (data) {
-            data = tofloat(data);
-            let tbbox = tool[0].node().getBoundingClientRect();
-            let traj_s = ((400 * tbbox.width) / 1300);
-            draw_traj(data.positions, tool[0], traj_s, traj_s, false, 'temptr');
-            random[i] = data
-        })
-
-    }
-}*/
-
-
-function ziptest() {
-
-    fetch('/jszip/test/ref/text.zip')       // 1) fetch the url
-        .then(function (response) {                       // 2) filter on 200 OK
-            if (response.status === 200 || response.status === 0) {
-                return Promise.resolve(response.blob());
-            } else {
-                return Promise.reject(new Error(response.statusText));
-            }
-        })
-        .then(JSZip.loadAsync)                            // 3) chain with the zip promise
-        .then(function (zip) {
-            return zip.file("Hello.txt").async("string"); // 4) chain with the text content promise
-        })
-        .then(function success(text) {                    // 5) display the result
-            console.log('lalalal');
-        }, function error(e) {
-            $("#fetch").append($("<p>", {
-                "class": "alert alert-danger",
-                text: e
-            }));
-        });
-
-}
 
 function load_step(st) {
 
