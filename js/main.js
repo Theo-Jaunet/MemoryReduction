@@ -42,7 +42,7 @@ d3.json("data/main/res.json").then(function (data) {
     mains[0] = tdata;
     draw_arrowV2(380, 500, 180, -1);
     moreInf(20, 20, 180);
-    loadim(mains[0], 'data/main/images/main.jpg');
+    loadim(mains[0], 'main/images/main.jpg');
 
 });
 
@@ -115,8 +115,13 @@ function load_data(data, index) {
             }
             break;
         case  "4":
+
             diy[iz] = data;
-            loadim(diy[iz], 'diy/images/red' + iz + '.jpg');
+            if (iz !== 0) {
+                loadim(diy[iz], 'diy/images/red' + iz + '.jpg');
+            } else {
+                stepIm()
+            }
             break;
     }
 
