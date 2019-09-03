@@ -60,13 +60,25 @@ function draw_traj(data, svg, width, height, cs, cla) {
 
     } else {
         let g = svg.select('.traj');
-        let tpath = g.append("path")
-            .data([data['pos']])
-            .attr("d", line)
-            .attr('class', cla)
-            .style('opacity', '0.3')
-            .attr('stroke', 'steelblue')
-            .style("fill", "none");
+        let tpath
+        if (data['pos']) {
+            tpath = g.append("path")
+                .data([data['pos']])
+                .attr("d", line)
+                .attr('class', cla)
+                .style('opacity', '0.3')
+                .attr('stroke', 'steelblue')
+                .style("fill", "none");
+
+        } else {
+            tpath = g.append("path")
+                .data([data])
+                .attr("d", line)
+                .attr('class', cla)
+                .style('opacity', '0.3')
+                .attr('stroke', 'steelblue')
+                .style("fill", "none");
+        }
 
         let totalLength = tpath.node().getTotalLength();
 
