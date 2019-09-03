@@ -33,7 +33,7 @@ async function loadim(contain, imUrl) {
             con.drawImage(image, 240 * curStep, 0, 240, 162, 0, 0, 274, 176);
             con.save()
         };
-        image.src = imUrl;
+        image.src = 'data/' + imUrl;
     }
 }
 
