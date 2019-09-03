@@ -49,7 +49,7 @@ function draw_traj(data, svg, width, height, cs, cla) {
             .style("fill", "none");
 
 
-        var totalLength = tpath.node().getTotalLength();
+        let totalLength = tpath.node().getTotalLength();
 
         tpath.attr("stroke-dasharray", totalLength + " " + totalLength)
             .attr("stroke-dashoffset", totalLength)
@@ -61,14 +61,14 @@ function draw_traj(data, svg, width, height, cs, cla) {
     } else {
         let g = svg.select('.traj');
         let tpath = g.append("path")
-            .data([data])
+            .data([data['pos']])
             .attr("d", line)
             .attr('class', cla)
             .style('opacity', '0.3')
             .attr('stroke', 'steelblue')
             .style("fill", "none");
 
-        var totalLength = tpath.node().getTotalLength();
+        let totalLength = tpath.node().getTotalLength();
 
         tpath.attr("stroke-dasharray", totalLength + " " + totalLength)
             .attr("stroke-dashoffset", totalLength)
@@ -195,7 +195,7 @@ function draw_walls(svg, offx, offy) {
 
     g.append('line')
         .attr('x1', 0 + offx)
-        .attr('x2', 352.5 + offx)
+        .attr('x2', 345.7 + offx)
         .attr('y1', 107.5 + offy)
         .attr('y2', 107.5 + offy)
         .attr('stroke', '#555555')
@@ -204,9 +204,9 @@ function draw_walls(svg, offx, offy) {
 
     g.append('line')
         .attr('x1', 6 + offx)
-        .attr('x2', 352.5 + offx)
-        .attr('y1', 407 + offy)
-        .attr('y2', 407 + offy)
+        .attr('x2', 345.7 + offx)
+        .attr('y1', 399 + offy)
+        .attr('y2', 399 + offy)
         .attr('stroke', '#555555')
         .attr('stroke-width', '8')
         .attr("stroke-linejoin", "round");

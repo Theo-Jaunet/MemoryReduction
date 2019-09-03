@@ -1,4 +1,4 @@
-let stage = 0;
+let stage = "0";
 
 let stages_titles = ['Full Memory', 'Random Memory Reductions', 'Top Memory Elements', 'Memory Elements Selection', 'Do it Yourself!'];
 let stages_txt = [
@@ -16,7 +16,7 @@ let stages_txt = [
     // '<br>' +
     // '<br>' +
     'Also, the <a onmouseover="highelems([28])"  class="hoverable" onmouseout="resetelems()"> element #29</a> (row) remained active until the agent ' +
-    'gathered the red armor and inactive after. How would the agent behave without row#29 of its memory? <a onclick="meta_change(\'nDIY/red28_-1.json\', [28,-1])">Let\'s find out! </a><br> ' +
+    'gathered the red armor and inactive after. How would the agent behave without row#29 of its memory? <a onclick="meta_change(\'diy/red28_-1.json\', [28,-1])">Let\'s find out! </a><br> ' +
     'The new trajectory starts as the previous one; however once the agent gathered the red armor, it turned left instead of right. ' +
     'What if we go further and remove more memory elements? Having smaller models would be useful as they may be more interpretable, but also requiring less computing power and have a lower energy consumption footprint.     ' +
     '<br>',
@@ -68,9 +68,9 @@ let stages_txt = [
  */,
     'You can remove up to 2 elements by clicking on them, and replay the generated trajectory. Such a process is limited to 2 elements at the ' +
     'same time because each combination is pre-generated and therefore, the complete set of memory reduction is not computable. <br><br> ' +
-    'The reduction of both <a class="hoverable" onmouseover="highelems( [10, 23])" onmouseout="resetelems()" onclick="meta_change(\'nDIY/red10_23.json\', [10,23])"> elements 11 and 24 </a> ' +
+    'The reduction of both <a class="hoverable" onmouseover="highelems( [10, 23])" onmouseout="resetelems()" onclick="meta_change(\'diy/red10_23.json\', [10,23])"> elements 11 and 24 </a> ' +
     'is enough to make the agent move turn left after gathering the red armor healh pack. ' +
-    'In addition; changing <a class="hoverable" onmouseover="highelems( [10])" onmouseout="resetelems()"> element 11</a> for <a class="hoverable" onmouseover="highelems([5])" onmouseout="resetelems()"> element 6</a>, makes the agent <a onclick="meta_change(\'nDIY/red5_23.json\', [5,23])"> avoid the green armor</a>. ' +
+    'In addition; changing <a class="hoverable" onmouseover="highelems( [10])" onmouseout="resetelems()"> element 11</a> for <a class="hoverable" onmouseover="highelems([5])" onmouseout="resetelems()"> element 6</a>, makes the agent <a onclick="meta_change(\'diy/red5_23.json\', [5,23])"> avoid the green armor</a>. ' +
     'This indicates that those elements are essential for the agent to decide. ' +
     '<br><br> The possibility to remove up to 2 memory elements provides more than <i>580</i> reductions possible. If you found any interesting reductions, or have any suggestions to improve this tool, please feel free to visit our <a href="https://github.com/Theo-Jaunet/MemoryReduction">github</a>. '];
 
@@ -83,10 +83,12 @@ function update_stage(nb) {
 
     if (stage === "4") {
         $('#nextarr').css('visibility', 'hidden');
-        console.log('lalala');
+        $('#sco').css('visibility', 'visible');
     } else {
-        $('#nextarr').css('visibility', 'visible')
+        $('#nextarr').css('visibility', 'visible');
+        $('#sco').css('visibility', 'hidden');
     }
+
     resetelems();
     $('#card_title').html(stages_titles[stage]);
     $('#card_txt').html(stages_txt[stage]);
@@ -115,35 +117,11 @@ function update_stage(nb) {
                 load_data(random[iz])
             } else {
                 meta_change('random/rest' + iz + '.json', -1, random)
-
-
             }
 
             $('.random').remove();
-
-/*            for (let i = 0; i < random.length; i++) {
-                draw_traj(random[i].positions, tool[0], traj_s, traj_s, false, 'sec-traj');
-            }*/
-            // if (random.length < 11) {
-                // chain_load('random/rest')
-            // }
             break;
         case  "2":
-            /*            iz = 0;
-
-                        if (tops[iz] === undefined) {
-                            meta_change('top/' + top_list[iz] + '.json', -1, tops);
-                        } else {
-                            load_data(tops[iz])
-                        }
-
-                        for (let i = 0; i < tops.length; i++) {
-                            draw_traj(tops[i].positions, tool[0], traj_s, traj_s, false, 'temptr');
-                        }
-*/
-            /*chain_load_top();*/
-
-
             iz = 0;
             if (mains[iz] === undefined) {
                 meta_change('main.json', -1, mains);

@@ -43,10 +43,11 @@
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <div class="container" style="position: relative; min-width: 1200px;padding: 0">
 
+
     <div style="width: 35px;height: auto;display: inline-block;margin-right: 20px;position: absolute;left: 515.7px;top: 122px;z-index: 50">
         <img class="play" style="width: 35px;position: absolute;left: 0;top:-58px" src="assets/play-sign.svg">
         <input id="timebar" type="range" min="0" max="66" step="1" value="0"
-               style="width: 296px;position: absolute;top: -6px;left: -1px">
+               style="width: 295.5px;position: absolute;top: -6px;left: -1px">
         <p id="stepctn"
            style="position: absolute;display: inline-block;left: 118px;width: 88px;top: -34px;user-focus: none;user-select: none">
             Step --/--</p>
@@ -83,16 +84,16 @@
         <h5 style="width: 100%" id="card_title"> Full Memory</h5>
         <p id="card_txt" style="margin-top: -11px;width: 100%">
         </p>
+        <svg id="sco" style="width: 150px;height: 150px;position: absolute;right: 109px;bottom: -200px;z-index: 777;visibility:hidden"></svg>
         <div id="nextarr" onclick="$('.right-card-arr').trigger('click')"
-             style="cursor:pointer;position: absolute;right: 28px;bottom: 12px;z-index: 777"><a>next <img src="assets/arrow.png"
-                                                                                                          class="arrow-icon"> </a>
+             style="cursor:pointer;position: absolute;right: 28px;bottom: 12px;z-index: 777"><a>next <img src="assets/arrow.png" class="arrow-icon"> </a>
         </div>
     </div>
 
     <div class=" row" style="max-height: 665px;position: absolute;top:120px">
 
         <div>
-            <canvas id="input" style="position: absolute;bottom: 11px;width: 255px;height: 145px"></canvas>
+            <canvas id="input" style="position: absolute;bottom: 18px;width: 255px;height: 145px"></canvas>
             <svg class="" id="svg-tool" style="height: 663px;width: 850px !important;">
                 <defs>
                     <filter id="brightness">
@@ -113,6 +114,7 @@
     </div>
 
 </div>
+
 
 <div class="container" style="min-width: 1200px;text-align: center">
 

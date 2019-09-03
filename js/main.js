@@ -12,9 +12,8 @@ let tops = [];
 let diy = [];
 let random = [];
 let mains = [];
-let stfold = ['main', 'random', "top", "sel", 'nDIY'];
-// let selecs_list = ['after','rest0', 'rest1', 'only'];
-let selecs_list = ['rest0', 'rest1', 'only'];
+let stfold = ['main', 'random', "top", "sel", 'diy'];
+let selecs_list = ['rest0', 'rest1'];
 let selecs = [];
 let can = d3.select('#input');
 
@@ -33,7 +32,7 @@ d3.json("data/main/res.json").then(function (data) {
 
     loadALlTraj();
     reportWindowSize();
-    d3.json("data/presk1.json").then(function (data) {
+    d3.json("data/humanTraj.json").then(function (data) {
         let tbbox = tool[0].node().getBoundingClientRect();
         let traj_s = ((520 * tbbox.width) / 1300);
 
@@ -42,62 +41,28 @@ d3.json("data/main/res.json").then(function (data) {
     });
     mains[0] = tdata;
     draw_arrowV2(380, 500, 180, -1);
-    loadim(mains[0], 'main.jpg');
-
-
-    /*    for (let i = 0; i < data.hiddens.length; i++) {
-            getBase64ImageFromUrl('data/main/images/input' + i + '.jpg')
-                .then(result => tdata['inputs'][i] = '' + result)
-                .catch(err => console.error(err));
-        }*/
+    moreInf(20, 20, 180);
+    loadim(mains[0], 'data/main/images/main.jpg');
 
 });
-
-// bars_init(tool[0], tool[1], tool[2]);
-// drawImage(tool[0], 'assets/image3.jpeg', tool[2]);
 
 
 function meta_change(filename, index) {
 
-    if (index !== -1 && index !== undefined) {
-        iz = '' + index[0] + '_' + index[1]
+    if (index !== undefined && index !== -1) {
+        if (Math.min(...index) !== -1) {
+            iz = Math.min(...index) + '_' + Math.max(...index);
+        } else {
+            iz = Math.max(...index) + '_' + Math.min(...index);
+        }
     }
 
     d3.json("data/" + filename).then(function (data) {
-
-        if (stage !== '4') {
-
-            let tfinam = '';
-            switch (stage) {
-                case  "0":
-                    tfinam = '';
-                    break;
-                case  "1":
-                    tfinam = 'rest' + iz + '_';
-                    break;
-                case  "2":
-                    tfinam = top_list[iz] + '_';
-                    break;
-                case  "3":
-                    tfinam = selecs_list[iz] + '_';
-                    break;
-                case  "4":
-                    tfinam = 'red' + iz + '_';
-                    break;
-                default:
-                    tfinam = '';
-                    break
-            }
-
-
-        }
-
         load_data(data, index)
     });
 }
 
 function load_data(data, index) {
-    // data = tofloat(data);
     let tbbox = tool[0].node().getBoundingClientRect();
     let traj_s = ((600 * tbbox.width) / 1300);
     tdata = data;
@@ -118,37 +83,44 @@ function load_data(data, index) {
     $('#timebar').val(curStep);
     update_time();
     d3.selectAll('.item').moveToFront();
-
     switch (stage) {
         case  "0":
-            if (mains[iz] === undefined) {
+            if (index !== -1) {
+
+                diy[iz] = data;
+                loadim(diy[iz], 'diy/images/red28_-1.jpg');
+            }
+            else if (mains[iz] === undefined) {
                 mains[iz] = data;
-                loadim(mains[iz], 'main.jpg')
+                loadim(mains[iz], 'main/images/main.jpg')
             }
             break;
         case  "1":
             if (random[iz] === undefined) {
                 random[iz] = data;
-                loadim(random[iz], 'random' + iz + '.jpg')
+                loadim(random[iz], 'random/images/random' + iz + '.jpg')
             }
             break;
         case  "2":
             if (goplz)
                 if (tops[iz] === undefined) {
                     tops[iz] = data;
-                    loadim(tops[iz], 'top' + iz + '.jpg')
+                    loadim(tops[iz], 'top/images/top' + iz + '.jpg')
                 }
             break;
         case  "3":
             if (selecs[iz] === undefined && data !== mains[0]) {
                 selecs[iz] = data;
-                loadim(selecs[iz], 'sel' + iz + '.jpg')
+                loadim(selecs[iz], 'sel/images/sel' + iz + '.jpg')
             }
             break;
         case  "4":
             diy[iz] = data;
+            loadim(diy[iz], 'diy/images/red' + iz + '.jpg');
             break;
     }
+
+    stepIm()
 }
 
 
@@ -158,6 +130,7 @@ function step() {
 
 
     if (tdata.hiddens[start + curStep]) {
+
         up_curtxt(curStep, tdata.hiddens.length - 1);
         let tbar = $('#timebar');
         tbar.val(curStep);
@@ -166,10 +139,9 @@ function step() {
         show_current(tool[0], (hst - 10) + (ve_w / 2), -10, curStep);
         show_sel(curStep);
         draw_agent_path(tool[0], tdata.positions[start + curStep], tdata.orientations[start + curStep]);
-        // drawImage(tool[0], 'data:image/png;base64,', tool[2]);
-        // drawImage(tool[0], 'data:image/png;base64,' + tdata.inputs[start + curStep], tool[2]);
         update_bars(tool[0], tdata.probabilities[start + curStep]);
         d3.selectAll('.item').moveToFront()
+
     } else {
         pl = false;
         $('.play ').attr('src', 'assets/play-sign.svg');
@@ -233,10 +205,8 @@ function reportWindowSize() {
     tool[1] = tbbox.width;
     tool[2] = tbbox.height;
 
-    let traj_s = ((520 * tbbox.width) / 1300);
-    // drawImage(tool[0], 'assets/image3.jpeg', tool[2]);
+    let traj_s = ((510 * tbbox.width) / 1300);
 
-    console.log(traj_s);
     $('.traj').remove();
     $('.distrib').remove();
     $('.arrow').remove();
@@ -283,7 +253,7 @@ function up_curtxt(step, total) {
 }
 
 
-function loadALlTraj() {
+async function loadALlTraj() {
 
     d3.json("data/pos.json").then(function (data) {
         let tbbox = tool[0].node().getBoundingClientRect();
@@ -296,7 +266,7 @@ function loadALlTraj() {
         let keys = Object.keys(data);
 
         for (let i = 0; i < keys.length; i++) {
-            draw_traj(data[keys[i]], tool[0], traj_s, traj_s, false, 'traj-bg');
+            draw_traj(data[keys[i]], tool[0], traj_s, traj_s, false, 'traj-bg ' + data[keys[i]]['traj_id']);
         }
 
 
@@ -305,7 +275,7 @@ function loadALlTraj() {
 
 
 function meta_switch(run) {
-    iz = run
+    iz = run;
 
     switch (stage) {
         case  "0":
@@ -348,11 +318,10 @@ function meta_switch(run) {
 
 function draw_arrowV2(x, y, z, ind) {
 
-    let g = tool[0].append('g').attr('class', 'scro').style('cursor', 'pointer');
 
     tool[0].append('rect')
         .attr('x', x - 12)
-        .attr('y', 225)
+        .attr('y', 275)
         .attr('width', '13')
         .attr('height', '13')
         .attr('stroke-width', '0.5')
@@ -362,23 +331,8 @@ function draw_arrowV2(x, y, z, ind) {
 
     tool[0].append('text')
         .attr('x', x + 22)
-        .attr('y', 236)
-        .text('Human');
-
-
-    tool[0].append('rect')
-        .attr('x', x - 12)
-        .attr('y', 275)
-        .attr('width', '13')
-        .attr('height', '13')
-        .attr('stroke-width', '0.5')
-        .attr('stroke', 'rgb(85, 85, 85)')
-        .attr('fill', '#e2d509');
-
-    tool[0].append('text')
-        .attr('x', x + 22)
         .attr('y', 286)
-        .text('Full Memory');
+        .text('Human');
 
 
     tool[0].append('rect')
@@ -388,14 +342,58 @@ function draw_arrowV2(x, y, z, ind) {
         .attr('height', '13')
         .attr('stroke-width', '0.5')
         .attr('stroke', 'rgb(85, 85, 85)')
-        .attr('fill', '#ff5000');
-
+        .attr('fill', '#e2d509');
 
     tool[0].append('text')
         .attr('x', x + 22)
         .attr('y', 336)
+        .text('Full Memory');
+
+
+    tool[0].append('rect')
+        .attr('x', x - 12)
+        .attr('y', 375)
+        .attr('width', '13')
+        .attr('height', '13')
+        .attr('stroke-width', '0.5')
+        .attr('stroke', 'rgb(85, 85, 85)')
+        .attr('fill', '#ff5000');
+
+    tool[0].append('text')
+        .attr('x', x + 22)
+        .attr('y', 386)
         .text('Current');
 
+
+    tool[0].append('text')
+        .attr('x', 102)
+        .attr('y', 660)
+        .text('Input');
+
+
+    tool[0].append('text')
+        .attr('x', x - 22)
+        .attr('y', 660)
+        .text('Image Processing (CNN)');
+
+
+    tool[0].append('text')
+        .attr('x', x + 260)
+        .attr('y', 660)
+        .text('Memory');
+
+    tool[0].append('text')
+        .attr('x', x + 372)
+        .attr('y', 660)
+        .text('Output');
+
+
+}
+
+
+function moreInf(x, y, z) {
+
+    let g = d3.select('#sco').append('g').attr('class', 'scro').style('cursor', 'pointer');
     g.append('text')
         .attr('x', x - 10)
         .attr('y', y - 5)
@@ -457,7 +455,6 @@ function draw_arrowV2(x, y, z, ind) {
         g.selectAll('line').transition().duration(3000).attr('transform', 'translate(' + (x + 55) + ',' + (y + 20) + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')').transition().duration(3000).attr('transform', 'translate(' + (x + 55) + ',' + (y + 12) + ') rotate(' + z + ' ' + 8 + ' ' + 12.5 + ')').on("end", animateScro);
 
     }
-
 }
 
 

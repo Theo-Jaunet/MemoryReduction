@@ -11,7 +11,6 @@ let goplz = false;
 let tri = {
     'act': [17, 16, 4, 12, 0, 18, 11, 7, 15, 19, 30, 3, 5, 8, 31, 25, 14, 29, 22, 6, 1, 24, 2, 20, 10, 28, 21, 9, 23, 27, 26, 13],
     'ch': [8, 29, 12, 25, 11, 7, 15, 24, 19, 3, 14, 22, 20, 30, 2, 13, 21, 23, 27, 4, 0, 18, 10, 9, 5, 6, 16, 28, 31, 26, 1, 17]
-    // 5,7,8,11,12,15,21,24,25,29
 };
 let is_new = false;
 
@@ -25,7 +24,7 @@ function ve_init_rows(svg, data, height, width, mask, elem) {
 
     let g = svg.append('g').attr('class', 'hiddensgrp').attr('id', 'hiddensgrp');
 
-    ve_h = Math.min(((height - 140) / data[0].length), 60);
+    ve_h = Math.min(((height - 151) / data[0].length), 60);
     ve_w = Math.min((width - hst - 10) / data.length, 13);
 
     for (let w = 0; w < data.length; w++) {
@@ -116,7 +115,7 @@ function show_sel(step) {
 
     d3.selectAll('.hsel rect').style('stroke-width', '2.2px')
     let st = [hst + (ve_w * curStep + (0.02 * curStep)), (tdata.hiddens[0].length * ve_h) + 22];
-    d3.select('#nlink').attr('points', "658," + (tool[2] - 105) + ",675," + (tool[2] - 105) + ", " + (st[0] + ve_w + 1.5) + "," + (st[1] + 10) + ", " + (st[0] + ve_w) + "," + (st[1]) + "," + (st[0]) + "," + st[1] + ", " + (st[0] - 1.5) + "," + (st[1] + 10))
+    d3.select('#nlink').attr('points', "658," + (tool[2] - 117) + ",675," + (tool[2] - 117) + ", " + (st[0] + ve_w + 1.5) + "," + (st[1] + 10) + ", " + (st[0] + ve_w) + "," + (st[1]) + "," + (st[0]) + "," + st[1] + ", " + (st[0] - 1.5) + "," + (st[1] + 10))
 }
 
 
@@ -164,8 +163,6 @@ function mask_elems(svg, mask, nb) {
                     stroke: 'none'
                 });
 
-
-                // $(t).css('    stroke-dasharray: 5000 50000;
                 document.getElementById('hiddensgrp').appendChild(t)
 
 
@@ -178,14 +175,6 @@ function mask_elems(svg, mask, nb) {
                 }
                 let tg = d3.select(t).attr('index', ind).attr('class', 'mask').data([ind])
                 tg.selectAll('path').data([ind])
-                /*
-
-                                d3.selectAll('#hiddensgrp path').style('stroke-dasharray', () => '2600px 2600px')
-                                    .style('stroke-dashoffset', '2600px')
-                                    .transition().duration(20000)
-                                    .style('stroke-dashoffset', '1800')
-                */
-
 
             }
         }
@@ -231,51 +220,30 @@ function link_model(svg, data) {
 
 
     let st = [hst + (ve_w * curStep + (0.02 * curStep)), (data[0].length * ve_h) + 20];
-    let ed = [hst + (ve_w * data.length + (0.02 * data.length)), (data[0].length * ve_h) + 20];
-
-
-    /*    svg.append('line')
-            .attr('x1', st[0])
-            .attr('x2', 755)
-            .attr('y1', st[1])
-            .attr('y2', tool[2] - 99)
-            .attr('stroke', '#555555')
-            .attr('stroke-dasharray', "4,2")
-            .attr('stroke-width', '3');
-
-
-        svg.append('line')
-            .attr('x1', ed[0])
-            .attr('x2', 764)
-            .attr('y1', ed[1])
-            .attr('y2', tool[2] - 99)
-            .attr('stroke', '#555555')
-            .attr('stroke-dasharray', "4,2")
-            .attr('stroke-width', '3');*/
 
     svg.append("polyline")
         .style("stroke", "black")
         .attr('id', 'nlink')
         .style("fill", "#233E34")
         .style('stroke-width', '0px')
-        .attr("points", "685," + (tool[2] - 107) + ",698," + (tool[2] - 107) + ", " + (st[0] + ve_w + 4.5) + "," + (st[1] + 10) + ", " + (st[0] + ve_w) + "," + (st[1]) + "," + (st[0]) + "," + st[1] + ", " + (st[0]) + "," + (st[1] + 10));
+        .attr("points", "685," + (tool[2] - 117) + ",698," + (tool[2] - 117) + ", " + (st[0] + ve_w + 4.5) + "," + (st[1] + 10) + ", " + (st[0] + ve_w) + "," + (st[1]) + "," + (st[0]) + "," + st[1] + ", " + (st[0]) + "," + (st[1] + 10));
 
 
     svg.append('line')
-        .attr('x1', 250)
+        .attr('x1', 232)
         .attr('x2', 305)
-        .attr('y1', 508)
-        .attr('y2', tool[2] - 100)
+        .attr('y1', 503)
+        .attr('y2', tool[2] - 115)
         .attr('stroke', '#555555')
         .attr('stroke-dasharray', "4,2")
         .attr('stroke-width', '1');
 
 
     svg.append('line')
-        .attr('x1', 250)
+        .attr('x1', 232)
         .attr('x2', 305)
-        .attr('y1', 648)
-        .attr('y2', tool[2] - 42)
+        .attr('y1', 643.5)
+        .attr('y2', tool[2] - 54)
         .attr('stroke', '#555555')
         .attr('stroke-dasharray', "4,2")
         .attr('stroke-width', '1');
@@ -297,23 +265,19 @@ function svg_click() {
             sels[sels.indexOf(-1)] = parseInt(index)
         }
 
-
         if (Math.min(...sels) !== -1) {
             iz = Math.min(...sels) + '_' + Math.max(...sels);
         } else {
             iz = Math.max(...sels) + '_' + Math.min(...sels);
-
         }
         if (diy[iz] === undefined) {
 
-            meta_change('nDIY/red' + iz + '.json', sels);
+            meta_change('diy/red' + iz + '.json', sels);
 
         } else {
             load_data(diy[iz], sels)
         }
-        // mask_elem(index);
     }
-
 }
 
 
@@ -368,7 +332,7 @@ function deler() {
         }
         if (diy[iz] === undefined) {
 
-            meta_change('nDIY/red' + iz + '.json', sels);
+            meta_change('diy/red' + iz + '.json', sels);
 
         } else {
             load_data(diy[iz], sels)

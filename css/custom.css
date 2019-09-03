@@ -12,6 +12,12 @@
     background-repeat: repeat-x;
 }
 
+.hovcat {
+
+    opacity: 0.3 !important;
+    stroke-width: 2.5px !important;
+}
+
 .fufu {
 
     stroke: #19c157 !important;
