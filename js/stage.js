@@ -35,8 +35,9 @@ let stages_txt = [
     'One intuition we have is that the most activated elements may be the most involved in decisions, while the most changing ones may convey information from the current input. To explore such an intuition, we remove elements based on their activity through the game while the player had a full memory.' +
     '<br><br>' +
     'From the top activated order (average color, higher is better) we can observe that with the <a onclick="meta_switch(0)"> top 16 elements</a> ' +
-    ' the agent gathered the green armor, but failed to reach the red armor and turned left instead. Using only the <a onclick="meta_switch(1)"> top 8 elements </a>, ' +
-    ' the agent got stuck in a loop altering between 2 actions. This may indicate that elements related to the red armor may not be among the top activated elements.' +
+    ' the agent gathered the green armor, but failed to reach the red armor. Using only the <a onclick="meta_switch(1)"> top 8 </a>, ' +
+    ' the agent got stuck in a loop altering 2 actions. This may indicate that elements related to the red armor are not be among the top activated elements.' +
+    '<br>' +
     '<br>' +
     /*
 
@@ -48,7 +49,7 @@ let stages_txt = [
     */
 
 
-    'Using only the  <a onclick="meta_switch(2)"> top 16 elements</a>, from the top changing order (average difference between steps higher is better), the agent successfully gathered the red armor, but got stuck in a loop of actions. ' +
+    'Using only the  <a onclick="meta_switch(2)"> top 16 elements</a>, from the top changing order (average difference between steps, higher is better), the agent successfully gathered the red armor, but got stuck in a loop of actions. ' +
     ' But, with the <a onclick="meta_switch(3)"> top 8 </a>, the agent successfully gathered the red armor and moved towards the health pack. ' +
     '<br>' +
     'This suggests that indeed core information is represented in the top elements. However, the resulting trajectories still need to be improved to complete the task as the agent did with full memory. '
@@ -56,7 +57,7 @@ let stages_txt = [
 
 
     'Here, our goal is to enhance previous reductions with human knowledge. To do so, we manually selected different groups of elements based on their activations.' +
-    ' We start from the previous memory reduction with the<a class="hoverable" onmouseover="highelems([8, 29, 12, 25, 11, 7, 15, 24])" onmouseout="resetelems()"> top 25% changing elements</a>, which we combined with <a class="hoverable" onmouseover="highelems([21, 5])" onmouseout="resetelems()">elements ' +
+    ' We start from the previous memory reduction with the<a class="hoverable" onmouseover="highelems([8, 29, 12, 25, 11, 7, 15, 24])" onmouseout="resetelems()"> top 8 changing elements</a>, which we combined with <a class="hoverable" onmouseover="highelems([21, 5])" onmouseout="resetelems()">elements ' +
     'active at the end</a>. We selected those elements because they are active when only the health pack is in the agent\'s field of view, and thus may encode its presence. ' +
     'In <a onclick="meta_switch(0)"> the resulting trajectory</a>, the agent was able to gather the health pack, which indicates the added elements may be related to it. ' +
     ' <br><br>' +
@@ -75,9 +76,9 @@ let stages_txt = [
  */,
     'You can remove up to 2 elements by clicking on them, and replay the generated trajectory. Such a process is limited to 2 elements at the ' +
     'same time because each combination is pre-generated and therefore, the complete set of memory reduction is not computable. <br><br> ' +
-    'The reduction of both <a class="hoverable" onmouseover="highelems( [10, 23])" onmouseout="resetelems()" onclick="meta_change(\'diy/red10_23.json\', [10,23])"> elements #11 and #24 </a>' +
-    'is enough to make the agent move turn left after gathering the red armor healh pack. ' +
-    'In addition; changing <a class="hoverable" onmouseover="highelems( [10])" onmouseout="resetelems()"> element #11</a> for <a class="hoverable" onmouseover="highelems([5])" onmouseout="resetelems()"> element #6</a>, makes the agent <a onclick="meta_change(\'diy/red5_23.json\', [5,23])"> avoid the green armor</a>. ' +
+    'The reduction of <a class="hoverable" onmouseover="highelems( [0])" onmouseout="resetelems()" > element #1</a> ' +
+    'is enough to <a onclick="meta_change(\'diy/red0_-1.json\', [0,-1])"> make the agent turn left </a> instead of gathering the red armor. In addition, we can observe other elements are impacted and remain inactive.' + '<br><br>' +
+    'Going further, removing <a class="hoverable" onmouseover="highelems( [23])" onmouseout="resetelems()"> element #24</a> and <a class="hoverable" onmouseover="highelems([5])" onmouseout="resetelems()"> element #6</a>, makes the agent <a onclick="meta_change(\'diy/red5_23.json\', [5,23])"> avoid the green armor</a>. ' +
     'This indicates that those elements are essential for the agent to decide. ' +
     '<br><br> The possibility to remove up to 2 memory elements provides <i>528</i> combinations possible. If you found any interesting reduction, or have any suggestions to improve this tool, please feel free to visit our <a href="https://github.com/Theo-Jaunet/MemoryReduction">github</a>. '];
 
