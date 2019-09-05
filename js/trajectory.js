@@ -60,7 +60,7 @@ function draw_traj(data, svg, width, height, cs, cla) {
 
     } else {
         let g = svg.select('.traj');
-        let tpath
+        let tpath;
         if (data['pos']) {
             tpath = g.append("path")
                 .data([data['pos']])
@@ -88,8 +88,7 @@ function draw_traj(data, svg, width, height, cs, cla) {
             .duration(4500)
             .attr("stroke-dashoffset", 0)
     }
-    // d3.selectAll('.traj_bg').moveToBack();
-    // d3.selectAll('.traj_top').moveToBack();
+
 
     d3.selectAll('.traj_bg').moveToFront();
     d3.selectAll('.traj_top').moveToFront();
@@ -150,16 +149,6 @@ function place_items(svg, st) {
         .attr('class', 'item')
         .style("fill", "black");
 
-
-    /*    g.append("text")
-            .attr('x', traj_x(st[0]) + offx + 35)
-            .attr('y', traj_y(st[1]) + offy - 190)
-            .attr('font-size', '12pt')
-            .style('opacity', '0.8')
-            .text('Fail')
-            .attr('font-weight', '600')
-            .style("fill", "black");*/
-
     g.append("text")
         .attr('x', traj_x(st[0]) + offx - 18)
         .attr('y', traj_y(st[1]) + offy - 18)
@@ -169,17 +158,6 @@ function place_items(svg, st) {
         .attr('class', 'item')
         .attr('font-weight', '600')
         .style("fill", "black");
-
-    /*
-        g.append("text")
-            .attr('x', traj_x(st[0]) + offx + 277)
-            .attr('y', traj_y(st[1]) + offy + 65)
-            .attr('font-size', '12pt')
-            .style('opacity', '0.8')
-            .text('Not Optimal')
-            .attr('font-weight', '600')
-            .style("fill", "black");*/
-
 
     draw_walls(svg, offx, offy);
 }

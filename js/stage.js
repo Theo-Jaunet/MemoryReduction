@@ -4,11 +4,11 @@ let stages_titles = ['Full Memory', 'Random Memory Reductions', 'Top Memory Elem
 let stages_txt = [
 
     'In order to solve the task of playing Doom, the artificial player at each instant receives, an observed image (a screen capture) corresponding to its field of view.\n' +
-    '                From this image, it decides which action it should do. As the game episode goes on, the agent ' +
-    '                  builds an inner representation of the previously seen game captures. To do so, it combines the current game capture and its previous inner representation. The representation,\n' +
+    '                From this image, it decides which action it should do. As the game goes on, the agent ' +
+    '                  builds an inner representation of the previously seen game captures: a memory. To do so, it combines the current game capture and its previous memory. From this memory, the agent decides which action it should do.' +
+    'The memory\n' +
     '                is a vector <i>(1x32)</i> with values in a scale from inactive <span class="cell"></span> to active <span class="cell" style="background-color: rgb(191, 84, 47)"></span>. ' +
-    'Each vector is vertically aligned in the order in which it is produced.' +
-    '<br>' +
+    'Each memory vector (column) is vertically aligned in the order in which it is produced.' +
     '<br>' +
     'In the generated trajectory, we can see that the agent gathered all items in the correct order. ' +
     /*    'In addition, as the green armor entered its field of view in <a onclick="load_step(4)">step 4</a>, some <a> memory elements (rows)</a> ' +
@@ -32,20 +32,27 @@ let stages_txt = [
     'This suggests that some memory elements may be more important than others for the agent to decide, ' +
     'and that reducing the memory while preserving its performances is possible. ',
 
+    'One intuition we have is that the most activated elements may be the most involved in decisions, while the most changing ones may convey information from the current input. To explore such an intuition, we remove elements based on their activity through the game while the player had a full memory.' +
+    '<br><br>' +
+    'From the top activated order (average color, higher is better) we can observe that with the <a onclick="meta_switch(0)"> top 16 elements</a> ' +
+    ' the agent gathered the green armor, but failed to reach the red armor and turned left instead. Using only the <a onclick="meta_switch(1)"> top 8 elements </a>, ' +
+    ' the agent got stuck in a loop altering between 2 actions. This may indicate that elements related to the red armor may not be among the top activated elements.' +
+    '<br>' +
+    /*
 
-    'If some memory elements are essential, are they among the top activated elements? ' +
-    'Or perhaps, the top changing ones?' +
-    '<br><br>' +
-    'Among the top activated elements we can observe that <a onclick="meta_switch(0)"> with 50% memory </a>' +
-    ', the agent gathered the green armor, but failed to gather the red armor and turned left instead.' +
-    ' With <a onclick="meta_switch(1)"> 25% of its memory </a>, the agent got stuck in a loop altering right and left actions. ' +
-    'This may indicate that key elements related to armors may not be in the top activated elements.' +
-    '<br><br>' +
-    'Among the top changing elements, <a onclick="meta_switch(2)"> with 50% memory elements</a>  the agent successfully gathered the red armor, but got stuck in a loop of ations right after. ' +
-    ' But, with <a onclick="meta_switch(3)"> 25% of its memory </a>, the agent successfully gathered the red armor and moved towards the health pack after. ' +
-    '<br><br>' +
-    'This suggests that indeed core information is represented in the top elements. However, the resulting trajectories still need to be improved in order for the agent to complete its task as it did with full memory. ' +
-    'Perhaps, Humans can be of assistance in this matter.',
+        'Among the top activated elements (computed with the sum of all values per element) we can observe that <a onclick="meta_switch(0)"> with 50% memory </a>' +
+        ', the agent gathered the green armor, but failed to reach the red armor and turned left instead.' +
+        ' With <a onclick="meta_switch(1)"> 25% of its memory </a>, the agent got stuck in a loop altering right and left actions. ' +
+        'This may indicate that key elements related to armors may not be in the top activated elements.' +
+        '<br><br>' +
+    */
+
+
+    'Using only the  <a onclick="meta_switch(2)"> top 16 elements</a>, from the top changing order (average difference between steps higher is better), the agent successfully gathered the red armor, but got stuck in a loop of actions. ' +
+    ' But, with the <a onclick="meta_switch(3)"> top 8 </a>, the agent successfully gathered the red armor and moved towards the health pack. ' +
+    '<br>' +
+    'This suggests that indeed core information is represented in the top elements. However, the resulting trajectories still need to be improved to complete the task as the agent did with full memory. '
+    ,
 
 
     'Here, our goal is to enhance previous reductions with human knowledge. To do so, we manually selected different groups of elements based on their activations.' +
@@ -68,11 +75,11 @@ let stages_txt = [
  */,
     'You can remove up to 2 elements by clicking on them, and replay the generated trajectory. Such a process is limited to 2 elements at the ' +
     'same time because each combination is pre-generated and therefore, the complete set of memory reduction is not computable. <br><br> ' +
-    'The reduction of both <a class="hoverable" onmouseover="highelems( [10, 23])" onmouseout="resetelems()" onclick="meta_change(\'diy/red10_23.json\', [10,23])"> elements 11 and 24 </a> ' +
+    'The reduction of both <a class="hoverable" onmouseover="highelems( [10, 23])" onmouseout="resetelems()" onclick="meta_change(\'diy/red10_23.json\', [10,23])"> elements #11 and #24 </a>' +
     'is enough to make the agent move turn left after gathering the red armor healh pack. ' +
-    'In addition; changing <a class="hoverable" onmouseover="highelems( [10])" onmouseout="resetelems()"> element 11</a> for <a class="hoverable" onmouseover="highelems([5])" onmouseout="resetelems()"> element 6</a>, makes the agent <a onclick="meta_change(\'diy/red5_23.json\', [5,23])"> avoid the green armor</a>. ' +
+    'In addition; changing <a class="hoverable" onmouseover="highelems( [10])" onmouseout="resetelems()"> element #11</a> for <a class="hoverable" onmouseover="highelems([5])" onmouseout="resetelems()"> element #6</a>, makes the agent <a onclick="meta_change(\'diy/red5_23.json\', [5,23])"> avoid the green armor</a>. ' +
     'This indicates that those elements are essential for the agent to decide. ' +
-    '<br><br> The possibility to remove up to 2 memory elements provides more than <i>580</i> reductions possible. If you found any interesting reductions, or have any suggestions to improve this tool, please feel free to visit our <a href="https://github.com/Theo-Jaunet/MemoryReduction">github</a>. '];
+    '<br><br> The possibility to remove up to 2 memory elements provides <i>528</i> combinations possible. If you found any interesting reduction, or have any suggestions to improve this tool, please feel free to visit our <a href="https://github.com/Theo-Jaunet/MemoryReduction">github</a>. '];
 
 
 function update_stage(nb) {
@@ -99,8 +106,6 @@ function update_stage(nb) {
     d3.select('#linear-gradient stop').interrupt();
     d3.select('#linear-gradient stop').attr('offset', '0%');
 
-    let tbbox = tool[0].node().getBoundingClientRect();
-    let traj_s = ((650 * tbbox.width) / 1300);
 
     switch (stage) {
         case  "0":
@@ -155,61 +160,6 @@ function update_stage(nb) {
             break;
     }
 }
-
-/*$('.card').on('mouseover', function () {
-
-    let nb = $(this).attr('index');
-
-    let tbbox = tool[0].node().getBoundingClientRect();
-    let traj_s = ((650 * tbbox.width) / 1300);
-    switch (nb) {
-        case  "0":
-            break;
-        case "1":
-            for (let i = 0; i < random.length; i++) {
-                draw_traj(random[i].positions, tool[0], traj_s, traj_s, false, 'temptr');
-            }
-
-            if (random.length < 14) {
-                chain_load('random/rest')
-            }
-            break;
-        case  "2":
-
-            for (let i = 0; i < top.length; i++) {
-                draw_traj(top[i].positions, tool[0], traj_s, traj_s, false, 'temptr');
-            }
-            if (top.length < 3) {
-                chain_load_top();
-            }
-            break;
-        case  "3":
-            // change('main');
-            break;
-        case  "4":
-
-            for (let i = 0; i < diy.length; i++) {
-                draw_traj(diy[i].positions, tool[0], traj_s, traj_s, false, 'temptr');
-            }
-
-            if (diy.length < 10) {
-                // chain_load_DIY();
-            }
-            break;
-        default:
-            break;
-    }
-
-
-});*/
-
-/*
-$('.card').on('mouseout', function () {
-
-    $('.temptr').remove();
-
-});*/
-
 
 $('.card').on('click', function () {
 

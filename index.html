@@ -41,32 +41,34 @@
 
 <!-- Primary Page Layout
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<div class="container" style="position: relative; min-width: 1200px;padding: 0">
+<div class="container" style="position: relative; min-width: 1245px;padding: 0;">
 
 
     <div style="width: 35px;height: auto;display: inline-block;margin-right: 20px;position: absolute;left: 515.7px;top: 122px;z-index: 50">
-        <img class="play" style="width: 35px;position: absolute;left: 0;top:-58px" src="assets/play-sign.svg">
+        <img class="play" style="width: 29px;position: absolute;left: 90px;top:-53px" src="assets/play-sign.svg">
         <input id="timebar" type="range" min="0" max="66" step="1" value="0"
-               style="width: 295.5px;position: absolute;top: -6px;left: -1px">
+               style="width: 299px;position: absolute;top: -6px;left: 11.9px">
         <p id="stepctn"
-           style="position: absolute;display: inline-block;left: 118px;width: 88px;top: -34px;user-focus: none;user-select: none">
+           style="position: absolute;display: inline-block;left: 145px;width: 88px;top: -50px;user-focus: none;user-select: none">
             Step --/--</p>
     </div>
-    <div class="row" style="margin-top: 15px">
+    <div class="row" style="margin-top: 12px">
         <div class="five  columns" style="position: relative">
             <h5> What if we Reduce the Memory of an Artificial Doom Player?</h5>
-            <p style="max-height: 100px;">We built a Doom player AI <img src="assets/agent.png" class="arrow-icon" style="transform: rotate(270deg);width: 24px;margin-bottom: -4px"> using Deep Reinforcement learning.
+            <p style="max-height: 100px;width: 490px">
+                We built a Doom player AI <img src="assets/agent.png" class="arrow-icon" style="transform: rotate(270deg);width: 24px;margin-bottom: -4px"> using Deep Reinforcement learning.
                 While playing, it builds and updates an inner representation (memory) of what it sees from the game.
-                Reducing this memory could help the player learning to complete its task and thus lower both its training time and energy consumption footprint.<br>
+                This memory represents what the AI knows about the game, and is the root of each decision.
+                Reducing the size of the memory <img src="assets/red.png" class="arrow-icon">, could help the player learning to complete its task and thus lower its training time and energy consumption footprint.
 
-                In this scenario, the player has to gather items in a specific order: <br>Green Armor <img src="assets/armorGreen.png"
+                In this scenario, the player has to gather items in a specific order: Green Armor <img src="assets/armorGreen.png"
                                                                                                            class="item-icon" height="57px"> <img
                         src="assets/arrow.png" class="arrow-icon"> Red Armor
                 <img src="assets/armorRed.png" class="item-icon"> <img src="assets/arrow.png" class="arrow-icon"> Health
                 Pack <img src="assets/hp.png" class="item-icon"> <img src="assets/arrow.png" class="arrow-icon">
                 Soul-sphere <img src="assets/soul.png" class="item-icon" style="width: 16px"> , with the
                 shortest path possible.
-                Let’s explore how reducing <img src="assets/red.png" class="arrow-icon"> the memory of a trained agent influences its trajectory!
+                <!--Let’s explore how reducing <img src="assets/red.png" class="arrow-icon">  the memory of a trained agent influences its trajectory!-->
             </p>
 
         </div>
@@ -80,13 +82,13 @@
             <div class=" nav right-card-arr button"><p style="padding: 13px 0px;font-weight: 700"> > </p></div>
         </div>
     </div>
-    <div style="width: 353px;position: absolute;right: -11px;top: 78px">
+    <div style="width: 360px;position: absolute;right: 22px;top: 86px">
         <h5 style="width: 100%" id="card_title"> Full Memory</h5>
         <p id="card_txt" style="margin-top: -11px;width: 100%">
         </p>
         <svg id="sco" style="width: 150px;height: 150px;position: absolute;right: 109px;bottom: -200px;z-index: 777;visibility:hidden"></svg>
         <div id="nextarr" onclick="$('.right-card-arr').trigger('click')"
-             style="cursor:pointer;position: absolute;right: 28px;bottom: 12px;z-index: 777"><a>next <img src="assets/arrow.png" class="arrow-icon"> </a>
+             style="cursor:pointer;position: absolute;right: 28px;bottom: 12px;z-index: 777"><a>Next <img src="assets/arrow.png" class="arrow-icon"> </a>
         </div>
     </div>
 
@@ -210,7 +212,7 @@
                     The outcome of such operation is then used by the model to decide which action it should do.
                     This method allows to change the agent's memory without having to retrain a model.
                 </p>
-                <!--<svg id="fig2" style="border:solid slategray 1px;height: 100%"></svg>-->
+
                 <p> But how can we select which elements should be erased and those to preserve?</p>
 
             </div>
@@ -220,11 +222,9 @@
     <div class="row" style="text-align: center">
         <div class="twelve columns" style="margin-top: 2%;display: inline-block">
             <div style=" text-align: left;width: 800px;margin-bottom: 50px;display: inline-block">
-                <h5>Implementaion</h5>
-                <p> This project uses D3 to display data extrated from the Deep Reinforcement Learning developped in Pytorch. The video game DOOM is simulated with Vizdoom. In addition, this project uses our previous work DRLViz to analyse
-                    and generate episodes.
-
-                    -- Vizdoom, Pytorch, D3, DRLVIz. </p>
+                <h4>Implementation</h4>
+                <p> This project uses the JavaScript library <a href="https://d3js.org/">d3</a> to display data extracted from the Deep Reinforcement Learning model implemented in python using <a href="https://pytorch.org/">PyTorch</a>. The video game DOOM is simulated with <a href="http://vizdoom.cs.put.edu.pl/">ViZDoom</a>. In addition, this project uses our previous work DRLViz (<a href="https://github.com/sical/drlviz">github</a>, <a href="https://sical.github.io/drlviz/">demo</a>, <a href="https://theo-jaunet.github.io/drlviz.pdf">paper</a>) to analyse
+                    and generate episodes. For more information on this project, please feel free to visit our <a href="https://github.com/Theo-Jaunet/MemoryReduction">github</a>. </p>
 
             </div>
 
@@ -235,7 +235,7 @@
         <div class="twelve columns" style="margin-top: 2%;display: inline-block">
             <div style=" text-align: left;width: 800px;margin-bottom: 50px;display: inline-block">
                 <h5>Authors</h5>
-                <p><a href="https://theo-jaunet.github.io/">Théo Jaunet</a>, <a href="http://romain.vuillemot.net/">Romain Vuillemot</a> and <a href="https://perso.liris.cnrs.fr/christian.wolf/">Christian Wolf </a>, at LIRIS lab Lyon.</p>
+                <p><a href="https://theo-jaunet.github.io/">Théo Jaunet</a>, <a href="http://romain.vuillemot.net/">Romain Vuillemot</a> (<a href="https://twitter.com/romsson">@romsson</a>) and <a href="https://perso.liris.cnrs.fr/christian.wolf/">Christian Wolf </a>(<a href="https://twitter.com/chriswolfvision">@chriswolfvision</a>), at LIRIS lab Lyon - France.</p>
                 This work takes place in Théo jaunet's Ph.D. which is supported by a French Ministry Fellowship and the <a href="https://projet.liris.cnrs.fr/mi2/"> M2I project</a>,
             </div>
 
@@ -252,7 +252,6 @@
 <script src="js/observation.js"></script>
 <script src="js/distributionV2.js"></script>
 <script src="js/trajectory.js"></script>
-<script src="js/reduce.js"></script>
 <script src="js/stage.js"></script>
 <script src="js/main.js"></script>
 </html>

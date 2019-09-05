@@ -46,5 +46,4 @@ function stepIm() {
         con.drawImage(tdata['inputs'], 240 * curStep, 0, 240, 162, 0, 0, 274, 176);
         con.save()
     }
-
 }

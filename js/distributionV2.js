@@ -10,7 +10,7 @@ function bars_init(svg, width, height) {
 
     let g = svg.append('g').attr('class', 'distrib');
 
-    let st = height - 117;
+    let st = height - 128;
 
 
     g.selectAll('.bar').data([0, 0, 0, 0, 0]).enter()

@@ -2,7 +2,7 @@ let ve_h;
 let ve_rows = [];
 let ve_w = 15;
 let col = d3.scaleLinear().domain([-1, 0, 1]).range(['#2266a6', '#effce5', '#bf6b09']).interpolate(d3.interpolateHcl);
-let hst = 521;
+let hst = 535;
 let sels = [-1, -1];
 let old_sels = [-1, -1];
 let cur_tri = 'nm';
@@ -25,7 +25,7 @@ function ve_init_rows(svg, data, height, width, mask, elem) {
     let g = svg.append('g').attr('class', 'hiddensgrp').attr('id', 'hiddensgrp');
 
     ve_h = Math.min(((height - 151) / data[0].length), 60);
-    ve_w = Math.min((width - hst - 10) / data.length, 13);
+    ve_w = Math.min((width - (hst-7)) / data.length, 13);
 
     for (let w = 0; w < data.length; w++) {
 
@@ -196,7 +196,7 @@ function mask_elem(index) {
     for (let w = 0; w < index.length; w++) {
         let tsvg = rough.svg(tool[0]);
         if (index[w] > -1) {
-            let t = tsvg.rectangle(hst - getRandomArbitrary(0, 12), (index[w] * ve_h) + 20, (ve_w * tdata.hiddens.length + (0.02 * tdata.hiddens.length)) + getRandomArbitrary(0, 12), ve_h * 0.8, {
+            let t = tsvg.rectangle(hst - (ve_w *  getRandomArbitrary(0, 3)), (index[w] * ve_h) + 20, (ve_w * (tdata.hiddens.length + getRandomArbitrary(1, 2)) + (0.02 * tdata.hiddens.length)) + getRandomArbitrary(0, 12), ve_h * 0.8, {
                 fill: (!old_sels.includes(index[w]) ? "url(#linear-gradient)" : "rgb(10,10,10)"),
                 fillWeight: getRandomArbitrary(5, 9), // thicker lines for hachure
                 hachureAngle: getRandomArbitrary(10, 70), // angle of hachure,

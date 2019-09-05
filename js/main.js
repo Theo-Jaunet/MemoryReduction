@@ -1,6 +1,6 @@
-let tool = [d3.select('#svg-tool'), $('#svg-tool').width(), $('#svg-tool').height()];
+let tool = [d3.select('#svg-tool'), 850, 663];
 let tdata;
-let margin = 20;
+// let margin = 20;
 let iz = 0;
 let start = 0;
 let pl = false;
@@ -12,7 +12,7 @@ let tops = [];
 let diy = [];
 let random = [];
 let mains = [];
-let stfold = ['main', 'random', "top", "sel", 'diy'];
+// let stfold = ['main', 'random', "top", "sel", 'diy'];
 let selecs_list = ['rest0', 'rest1'];
 let selecs = [];
 let can = d3.select('#input');
@@ -82,6 +82,7 @@ function load_data(data, index) {
 
     $('#timebar').val(curStep);
     update_time();
+    show_current(tool[0], (hst - 10) + (ve_w / 2), -10, curStep);
     d3.selectAll('.item').moveToFront();
     switch (stage) {
         case  "0":
@@ -371,28 +372,26 @@ function draw_arrowV2(x, y, z, ind) {
 
 
     tool[0].append('text')
-        .attr('x', 102)
+        .attr('x', 100)
         .attr('y', 660)
         .text('Input');
 
 
     tool[0].append('text')
         .attr('x', x - 22)
-        .attr('y', 660)
-        .text('Image Processing (CNN)');
+        .attr('y', 650)
+        .text('Image Processing');
 
 
     tool[0].append('text')
         .attr('x', x + 260)
-        .attr('y', 660)
+        .attr('y', 650)
         .text('Memory');
 
     tool[0].append('text')
         .attr('x', x + 372)
         .attr('y', 660)
         .text('Output');
-
-
 }
 
 
@@ -470,9 +469,6 @@ $('body').on('click', '.scro rect', function () {
 
 
 function highelems(elems) {
-
-    //TODO: Detected close elements
-
 
     tool[0].selectAll('.hiddensgrp rect[order]').transition().duration(900).style('opacity', '0.3');
 
