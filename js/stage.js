@@ -34,7 +34,7 @@ let stages_txt = [
 
     'One intuition we have is that the most activated elements may be the most involved in decisions, while the most changing ones may convey information from the current input. To explore such an intuition, we remove elements based on their activity through the game while the player had a full memory.' +
     '<br><br>' +
-    'From the top activated order (average color, higher is better) we can observe that with the <a onclick="meta_switch(0)"> top 16 elements</a> ' +
+    'From the top activated order (average activation, higher is better) we can observe that with the <a onclick="meta_switch(0)"> top 16 elements</a> ' +
     ' the agent gathered the green armor, but failed to reach the red armor. Using only the <a onclick="meta_switch(1)"> top 8 </a>, ' +
     ' the agent got stuck in a loop altering 2 actions. This may indicate that elements related to the red armor are not be among the top activated elements.' +
     '<br>' +
