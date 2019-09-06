@@ -80,7 +80,7 @@ let stages_txt = [
     'is enough to <a onclick="meta_change(\'diy/red0_-1.json\', [0,-1])"> make the agent turn left </a> instead of gathering the red armor. In addition, we can observe other elements are impacted and remain inactive.' + '<br><br>' +
     'Going further, removing <a class="hoverable" onmouseover="highelems( [23])" onmouseout="resetelems()"> element #24</a> and <a class="hoverable" onmouseover="highelems([5])" onmouseout="resetelems()"> element #6</a>, makes the agent <a onclick="meta_change(\'diy/red5_23.json\', [5,23])"> avoid the green armor</a>. ' +
     'This indicates that those elements are essential for the agent to decide. ' +
-    '<br><br> The possibility to remove up to 2 memory elements provides <i>528</i> combinations possible. If you found any interesting reduction, or have any suggestions to improve this tool, please feel free to visit our <a href="https://github.com/Theo-Jaunet/MemoryReduction">github</a>. '];
+    '<br><br> The possibility to remove up to 2 memory elements provides <i>528</i> combinations possible. If you found any interesting reduction, or have any suggestions to improve this tool, please feel free to visit our <a href="https://github.com/Theo-Jaunet/MemoryReduction">GitHub</a>. '];
 
 
 function update_stage(nb) {
