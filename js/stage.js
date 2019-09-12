@@ -36,7 +36,7 @@ let stages_txt = [
     '<br><br>' +
     'From the top activated order (average activation, higher is better) we can observe that with the <a onclick="meta_switch(0)"> top 16 elements</a> ' +
     ' the agent gathered the green armor, but failed to reach the red armor. Using only the <a onclick="meta_switch(1)"> top 8 </a>, ' +
-    ' the agent got stuck in a loop altering 2 actions. This may indicate that elements related to the red armor are not among the top activated elements.' +
+    ' the agent got stuck in a loop altering 2 actions. This may indicate that elements related to the red armor are not among the top 8 activated elements.' +
     '<br>' +
     '<br>' +
     /*
