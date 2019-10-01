@@ -1,4 +1,4 @@
-# MemoryReduction
+# What if we Reduce the Memory of an Artificial Doom Player?
 Online exploration of memory reduction strategies of a DRL agent trained to solve a navigation task on ViZDoom.
 
 <img src="https://github.com/Theo-Jaunet/MemoryReduction/blob/master/assets/screenshot.png" />
