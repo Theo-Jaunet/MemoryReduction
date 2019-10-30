@@ -37,6 +37,21 @@ Once the server is launched, you should be able to access the explorable at: htt
 
 For more information on this task and model, please check [Edward Beeching's github repo.](https://github.com/edbeeching/3d_control_deep_rl)
 
+## How to Cite
+If you find this work useful, please consider using the follwing citing template:
 
+```
+
+@inproceedings{Jaunet:2019,
+  author = {Theo Jaunet, Romain Vuillemot, Christian Wolf},
+	title = {What if we Reduce the Memory of an Artificial Doom Player?},
+	journal = {Proceedings of the Workshop on Visualization for AI explainability (VISxAI)},
+	year = {2019},
+	editors = {Mennatallah El-Assady, Duen Horng (Polo) Chau, Fred Hohman, Adam Perer, Hendrik Strobelt, Fernanda Viégas}
+	url = {https://theo-jaunet.github.io/MemoryReduction/}
+}
+
+
+```
 
 
